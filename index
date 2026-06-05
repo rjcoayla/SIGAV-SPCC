@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGI Campamentos Southern | Dashboard Ejecutivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --southern-green: #1B5E20;
+            --southern-dark: #0D3B10;
+            --southern-accent: #4CAF50;
+            --southern-light: #E8F5E9;
+            --southern-gold: #C5A572;
+            --southern-red: #D32F2F;
+            --southern-orange: #F57C00;
+            --southern-blue: #1976D2;
+            --bg-primary: #F5F7FA;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A2E;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --shadow-hover: 0 4px 20px rgba(0,0,0,0.12);
+            --radius: 12px;
+            --sidebar-width: 260px;
+            --sidebar-collapsed: 72px;
+            --header-height: 64px;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0F172A;
+            --bg-card: #1E293B;
+            --text-primary: #F1F5F9;
+            --text-secondary: #94A3B8;
+            --border: #334155;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            position: fixed; left: 0; top: 0; width: var(--sidebar-width); height: 100vh;
+            background: linear-gradient(180deg, var(--southern-dark) 0%, var(--southern-green) 100%);
+            color: white; z-index: 1000; transition: width 0.3s ease; overflow: hidden;
+            display: flex; flex-direction: column;
+        }
+        .sidebar.collapsed { width: var(--sidebar-collapsed); }
+        .sidebar-header {
+            padding: 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .sidebar-logo {
+            width: 40px; height: 40px; background: var(--southern-gold); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: var(--southern-dark);
+            flex-shrink: 0;
+        }
+        .sidebar-title { font-weight: 700; font-size: 15px; line-height: 1.2; white-space: nowrap; }
+        .sidebar-title span { font-size: 11px; font-weight: 400; opacity: 0.8; }
+        .sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
+        .nav-section { margin-bottom: 20px; }
+        .nav-section-title {
+            font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6;
+            padding: 0 12px; margin-bottom: 8px; white-space: nowrap;
+        }
+        .nav-item {
+            display: flex; align-items: center; gap: 12px; padding: 10px 12px;
+            border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-bottom: 2px;
+            text-decoration: none; color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
+        }
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.12); color: white;
+        }
+        .nav-item i { width: 20px; text-align: center; font-size: 15px; flex-shrink: 0; }
+        .nav-item .nav-text { white-space: nowrap; }
+        .sidebar-footer {
+            padding: 16px; border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; align-items: center; gap: 10px;
+        }
+        .user-avatar {
+            width: 36px; height: 36px; border-radius: 50%; background: var(--southern-gold);
+            display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--southern-dark);
+            flex-shrink: 0;
+        }
+        .user-info { white-space: nowrap; }
+        .user-info .name { font-size: 13px; font-weight: 600; }
+        .user-info .role { font-size: 11px; opacity: 0.7; }
+        .toggle-btn {
+            position: absolute; right: -12px; top: 80px; width: 24px; height: 24px;
+            background: var(--southern-gold); border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1001; font-size: 10px; color: var(--southern-dark);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-left: var(--sidebar-width); transition: margin-left 0.3s ease; min-height: 100vh;
+        }
+        .main-content.collapsed { margin-left: var(--sidebar-collapsed); }
+
+        /* ===== HEADER ===== */
+        .header {
+            height: var(--header-height); background: var(--bg-card); border-bottom: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
+            position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
+        }
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .header-left h1 { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+        .header-left .breadcrumb { font-size: 12px; color: var(--text-secondary); }
+        .header-right { display: flex; align-items: center; gap: 12px; }
+        .header-btn {
+            width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-secondary); cursor: pointer;
+            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+        }
+        .header-btn:hover { background: var(--southern-light); color: var(--southern-green); border-color: var(--southern-accent); }
+        .notification-badge { position: relative; }
+        .notification-badge::after {
+            content: ''; position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
+            background: var(--southern-red); border-radius: 50%; border: 2px solid var(--bg-card);
+        }
+        .theme-toggle {
+            width: 44px; height: 24px; border-radius: 12px; background: var(--border);
+            position: relative; cursor: pointer; transition: background 0.3s;
+        }
+        .theme-toggle.active { background: var(--southern-green); }
+        .theme-toggle::after {
+            content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
+            border-radius: 50%; background: white; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .theme-toggle.active::after { transform: translateX(20px); }
+
+        /* ===== CONTENT AREA ===== */
+        .content { padding: 24px; }
+
+        /* ===== KPI CARDS ===== */
+        .kpi-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px;
+        }
+        .kpi-card {
+            background: var(--bg-card); border-radius: var(--radius); padding: 20px;
+            box-shadow: var(--shadow); border: 1px solid var(--border); transition: all 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+        .kpi-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+        }
+        .kpi-card.green::before { background: var(--southern-green); }
+        .kpi-card.blue::before { background: var(--southern-blue); }
+        .kpi-card.orange::before { background: var(--southern-orange); }
+        .kpi-card.red::before { background: var(--southern-red); }
+        .kpi-card.gold::before { background: var(--southern-gold); }
+
+        .kpi-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+        .kpi-icon {
+            width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+        }
+        .kpi-card.green .kpi-icon { background: var(--southern-light); color: var(--southern-green); }
+        .kpi-card.blue .kpi-icon { background: #E3F2FD; color: var(--southern-blue); }
+        .kpi-card.orange .kpi-icon { background: #FFF3E0; color: var(--southern-orange); }
+        .kpi-card.red .kpi-icon { background: #FFEBEE; color: var(--southern-red); }
+        .kpi-card.gold .kpi-icon { background: #FFF8E1; color: var(--southern-gold); }
+
+        .kpi-trend {
+            font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px;
+        }
+        .kpi-trend.up { background: #E8F5E9; color: var(--southern-green); }
+        .kpi-trend.down { background: #FFEBEE; color: var(--southern-red); }
+
+        .kpi-value { font-size: 28px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
+        .kpi-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+        .kpi-sub { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+
+        /* ===== SECTION CARDS ===== */
+        .section-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-bottom: 24px;
+        }
+        .section-card {
+            background: var(--bg-card); border-radius: var(--radius); padding: 20px;
+            box-shadow: var(--shadow); border: 1px solid var(--border);
+        }
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
+        }
+        .section-title { font-size: 15px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+        .section-title i { color: var(--southern-green); }
+        .section-actions { display: flex; gap: 8px; }
+        .btn-sm {
+            padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-primary);
+            color: var(--text-secondary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-sm:hover { background: var(--southern-light); color: var(--southern-green); border-color: var(--southern-accent); }
+        .btn-sm.primary { background: var(--southern-green); color: white; border-color: var(--southern-green); }
+        .btn-sm.primary:hover { background: var(--southern-dark); }
+
+        /* ===== CHART CONTAINER ===== */
+        .chart-container { position: relative; height: 280px; width: 100%; }
+        .chart-container.sm { height: 200px; }
+
+        /* ===== PROGRESS BARS ===== */
+        .progress-item { margin-bottom: 14px; }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
+        .progress-label { font-weight: 600; color: var(--text-primary); }
+        .progress-value { font-weight: 700; color: var(--southern-green); }
+        .progress-bar {
+            width: 100%; height: 8px; background: var(--bg-primary); border-radius: 4px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 4px; transition: width 1s ease;
+        }
+        .progress-fill.green { background: linear-gradient(90deg, var(--southern-green), var(--southern-accent)); }
+        .progress-fill.blue { background: linear-gradient(90deg, var(--southern-blue), #42A5F5); }
+        .progress-fill.orange { background: linear-gradient(90deg, var(--southern-orange), #FFB74D); }
+        .progress-fill.red { background: linear-gradient(90deg, var(--southern-red), #EF5350); }
+
+        /* ===== TABLES ===== */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .data-table th {
+            text-align: left; padding: 10px 12px; font-weight: 600; color: var(--text-secondary);
+            border-bottom: 2px solid var(--border); text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px;
+        }
+        .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-primary); }
+        .data-table tr:hover td { background: var(--bg-primary); }
+        .badge {
+            padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;
+        }
+        .badge-success { background: #E8F5E9; color: var(--southern-green); }
+        .badge-warning { background: #FFF3E0; color: var(--southern-orange); }
+        .badge-danger { background: #FFEBEE; color: var(--southern-red); }
+        .badge-info { background: #E3F2FD; color: var(--southern-blue); }
+
+        /* ===== SAFETY DASHBOARD ===== */
+        .safety-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px;
+        }
+        .safety-item {
+            background: var(--bg-primary); border-radius: 10px; padding: 16px; text-align: center;
+            border: 2px solid transparent; cursor: pointer; transition: all 0.2s;
+        }
+        .safety-item:hover { border-color: var(--southern-accent); transform: translateY(-2px); }
+        .safety-item i { font-size: 24px; margin-bottom: 8px; display: block; }
+        .safety-item.green i { color: var(--southern-green); }
+        .safety-item.blue i { color: var(--southern-blue); }
+        .safety-item.orange i { color: var(--southern-orange); }
+        .safety-item.red i { color: var(--southern-red); }
+        .safety-item .safety-label { font-size: 11px; font-weight: 600; color: var(--text-secondary); }
+        .safety-item .safety-count { font-size: 20px; font-weight: 800; color: var(--text-primary); margin-top: 4px; }
+
+        .days-counter {
+            background: linear-gradient(135deg, var(--southern-green), var(--southern-accent));
+            color: white; border-radius: var(--radius); padding: 20px; text-align: center; margin-bottom: 16px;
+        }
+        .days-counter .days-number { font-size: 48px; font-weight: 800; }
+        .days-counter .days-label { font-size: 14px; opacity: 0.9; margin-top: 4px; }
+        .days-counter .days-sub { font-size: 11px; opacity: 0.7; margin-top: 8px; }
+
+        /* ===== IPERC MATRIX ===== */
+        .iperc-matrix { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; font-size: 11px; }
+        .iperc-cell {
+            padding: 8px 4px; text-align: center; border-radius: 4px; font-weight: 700; cursor: pointer; transition: transform 0.2s;
+        }
+        .iperc-cell:hover { transform: scale(1.05); }
+        .iperc-header { background: var(--bg-primary); font-weight: 600; color: var(--text-secondary); }
+        .iperc-risk-1 { background: #C8E6C9; color: #1B5E20; }
+        .iperc-risk-2 { background: #FFF9C4; color: #F57F17; }
+        .iperc-risk-3 { background: #FFCC80; color: #E65100; }
+        .iperc-risk-4 { background: #EF9A9A; color: #B71C1C; }
+        .iperc-risk-5 { background: #B71C1C; color: white; }
+        .iperc-legend { display: flex; gap: 12px; margin-top: 12px; font-size: 11px; flex-wrap: wrap; }
+        .iperc-legend-item { display: flex; align-items: center; gap: 4px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+
+        /* ===== TABS ===== */
+        .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 16px; overflow-x: auto; }
+        .tab {
+            padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--text-secondary);
+            cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.2s;
+        }
+        .tab:hover { color: var(--southern-green); }
+        .tab.active { color: var(--southern-green); border-bottom-color: var(--southern-green); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu-btn {
+            display: none; width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--border);
+            background: var(--bg-card); color: var(--text-primary); font-size: 18px; cursor: pointer;
+            align-items: center; justify-content: center;
+        }
+        .mobile-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 999;
+        }
+        .mobile-overlay.active { display: block; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.mobile-open { transform: translateX(0); }
+            .main-content { margin-left: 0 !important; }
+            .mobile-menu-btn { display: flex; }
+            .toggle-btn { display: none; }
+        }
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: 1fr; }
+            .section-grid { grid-template-columns: 1fr; }
+            .content { padding: 16px; }
+            .header { padding: 0 16px; }
+            .header-left h1 { font-size: 16px; }
+            .safety-grid { grid-template-columns: repeat(2, 1fr); }
+            .iperc-matrix { grid-template-columns: repeat(3, 1fr); }
+            .iperc-cell { padding: 12px 4px; }
+            .days-counter .days-number { font-size: 36px; }
+        }
+        @media (max-width: 480px) {
+            .kpi-value { font-size: 22px; }
+            .section-grid { grid-template-columns: 1fr; }
+            .data-table { font-size: 11px; }
+            .data-table th, .data-table td { padding: 8px 6px; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.5s ease forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+        /* ===== FULL WIDTH SECTIONS ===== */
+        .full-width { grid-column: 1 / -1; }
+
+        /* ===== STATUS INDICATORS ===== */
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px;
+        }
+        .status-dot.active { background: var(--southern-accent); box-shadow: 0 0 0 3px rgba(76,175,80,0.2); }
+        .status-dot.warning { background: var(--southern-orange); }
+        .status-dot.danger { background: var(--southern-red); }
+
+        /* ===== SEARCH BAR ===== */
+        .search-bar {
+            display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+            background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px;
+            width: 280px; transition: all 0.2s;
+        }
+        .search-bar:focus-within { border-color: var(--southern-accent); box-shadow: 0 0 0 3px rgba(76,175,80,0.1); }
+        .search-bar input {
+            border: none; background: none; outline: none; font-size: 13px; color: var(--text-primary); width: 100%;
+        }
+        .search-bar input::placeholder { color: var(--text-secondary); }
+        @media (max-width: 768px) {
+            .search-bar { width: 180px; }
+            .header-left .breadcrumb { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="toggle-btn" onclick="toggleSidebar()" id="toggleBtn"><i class="fas fa-chevron-left"></i></div>
+        <div class="sidebar-header">
+            <div class="sidebar-logo">CS</div>
+            <div class="sidebar-title">
+                Campamentos<br>Southern
+                <span>Sistema de Gestión Integral</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">Principal</div>
+                <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                    <i class="fas fa-chart-line"></i><span class="nav-text">Dashboard Ejecutivo</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('ot')">
+                    <i class="fas fa-clipboard-list"></i><span class="nav-text">Órdenes de Trabajo</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('actividades')">
+                    <i class="fas fa-tasks"></i><span class="nav-text">Control de Actividades</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Operaciones</div>
+                <a href="#" class="nav-item" onclick="showSection('personal')">
+                    <i class="fas fa-users"></i><span class="nav-text">Personal y Asistencia</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('inventario')">
+                    <i class="fas fa-boxes"></i><span class="nav-text">Inventario</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('seguridad')">
+                    <i class="fas fa-shield-alt"></i><span class="nav-text">Seguridad SSO</span>
+                </a>
+            </div>
+            <div class="nav-section">
+                <div class="nav-section-title">Análisis</div>
+                <a href="#" class="nav-item" onclick="showSection('reportes')">
+                    <i class="fas fa-file-alt"></i><span class="nav-text">Reportes</span>
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('config')">
+                    <i class="fas fa-cog"></i><span class="nav-text">Configuración</span>
+                </a>
+            </div>
+        </nav>
+        <div class="sidebar-footer">
+            <div class="user-avatar">JR</div>
+            <div class="user-info">
+                <div class="name">Juan R. Coayla</div>
+                <div class="role">Gerente de Operaciones</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
+                <div>
+                    <h1><span class="status-dot active"></span>Dashboard Ejecutivo</h1>
+                    <div class="breadcrumb">Campamentos Southern > Mina Cuajone > Áreas Verdes</div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <i class="fas fa-search" style="color: var(--text-secondary); font-size: 13px;"></i>
+                    <input type="text" placeholder="Buscar...">
+                </div>
+                <button class="header-btn notification-badge"><i class="fas fa-bell"></i></button>
+                <button class="header-btn" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card green animate-in delay-1">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-leaf"></i></div>
+                        <span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 12%</span>
+                    </div>
+                    <div class="kpi-value">4.8 Ha</div>
+                    <div class="kpi-label">Área Mantenida</div>
+                    <div class="kpi-sub">Mes actual · Meta: 5.0 Ha</div>
+                </div>
+                <div class="kpi-card blue animate-in delay-2">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-hard-hat"></i></div>
+                        <span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 3</span>
+                    </div>
+                    <div class="kpi-value">24</div>
+                    <div class="kpi-label">Personal Activo</div>
+                    <div class="kpi-sub">Presentes hoy · 2 de licencia</div>
+                </div>
+                <div class="kpi-card orange animate-in delay-3">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-clipboard-check"></i></div>
+                        <span class="kpi-trend down"><i class="fas fa-arrow-down"></i> 2</span>
+                    </div>
+                    <div class="kpi-value">18/24</div>
+                    <div class="kpi-label">Actividades en Progreso</div>
+                    <div class="kpi-sub">75% de avance general</div>
+                </div>
+                <div class="kpi-card red animate-in delay-4">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <span class="kpi-trend down"><i class="fas fa-arrow-down"></i> 5</span>
+                    </div>
+                    <div class="kpi-value">3</div>
+                    <div class="kpi-label">Stock Crítico</div>
+                    <div class="kpi-sub">Ítems bajo mínimo · Reordenar</div>
+                </div>
+                <div class="kpi-card gold animate-in delay-4">
+                    <div class="kpi-header">
+                        <div class="kpi-icon"><i class="fas fa-percentage"></i></div>
+                        <span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 8%</span>
+                    </div>
+                    <div class="kpi-value">92%</div>
+                    <div class="kpi-label">Cumplimiento OT</div>
+                    <div class="kpi-sub">Completadas a tiempo · Meta: 95%</div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="section-grid">
+                <div class="section-card animate-in delay-2">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-chart-bar"></i> Avance General del Mes</div>
+                        <div class="section-actions">
+                            <button class="btn-sm"><i class="fas fa-download"></i> Exportar</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="avanceChart"></canvas>
+                    </div>
+                </div>
+                <div class="section-card animate-in delay-3">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-chart-line"></i> Cumplimiento OT — Tendencia</div>
+                        <div class="section-actions">
+                            <button class="btn-sm">Semana</button>
+                            <button class="btn-sm primary">Mes</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="tendenciaChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress & OT Status -->
+            <div class="section-grid">
+                <div class="section-card animate-in delay-2">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-tasks"></i> Actividades — Seguimiento de Avance</div>
+                        <div class="section-actions">
+                            <button class="btn-sm primary"><i class="fas fa-plus"></i> Nueva</button>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Poda de árboles — Zona Norte</span>
+                            <span class="progress-value">85%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:85%"></div></div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Riego automatizado — Campamento A</span>
+                            <span class="progress-value">62%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill blue" style="width:62%"></div></div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Fertilización — Área Este</span>
+                            <span class="progress-value">45%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill orange" style="width:45%"></div></div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Control de plagas — Zona Sur</span>
+                            <span class="progress-value">28%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill red" style="width:28%"></div></div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Siembra de césped — Campamento B</span>
+                            <span class="progress-value">91%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill green" style="width:91%"></div></div>
+                    </div>
+                </div>
+
+                <div class="section-card animate-in delay-3">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-clipboard-list"></i> Estado de Solicitudes OT</div>
+                        <div class="section-actions">
+                            <button class="btn-sm"><i class="fas fa-filter"></i> Filtrar</button>
+                        </div>
+                    </div>
+                    <div class="chart-container sm">
+                        <canvas id="otStatusChart"></canvas>
+                    </div>
+                    <div style="margin-top: 16px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>Estado</th><th>Cantidad</th><th>%</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><span class="badge badge-success">Completadas</span></td><td>42</td><td>58%</td></tr>
+                                <tr><td><span class="badge badge-info">En ejecución</span></td><td>18</td><td>25%</td></tr>
+                                <tr><td><span class="badge badge-warning">Pendientes</span></td><td>8</td><td>11%</td></tr>
+                                <tr><td><span class="badge badge-danger">Rechazadas</span></td><td>4</td><td>6%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stock & Personal -->
+            <div class="section-grid">
+                <div class="section-card animate-in delay-2">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-exclamation-triangle"></i> Stock Crítico</div>
+                        <div class="section-actions">
+                            <button class="btn-sm primary"><i class="fas fa-shopping-cart"></i> Pedido</button>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Código</th><th>Ítem</th><th>Stock</th><th>Mín.</th><th>Estado</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>INS-042</td><td>Fertilizante NPK 20-20-20</td><td style="color:var(--southern-red);font-weight:700;">3</td><td>15</td><td><span class="badge badge-danger">Crítico</span></td></tr>
+                            <tr><td>EPP-018</td><td>Guantes de cuero reforzados</td><td style="color:var(--southern-red);font-weight:700;">5</td><td>20</td><td><span class="badge badge-danger">Crítico</span></td></tr>
+                            <tr><td>HRR-031</td><td>Tijeras de podar profesionales</td><td style="color:var(--southern-orange);font-weight:700;">2</td><td>8</td><td><span class="badge badge-warning">Bajo</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section-card animate-in delay-3">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-users"></i> Personal y Asistencia</div>
+                        <div class="section-actions">
+                            <button class="btn-sm primary"><i class="fas fa-check-circle"></i> Registrar</button>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
+                        <div style="text-align: center; flex: 1; min-width: 80px;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-green);">24</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">Presentes</div>
+                        </div>
+                        <div style="text-align: center; flex: 1; min-width: 80px;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-orange);">2</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">Licencia</div>
+                        </div>
+                        <div style="text-align: center; flex: 1; min-width: 80px;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-red);">0</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">Ausentes</div>
+                        </div>
+                        <div style="text-align: center; flex: 1; min-width: 80px;">
+                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-blue);">92%</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">Asistencia</div>
+                        </div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Nombre</th><th>Cargo</th><th>Estado</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Carlos Mendoza</strong></td><td>Supervisor SSO</td><td><span class="badge badge-success">Activo</span></td></tr>
+                            <tr><td><strong>Luis Torres</strong></td><td>Jefe de Cuadrilla</td><td><span class="badge badge-success">Activo</span></td></tr>
+                            <tr><td><strong>Ana Quispe</strong></td><td>Operaria</td><td><span class="badge badge-warning">Licencia</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Safety Section -->
+            <div class="section-card animate-in delay-2 full-width">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-shield-alt"></i> Panel de Seguridad SSO — Áreas Verdes Campamentos Cuajone · SPCC</div>
+                    <div class="section-actions">
+                        <button class="btn-sm"><i class="fas fa-file-pdf"></i> Reporte</button>
+                    </div>
+                </div>
+                
+                <div class="days-counter">
+                    <div class="days-number">67</div>
+                    <div class="days-label">DÍAS SIN ACCIDENTES</div>
+                    <div class="days-sub">Áreas Verdes Campamentos Cuajone · Meta anual: 365 días</div>
+                </div>
+
+                <div class="safety-grid">
+                    <div class="safety-item green">
+                        <i class="fas fa-search"></i>
+                        <div class="safety-label">IPERC</div>
+                        <div class="safety-count">12</div>
+                    </div>
+                    <div class="safety-item blue">
+                        <i class="fas fa-file-alt"></i>
+                        <div class="safety-label">PETS</div>
+                        <div class="safety-count">8</div>
+                    </div>
+                    <div class="safety-item orange">
+                        <i class="fas fa-lock"></i>
+                        <div class="safety-label">PETAR</div>
+                        <div class="safety-count">3</div>
+                    </div>
+                    <div class="safety-item blue">
+                        <i class="fas fa-clipboard-check"></i>
+                        <div class="safety-label">ATS</div>
+                        <div class="safety-count">24</div>
+                    </div>
+                    <div class="safety-item orange">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <div class="safety-label">Actos/Cond.</div>
+                        <div class="safety-count">2</div>
+                    </div>
+                    <div class="safety-item red">
+                        <i class="fas fa-ambulance"></i>
+                        <div class="safety-label">Incidentes</div>
+                        <div class="safety-count">0</div>
+                    </div>
+                    <div class="safety-item green">
+                        <i class="fas fa-hard-hat"></i>
+                        <div class="safety-label">EPP</div>
+                        <div class="safety-count">26</div>
+                    </div>
+                </div>
+
+                <!-- IPERC Matrix -->
+                <div style="margin-top: 20px;">
+                    <div class="section-title" style="margin-bottom: 12px;"><i class="fas fa-th"></i> Matriz IPERC — Referencia Rápida</div>
+                    <div class="iperc-matrix">
+                        <div class="iperc-header"></div>
+                        <div class="iperc-header">A<br>Común</div>
+                        <div class="iperc-header">B<br>Ha sucedido</div>
+                        <div class="iperc-header">C<br>Podría suceder</div>
+                        <div class="iperc-header">D<br>Raro</div>
+                        <div class="iperc-header">E<br>Imposible</div>
+                        
+                        <div class="iperc-header">1 · Catastrófico</div>
+                        <div class="iperc-cell iperc-risk-3">1</div>
+                        <div class="iperc-cell iperc-risk-3">2</div>
+                        <div class="iperc-cell iperc-risk-4">4</div>
+                        <div class="iperc-cell iperc-risk-4">7</div>
+                        <div class="iperc-cell iperc-risk-5">11</div>
+                        
+                        <div class="iperc-header">2 · Mortalidad</div>
+                        <div class="iperc-cell iperc-risk-3">3</div>
+                        <div class="iperc-cell iperc-risk-4">5</div>
+                        <div class="iperc-cell iperc-risk-4">8</div>
+                        <div class="iperc-cell iperc-risk-5">12</div>
+                        <div class="iperc-cell iperc-risk-5">16</div>
+                        
+                        <div class="iperc-header">3 · Permanente</div>
+                        <div class="iperc-cell iperc-risk-4">6</div>
+                        <div class="iperc-cell iperc-risk-4">9</div>
+                        <div class="iperc-cell iperc-risk-5">13</div>
+                        <div class="iperc-cell iperc-risk-5">17</div>
+                        <div class="iperc-cell iperc-risk-5">20</div>
+                        
+                        <div class="iperc-header">4 · Temporal</div>
+                        <div class="iperc-cell iperc-risk-4">10</div>
+                        <div class="iperc-cell iperc-risk-5">14</div>
+                        <div class="iperc-cell iperc-risk-5">18</div>
+                        <div class="iperc-cell iperc-risk-5">21</div>
+                        <div class="iperc-cell iperc-risk-5">23</div>
+                        
+                        <div class="iperc-header">5 · Menor</div>
+                        <div class="iperc-cell iperc-risk-5">15</div>
+                        <div class="iperc-cell iperc-risk-5">19</div>
+                        <div class="iperc-cell iperc-risk-5">22</div>
+                        <div class="iperc-cell iperc-risk-5">24</div>
+                        <div class="iperc-cell iperc-risk-5">25</div>
+                    </div>
+                    <div class="iperc-legend">
+                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#C8E6C9"></div>1-9 Intolerable</div>
+                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#FFF9C4"></div>10-14 Importante</div>
+                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#FFCC80"></div>15-19 Moderado</div>
+                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#EF9A9A"></div>20-22 Tolerable</div>
+                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#B71C1C"></div>23-25 Aceptable</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OT Table -->
+            <div class="section-card animate-in delay-3 full-width">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-list-alt"></i> Solicitudes de Trabajo (OT) — Ciclo Completo</div>
+                    <div class="section-actions">
+                        <button class="btn-sm"><i class="fas fa-filter"></i> Filtrar</button>
+                        <button class="btn-sm primary"><i class="fas fa-plus"></i> Nueva OT</button>
+                    </div>
+                </div>
+                <div class="tabs">
+                    <div class="tab active" onclick="switchTab(this, 'ot-pendientes')">Pendientes (8)</div>
+                    <div class="tab" onclick="switchTab(this, 'ot-revision')">En Revisión (3)</div>
+                    <div class="tab" onclick="switchTab(this, 'ot-aprobadas')">Aprobadas (5)</div>
+                    <div class="tab" onclick="switchTab(this, 'ot-ejecucion')">En Ejecución (18)</div>
+                    <div class="tab" onclick="switchTab(this, 'ot-completadas')">Completadas (42)</div>
+                </div>
+                <div id="ot-pendientes" class="tab-content active">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>OT #</th><th>Descripción</th><th>Solicitante</th><th>Fecha</th><th>Prioridad</th><th>Acciones</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>OT-2026-089</strong></td>
+                                <td>Reparación sistema de riego — Campamento A</td>
+                                <td>Carlos Mendoza</td>
+                                <td>04/06/2026</td>
+                                <td><span class="badge badge-danger">Alta</span></td>
+                                <td><button class="btn-sm">Ver</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>OT-2026-090</strong></td>
+                                <td>Poda de seguridad — Zona de alta tensión</td>
+                                <td>Luis Torres</td>
+                                <td>04/06/2026</td>
+                                <td><span class="badge badge-danger">Alta</span></td>
+                                <td><button class="btn-sm">Ver</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>OT-2026-091</strong></td>
+                                <td>Siembra de árboles nativos — Área de reforestación</td>
+                                <td>Ana Quispe</td>
+                                <td>05/06/2026</td>
+                                <td><span class="badge badge-warning">Media</span></td>
+                                <td><button class="btn-sm">Ver</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="ot-revision" class="tab-content">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>OT #</th><th>Descripción</th><th>Revisor</th><th>Fecha</th><th>Estado</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>OT-2026-085</strong></td><td>Mantenimiento de cercos perimétricos</td><td>Juan R. Coayla</td><td>03/06/2026</td><td><span class="badge badge-info">En revisión</span></td></tr>
+                            <tr><td><strong>OT-2026-086</strong></td><td>Limpieza de canales de drenaje</td><td>Carlos Mendoza</td><td>03/06/2026</td><td><span class="badge badge-info">En revisión</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="ot-aprobadas" class="tab-content">
+                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; padding: 20px;">5 órdenes aprobadas listas para asignación</p>
+                </div>
+                <div id="ot-ejecucion" class="tab-content">
+                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; padding: 20px;">18 órdenes en ejecución activa</p>
+                </div>
+                <div id="ot-completadas" class="tab-content">
+                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; padding: 20px;">42 órdenes completadas este mes</p>
+                </div>
+            </div>
+
+            <!-- EPP Control -->
+            <div class="section-card animate-in delay-2 full-width">
+                <div class="section-header">
+                    <div class="section-title"><i class="fas fa-hard-hat"></i> Control de EPP por Trabajador</div>
+                    <div class="section-actions">
+                        <button class="btn-sm"><i class="fas fa-file-excel"></i> Exportar</button>
+                    </div>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Trabajador</th><th>Casco</th><th>Lentes</th><th>Guantes</th><th>Calzado</th><th>Careta</th><th>Mascarilla</th><th>Estado</th><th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Carlos Mendoza</strong><br><small style="color:var(--text-secondary)">Supervisor SSO</small></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">Completo</span></td>
+                                <td><button class="btn-sm">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Luis Torres</strong><br><small style="color:var(--text-secondary)">Jefe de Cuadrilla</small></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-warning">⚠ Vence 15/06</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-warning">Por vencer</span></td>
+                                <td><button class="btn-sm">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Roberto Sánchez</strong><br><small style="color:var(--text-secondary)">Operario</small></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-danger">✗ Vencido</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-success">✓ OK</span></td>
+                                <td><span class="badge badge-danger">Incompleto</span></td>
+                                <td><button class="btn-sm">Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div style="text-align: center; padding: 30px; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px;">
+                <p><strong>Campamentos Southern S.A.C.</strong> · Sistema de Gestión Integral v2.0</p>
+                <p>Mina Cuajone, Moquegua — Perú · © 2026 Todos los derechos reservados</p>
+                <p style="margin-top: 8px; color: var(--southern-green); font-weight: 600;">Powered by Southern Technology</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ===== SIDEBAR TOGGLE =====
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const toggleBtn = document.getElementById('toggleBtn');
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('collapsed');
+            toggleBtn.innerHTML = sidebar.classList.contains('collapsed') ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-chevron-left"></i>';
+        }
+
+        // ===== MOBILE MENU =====
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            sidebar.classList.toggle('mobile-open');
+            overlay.classList.toggle('active');
+        }
+
+        // ===== THEME TOGGLE =====
+        let darkMode = false;
+        function toggleTheme() {
+            darkMode = !darkMode;
+            document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+            document.getElementById('themeIcon').className = darkMode ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        // ===== TAB SWITCHING =====
+        function switchTab(tabElement, contentId) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            tabElement.classList.add('active');
+            document.getElementById(contentId).classList.add('active');
+        }
+
+        // ===== NAV SECTION =====
+        function showSection(section) {
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            event.target.closest('.nav-item').classList.add('active');
+            if(window.innerWidth < 1024) toggleMobileMenu();
+        }
+
+        // ===== CHARTS =====
+        const chartColors = {
+            green: '#1B5E20',
+            accent: '#4CAF50',
+            light: '#E8F5E9',
+            blue: '#1976D2',
+            orange: '#F57C00',
+            red: '#D32F2F',
+            gold: '#C5A572'
+        };
+
+        // Avance General Chart
+        new Chart(document.getElementById('avanceChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+                datasets: [{
+                    label: 'Área mantenida (Ha)',
+                    data: [1.1, 1.3, 1.2, 1.2],
+                    backgroundColor: chartColors.green,
+                    borderRadius: 6,
+                    barThickness: 40
+                }, {
+                    label: 'Meta (Ha)',
+                    data: [1.25, 1.25, 1.25, 1.25],
+                    backgroundColor: chartColors.gold,
+                    borderRadius: 6,
+                    barThickness: 40
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { family: 'Inter', size: 11 } } }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter', size: 11 } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } }
+                }
+            }
+        });
+
+        // Tendencia Chart
+        new Chart(document.getElementById('tendenciaChart'), {
+            type: 'line',
+            data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Cumplimiento OT (%)',
+                    data: [78, 82, 85, 88, 90, 92],
+                    borderColor: chartColors.green,
+                    backgroundColor: 'rgba(27, 94, 32, 0.08)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: chartColors.green,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5
+                }, {
+                    label: 'Meta (%)',
+                    data: [95, 95, 95, 95, 95, 95],
+                    borderColor: chartColors.gold,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { family: 'Inter', size: 11 } } }
+                },
+                scales: {
+                    y: { min: 60, max: 100, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter', size: 11 } } },
+                    x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } }
+                }
+            }
+        });
+
+        // OT Status Doughnut
+        new Chart(document.getElementById('otStatusChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Completadas', 'En ejecución', 'Pendientes', 'Rechazadas'],
+                datasets: [{
+                    data: [42, 18, 8, 4],
+                    backgroundColor: [chartColors.green, chartColors.blue, chartColors.orange, chartColors.red],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: { position: 'right', labels: { usePointStyle: true, padding: 15, font: { family: 'Inter', size: 11 } } }
+                }
+            }
+        });
+
+        // ===== ANIMATE PROGRESS BARS =====
+        setTimeout(() => {
+            document.querySelectorAll('.progress-fill').forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => { bar.style.width = width; }, 100);
+            });
+        }, 500);
+
+        // ===== REAL-TIME CLOCK =====
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+            const dateStr = now.toLocaleDateString('es-PE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
