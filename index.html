@@ -1,1065 +1,1256 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SGI Campamentos Southern | Dashboard Ejecutivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <style>
-        :root {
-            --southern-green: #1B5E20;
-            --southern-dark: #0D3B10;
-            --southern-accent: #4CAF50;
-            --southern-light: #E8F5E9;
-            --southern-gold: #C5A572;
-            --southern-red: #D32F2F;
-            --southern-orange: #F57C00;
-            --southern-blue: #1976D2;
-            --bg-primary: #F5F7FA;
-            --bg-card: #FFFFFF;
-            --text-primary: #1A1A2E;
-            --text-secondary: #6B7280;
-            --border: #E5E7EB;
-            --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
-            --shadow-hover: 0 4px 20px rgba(0,0,0,0.12);
-            --radius: 12px;
-            --sidebar-width: 260px;
-            --sidebar-collapsed: 72px;
-            --header-height: 64px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>SIGAV · Gestión de Áreas Verdes · SPCC Cuajone</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ─── TOKENS ─────────────────────────────────────── */
+:root{
+  --c0:#06091a; --c1:#090d20; --c2:#0d1228; --c3:#121830;
+  --c4:#172035; --c5:#1e2d4a;
+  --br:#1c2b44; --br2:#253860;
+  --ac:#4b7cf3; --ac2:#3461e0; --ac3:#a8c0ff;
+  --go:#2dd4a0; --wa:#f6a623; --er:#f56565;
+  --t0:#dce8ff; --t1:#7a96c4; --t2:#3d5478; --t3:#1e2f4a;
+  --fh:'Syne',sans-serif; --fb:'Plus Jakarta Sans',sans-serif; --fm:'JetBrains Mono',monospace;
+  --sb:220px; --sb-sm:52px; --hdr:48px; --r:7px;
+}
+/* ─── RESET ──────────────────────────────────────── */
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--c0);color:var(--t0);font-family:var(--fb);font-size:13px;line-height:1.5;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--br2);border-radius:2px;}
+a{color:var(--ac);text-decoration:none;}
 
-        [data-theme="dark"] {
-            --bg-primary: #0F172A;
-            --bg-card: #1E293B;
-            --text-primary: #F1F5F9;
-            --text-secondary: #94A3B8;
-            --border: #334155;
-            --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
-        }
+/* ─── LOGIN ──────────────────────────────────────── */
+#login{position:fixed;inset:0;background:var(--c0);
+  display:flex;align-items:center;justify-content:center;z-index:9000;
+  background-image:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(75,124,243,.08),transparent);}
+.login-card{width:340px;background:var(--c2);border:1px solid var(--br);border-radius:12px;
+  padding:32px;animation:fadeUp .4s ease;}
+.login-logo{text-align:center;margin-bottom:24px;}
+.login-logo-mark{width:48px;height:48px;background:var(--ac);border-radius:10px;
+  display:inline-flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:10px;}
+.login-title{font-family:var(--fh);font-size:22px;font-weight:800;color:var(--t0);letter-spacing:1px;}
+.login-sub{font-family:var(--fm);font-size:10px;color:var(--t2);margin-top:3px;letter-spacing:.5px;}
+.login-restricted{display:inline-block;background:rgba(75,124,243,.12);
+  border:1px solid rgba(75,124,243,.3);border-radius:4px;
+  padding:3px 10px;font-family:var(--fm);font-size:9px;color:var(--ac3);
+  letter-spacing:1px;margin-bottom:22px;}
+.login-fg{margin-bottom:14px;}
+.login-fg label{display:block;font-family:var(--fm);font-size:9px;color:var(--t2);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:5px;}
+.login-fg input{width:100%;background:var(--c3);border:1px solid var(--br);border-radius:var(--r);
+  color:var(--t0);font-family:var(--fb);font-size:13px;padding:9px 12px;outline:none;
+  transition:border-color .15s;}
+.login-fg input:focus{border-color:var(--ac);}
+.login-btn{width:100%;background:var(--ac);color:#fff;border:none;border-radius:var(--r);
+  padding:10px;font-family:var(--fh);font-weight:700;font-size:13px;letter-spacing:.5px;
+  cursor:pointer;transition:background .15s;margin-top:4px;}
+.login-btn:hover{background:var(--ac2);}
+.login-err{color:var(--er);font-size:11px;text-align:center;margin-top:8px;
+  min-height:16px;font-family:var(--fm);}
+.login-footer{text-align:center;margin-top:18px;font-size:10px;color:var(--t3);font-family:var(--fm);}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.shake{animation:shake .35s ease;}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-primary); color: var(--text-primary); overflow-x: hidden; }
+/* ─── LAYOUT ──────────────────────────────────────── */
+#app{display:none;height:100vh;overflow:hidden;position:relative;}
+#app.ready{display:flex;}
+#sb-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:190;}
+#sidebar{width:var(--sb);background:var(--c1);border-right:1px solid var(--br);
+  display:flex;flex-direction:column;flex-shrink:0;z-index:200;
+  transition:width .22s ease;}
+#sidebar.slim{width:var(--sb-sm);}
+#content{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+#topbar{height:var(--hdr);background:var(--c1);border-bottom:1px solid var(--br);
+  display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;}
+#pages{flex:1;overflow-y:auto;padding:16px;}
 
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            position: fixed; left: 0; top: 0; width: var(--sidebar-width); height: 100vh;
-            background: linear-gradient(180deg, var(--southern-dark) 0%, var(--southern-green) 100%);
-            color: white; z-index: 1000; transition: width 0.3s ease; overflow: hidden;
-            display: flex; flex-direction: column;
-        }
-        .sidebar.collapsed { width: var(--sidebar-collapsed); }
-        .sidebar-header {
-            padding: 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .sidebar-logo {
-            width: 40px; height: 40px; background: var(--southern-gold); border-radius: 10px;
-            display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: var(--southern-dark);
-            flex-shrink: 0;
-        }
-        .sidebar-title { font-weight: 700; font-size: 15px; line-height: 1.2; white-space: nowrap; }
-        .sidebar-title span { font-size: 11px; font-weight: 400; opacity: 0.8; }
-        .sidebar-nav { flex: 1; padding: 16px 12px; overflow-y: auto; }
-        .nav-section { margin-bottom: 20px; }
-        .nav-section-title {
-            font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6;
-            padding: 0 12px; margin-bottom: 8px; white-space: nowrap;
-        }
-        .nav-item {
-            display: flex; align-items: center; gap: 12px; padding: 10px 12px;
-            border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-bottom: 2px;
-            text-decoration: none; color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 500;
-        }
-        .nav-item:hover, .nav-item.active {
-            background: rgba(255,255,255,0.12); color: white;
-        }
-        .nav-item i { width: 20px; text-align: center; font-size: 15px; flex-shrink: 0; }
-        .nav-item .nav-text { white-space: nowrap; }
-        .sidebar-footer {
-            padding: 16px; border-top: 1px solid rgba(255,255,255,0.1);
-            display: flex; align-items: center; gap: 10px;
-        }
-        .user-avatar {
-            width: 36px; height: 36px; border-radius: 50%; background: var(--southern-gold);
-            display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--southern-dark);
-            flex-shrink: 0;
-        }
-        .user-info { white-space: nowrap; }
-        .user-info .name { font-size: 13px; font-weight: 600; }
-        .user-info .role { font-size: 11px; opacity: 0.7; }
-        .toggle-btn {
-            position: absolute; right: -12px; top: 80px; width: 24px; height: 24px;
-            background: var(--southern-gold); border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2); z-index: 1001; font-size: 10px; color: var(--southern-dark);
-        }
+/* ─── SIDEBAR INTERNALS ───────────────────────────── */
+.sb-head{padding:12px 14px 10px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px;}
+.sb-icon{width:30px;height:30px;background:var(--ac);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.sb-name{font-family:var(--fh);font-size:17px;font-weight:800;color:var(--t0);letter-spacing:1.5px;}
+.sb-ver{font-family:var(--fm);font-size:9px;color:var(--t2);letter-spacing:.5px;}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 0;}
+.sb-nav::-webkit-scrollbar{display:none;}
+.sb-sec{font-family:var(--fm);font-size:9px;color:var(--t3);letter-spacing:2px;
+  padding:10px 14px 3px;text-transform:uppercase;white-space:nowrap;overflow:hidden;}
+.ni{display:flex;align-items:center;gap:9px;padding:7px 14px;cursor:pointer;
+  border-left:2px solid transparent;transition:all .14s;
+  font-family:var(--fb);font-weight:500;font-size:12.5px;color:var(--t2);
+  white-space:nowrap;overflow:hidden;}
+.ni:hover{background:var(--c3);color:var(--t1);}
+.ni.active{background:rgba(75,124,243,.1);border-left-color:var(--ac);color:var(--ac3);}
+.ni-ic{font-size:13px;width:16px;text-align:center;flex-shrink:0;}
+.sb-foot{padding:10px 14px;border-top:1px solid var(--br);overflow:hidden;}
+.sb-user{font-size:11px;color:var(--t2);white-space:nowrap;overflow:hidden;}
+.sb-user strong{display:block;color:var(--t1);font-size:11.5px;}
+/* slim sidebar */
+#sidebar.slim .sb-name,#sidebar.slim .sb-ver,#sidebar.slim .sb-sec,
+#sidebar.slim .ni > span:last-child,#sidebar.slim .sb-foot{display:none;}
+#sidebar.slim .sb-head{justify-content:center;padding:12px 0;}
+#sidebar.slim .ni{justify-content:center;padding:10px 0;gap:0;}
+#sidebar.slim .ni-ic{width:auto;font-size:17px;}
 
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            margin-left: var(--sidebar-width); transition: margin-left 0.3s ease; min-height: 100vh;
-        }
-        .main-content.collapsed { margin-left: var(--sidebar-collapsed); }
+/* ─── TOPBAR ──────────────────────────────────────── */
+.tb-tog{background:none;border:none;color:var(--t2);font-size:17px;cursor:pointer;
+  padding:4px 6px;border-radius:5px;line-height:1;transition:all .14s;flex-shrink:0;}
+.tb-tog:hover{background:var(--c3);color:var(--t0);}
+.tb-bc{flex:1;font-size:12px;color:var(--t2);}
+.tb-bc b{color:var(--t0);}
+.tb-srch{display:flex;align-items:center;gap:7px;background:var(--c3);
+  border:1px solid var(--br);border-radius:var(--r);padding:5px 10px;}
+.tb-srch input{background:none;border:none;color:var(--t0);font-family:var(--fb);
+  font-size:12px;outline:none;width:180px;}
+.tb-srch input::placeholder{color:var(--t2);}
+.tb-live{display:flex;align-items:center;gap:5px;background:rgba(45,212,160,.08);
+  border:1px solid rgba(45,212,160,.2);border-radius:20px;padding:3px 9px;
+  font-family:var(--fm);font-size:9px;color:var(--go);}
+.tb-dot{width:5px;height:5px;background:var(--go);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.tb-time{font-family:var(--fm);font-size:11px;color:var(--t2);}
+.tb-logout{background:none;border:1px solid var(--br);border-radius:var(--r);
+  color:var(--t2);font-size:11px;padding:4px 9px;cursor:pointer;
+  font-family:var(--fb);transition:all .14s;}
+.tb-logout:hover{border-color:var(--er);color:var(--er);}
 
-        /* ===== HEADER ===== */
-        .header {
-            height: var(--header-height); background: var(--bg-card); border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; justify-content: space-between; padding: 0 24px;
-            position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow);
-        }
-        .header-left { display: flex; align-items: center; gap: 16px; }
-        .header-left h1 { font-size: 20px; font-weight: 700; color: var(--text-primary); }
-        .header-left .breadcrumb { font-size: 12px; color: var(--text-secondary); }
-        .header-right { display: flex; align-items: center; gap: 12px; }
-        .header-btn {
-            width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
-            background: var(--bg-card); color: var(--text-secondary); cursor: pointer;
-            display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-        }
-        .header-btn:hover { background: var(--southern-light); color: var(--southern-green); border-color: var(--southern-accent); }
-        .notification-badge { position: relative; }
-        .notification-badge::after {
-            content: ''; position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
-            background: var(--southern-red); border-radius: 50%; border: 2px solid var(--bg-card);
-        }
-        .theme-toggle {
-            width: 44px; height: 24px; border-radius: 12px; background: var(--border);
-            position: relative; cursor: pointer; transition: background 0.3s;
-        }
-        .theme-toggle.active { background: var(--southern-green); }
-        .theme-toggle::after {
-            content: ''; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px;
-            border-radius: 50%; background: white; transition: transform 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-        .theme-toggle.active::after { transform: translateX(20px); }
+/* ─── MODULE ──────────────────────────────────────── */
+.mod{display:none;}
+.mod.on{display:block;animation:fadeUp .28s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-        /* ===== CONTENT AREA ===== */
-        .content { padding: 24px; }
+/* ─── PAGE HEADER ─────────────────────────────────── */
+.ph{margin-bottom:16px;}
+.ph-tag{font-family:var(--fm);font-size:9px;color:var(--ac);letter-spacing:2px;
+  text-transform:uppercase;margin-bottom:3px;}
+.ph-title{font-family:var(--fh);font-weight:800;font-size:24px;color:var(--t0);letter-spacing:.5px;}
+.ph-sub{font-family:var(--fm);font-size:10px;color:var(--t2);margin-top:3px;}
 
-        /* ===== KPI CARDS ===== */
-        .kpi-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 24px;
-        }
-        .kpi-card {
-            background: var(--bg-card); border-radius: var(--radius); padding: 20px;
-            box-shadow: var(--shadow); border: 1px solid var(--border); transition: all 0.3s;
-            position: relative; overflow: hidden;
-        }
-        .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
-        .kpi-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-        }
-        .kpi-card.green::before { background: var(--southern-green); }
-        .kpi-card.blue::before { background: var(--southern-blue); }
-        .kpi-card.orange::before { background: var(--southern-orange); }
-        .kpi-card.red::before { background: var(--southern-red); }
-        .kpi-card.gold::before { background: var(--southern-gold); }
+/* ─── GRID ────────────────────────────────────────── */
+.r{margin-bottom:12px;}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:12px;}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:12px;}
 
-        .kpi-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
-        .kpi-icon {
-            width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
-            font-size: 18px;
-        }
-        .kpi-card.green .kpi-icon { background: var(--southern-light); color: var(--southern-green); }
-        .kpi-card.blue .kpi-icon { background: #E3F2FD; color: var(--southern-blue); }
-        .kpi-card.orange .kpi-icon { background: #FFF3E0; color: var(--southern-orange); }
-        .kpi-card.red .kpi-icon { background: #FFEBEE; color: var(--southern-red); }
-        .kpi-card.gold .kpi-icon { background: #FFF8E1; color: var(--southern-gold); }
+/* ─── CARD ────────────────────────────────────────── */
+.card{background:var(--c2);border:1px solid var(--br);border-radius:var(--r);padding:14px;}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.card-lb{font-family:var(--fm);font-size:9px;color:var(--t2);letter-spacing:1.5px;text-transform:uppercase;}
 
-        .kpi-trend {
-            font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px;
-        }
-        .kpi-trend.up { background: #E8F5E9; color: var(--southern-green); }
-        .kpi-trend.down { background: #FFEBEE; color: var(--southern-red); }
+/* ─── KPI ─────────────────────────────────────────── */
+.kv{font-family:var(--fh);font-size:34px;font-weight:800;color:var(--t0);letter-spacing:-1px;line-height:1;}
+.ku{font-family:var(--fm);font-size:10px;color:var(--t2);margin-top:2px;}
+.kd{font-size:11px;margin-top:7px;}
+.kd.pos{color:var(--go);}.kd.neg{color:var(--er);}.kd.neu{color:var(--t2);}
+.kbar{height:3px;background:var(--c4);border-radius:2px;margin-top:9px;overflow:hidden;}
+.kfill{height:100%;border-radius:2px;transition:width 1.4s ease;}
 
-        .kpi-value { font-size: 28px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
-        .kpi-label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
-        .kpi-sub { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+/* ─── BADGE ───────────────────────────────────────── */
+.bx{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;
+  border-radius:20px;font-family:var(--fm);font-size:9px;font-weight:500;}
+.bg{background:rgba(45,212,160,.1);color:var(--go);}
+.ba{background:rgba(246,166,35,.1);color:var(--wa);}
+.br{background:rgba(245,101,101,.1);color:var(--er);}
+.bb{background:rgba(75,124,243,.1);color:var(--ac3);}
+.bx_g{background:rgba(255,255,255,.05);color:var(--t1);}
 
-        /* ===== SECTION CARDS ===== */
-        .section-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; margin-bottom: 24px;
-        }
-        .section-card {
-            background: var(--bg-card); border-radius: var(--radius); padding: 20px;
-            box-shadow: var(--shadow); border: 1px solid var(--border);
-        }
-        .section-header {
-            display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;
-        }
-        .section-title { font-size: 15px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-        .section-title i { color: var(--southern-green); }
-        .section-actions { display: flex; gap: 8px; }
-        .btn-sm {
-            padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-primary);
-            color: var(--text-secondary); font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s;
-        }
-        .btn-sm:hover { background: var(--southern-light); color: var(--southern-green); border-color: var(--southern-accent); }
-        .btn-sm.primary { background: var(--southern-green); color: white; border-color: var(--southern-green); }
-        .btn-sm.primary:hover { background: var(--southern-dark); }
+/* ─── TABLE ───────────────────────────────────────── */
+.tw{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead th{background:var(--c3);padding:7px 9px;text-align:left;border-bottom:1px solid var(--br2);
+  font-family:var(--fm);font-size:9px;color:var(--t2);letter-spacing:1.5px;text-transform:uppercase;}
+tbody tr{border-bottom:1px solid rgba(28,43,68,.8);transition:background .12s;}
+tbody tr:hover{background:rgba(75,124,243,.04);}
+td{padding:7px 9px;color:var(--t1);}
+.tc{font-family:var(--fm);font-size:11px;color:var(--ac);} /* code col */
+.tn{color:var(--t0);font-weight:500;} /* name col */
+.tr{font-family:var(--fm);text-align:right;} /* number col */
+.tcc{text-align:center;font-family:var(--fm);font-size:11px;} /* center col */
 
-        /* ===== CHART CONTAINER ===== */
-        .chart-container { position: relative; height: 280px; width: 100%; }
-        .chart-container.sm { height: 200px; }
+/* ─── FORM ────────────────────────────────────────── */
+.fg{margin-bottom:11px;}
+.fg label{display:block;font-family:var(--fm);font-size:9px;color:var(--t2);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
+.fg input,.fg select,.fg textarea{width:100%;background:var(--c3);border:1px solid var(--br);
+  border-radius:var(--r);color:var(--t0);font-family:var(--fb);font-size:12.5px;
+  padding:7px 10px;outline:none;transition:border-color .14s;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--ac);}
+.fg select option{background:var(--c3);}
+.fg textarea{resize:vertical;min-height:66px;}
+.fgr{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 
-        /* ===== PROGRESS BARS ===== */
-        .progress-item { margin-bottom: 14px; }
-        .progress-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
-        .progress-label { font-weight: 600; color: var(--text-primary); }
-        .progress-value { font-weight: 700; color: var(--southern-green); }
-        .progress-bar {
-            width: 100%; height: 8px; background: var(--bg-primary); border-radius: 4px; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; border-radius: 4px; transition: width 1s ease;
-        }
-        .progress-fill.green { background: linear-gradient(90deg, var(--southern-green), var(--southern-accent)); }
-        .progress-fill.blue { background: linear-gradient(90deg, var(--southern-blue), #42A5F5); }
-        .progress-fill.orange { background: linear-gradient(90deg, var(--southern-orange), #FFB74D); }
-        .progress-fill.red { background: linear-gradient(90deg, var(--southern-red), #EF5350); }
+/* ─── BUTTONS (compact) ───────────────────────────── */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:var(--r);
+  border:none;font-family:var(--fh);font-weight:700;font-size:11.5px;letter-spacing:.3px;
+  cursor:pointer;transition:all .14s;white-space:nowrap;}
+.btn-p{background:var(--ac);color:#fff;}
+.btn-p:hover{background:var(--ac2);}
+.btn-s{background:var(--c3);color:var(--t1);border:1px solid var(--br);}
+.btn-s:hover{border-color:var(--ac);color:var(--t0);}
+.btn-a{background:rgba(246,166,35,.1);color:var(--wa);border:1px solid rgba(246,166,35,.25);}
+.btn-a:hover{background:rgba(246,166,35,.2);}
+.btn-r{background:rgba(245,101,101,.1);color:var(--er);border:1px solid rgba(245,101,101,.25);}
+.btn-r:hover{background:rgba(245,101,101,.2);}
+.btn-xs{padding:3px 8px;font-size:10px;}
+.btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:4px;}
 
-        /* ===== TABLES ===== */
-        .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        .data-table th {
-            text-align: left; padding: 10px 12px; font-weight: 600; color: var(--text-secondary);
-            border-bottom: 2px solid var(--border); text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px;
-        }
-        .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text-primary); }
-        .data-table tr:hover td { background: var(--bg-primary); }
-        .badge {
-            padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600;
-        }
-        .badge-success { background: #E8F5E9; color: var(--southern-green); }
-        .badge-warning { background: #FFF3E0; color: var(--southern-orange); }
-        .badge-danger { background: #FFEBEE; color: var(--southern-red); }
-        .badge-info { background: #E3F2FD; color: var(--southern-blue); }
+/* ─── ALERT ───────────────────────────────────────── */
+.al{padding:8px 12px;border-radius:var(--r);border-left:3px solid;margin-bottom:7px;
+  font-size:12px;line-height:1.45;}
+.al-g{background:rgba(45,212,160,.07);border-color:var(--go);color:#9ee8d4;}
+.al-a{background:rgba(246,166,35,.07);border-color:var(--wa);color:#fad290;}
+.al-r{background:rgba(245,101,101,.07);border-color:var(--er);color:#fbbcbc;}
+.al-b{background:rgba(75,124,243,.07);border-color:var(--ac);color:var(--ac3);}
 
-        /* ===== SAFETY DASHBOARD ===== */
-        .safety-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px;
-        }
-        .safety-item {
-            background: var(--bg-primary); border-radius: 10px; padding: 16px; text-align: center;
-            border: 2px solid transparent; cursor: pointer; transition: all 0.2s;
-        }
-        .safety-item:hover { border-color: var(--southern-accent); transform: translateY(-2px); }
-        .safety-item i { font-size: 24px; margin-bottom: 8px; display: block; }
-        .safety-item.green i { color: var(--southern-green); }
-        .safety-item.blue i { color: var(--southern-blue); }
-        .safety-item.orange i { color: var(--southern-orange); }
-        .safety-item.red i { color: var(--southern-red); }
-        .safety-item .safety-label { font-size: 11px; font-weight: 600; color: var(--text-secondary); }
-        .safety-item .safety-count { font-size: 20px; font-weight: 800; color: var(--text-primary); margin-top: 4px; }
+/* ─── ZONE TABS ───────────────────────────────────── */
+.ztabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.ztab{padding:5px 14px;border-radius:var(--r);border:1px solid var(--br);
+  background:var(--c2);color:var(--t2);font-family:var(--fh);font-weight:700;
+  font-size:11px;letter-spacing:.5px;cursor:pointer;transition:all .14s;}
+.ztab:hover{border-color:var(--ac);color:var(--t0);}
+.zt-vc{background:rgba(45,212,160,.08);border-color:var(--go);color:var(--go);}
+.zt-vb{background:rgba(75,124,243,.08);border-color:var(--ac);color:var(--ac3);}
+.zt-co{background:rgba(246,166,35,.08);border-color:var(--wa);color:var(--wa);}
 
-        .days-counter {
-            background: linear-gradient(135deg, var(--southern-green), var(--southern-accent));
-            color: white; border-radius: var(--radius); padding: 20px; text-align: center; margin-bottom: 16px;
-        }
-        .days-counter .days-number { font-size: 48px; font-weight: 800; }
-        .days-counter .days-label { font-size: 14px; opacity: 0.9; margin-top: 4px; }
-        .days-counter .days-sub { font-size: 11px; opacity: 0.7; margin-top: 8px; }
+/* ─── CUADRILLA CARD ──────────────────────────────── */
+.qcard{background:var(--c2);border:1px solid var(--br);border-radius:var(--r);overflow:hidden;}
+.qhd{padding:10px 14px;background:var(--c3);border-bottom:1px solid var(--br);
+  display:flex;align-items:center;justify-content:space-between;}
+.qnum{font-family:var(--fh);font-weight:800;font-size:19px;color:var(--t0);}
+.qzone{font-family:var(--fm);font-size:9px;color:var(--t2);margin-top:1px;}
+.wlist{padding:10px 14px;}
+.wi{display:flex;align-items:center;justify-content:space-between;
+  padding:5px 0;border-bottom:1px solid rgba(28,43,68,.7);}
+.wi:last-child{border-bottom:none;}
+.wn{font-size:12px;color:var(--t1);}
+.wldr{color:var(--t0);font-weight:600;}
+.qareas{padding:8px 14px;border-top:1px solid var(--br);
+  font-size:11px;color:var(--t2);line-height:1.55;}
 
-        /* ===== IPERC MATRIX ===== */
-        .iperc-matrix { display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px; font-size: 11px; }
-        .iperc-cell {
-            padding: 8px 4px; text-align: center; border-radius: 4px; font-weight: 700; cursor: pointer; transition: transform 0.2s;
-        }
-        .iperc-cell:hover { transform: scale(1.05); }
-        .iperc-header { background: var(--bg-primary); font-weight: 600; color: var(--text-secondary); }
-        .iperc-risk-1 { background: #C8E6C9; color: #1B5E20; }
-        .iperc-risk-2 { background: #FFF9C4; color: #F57F17; }
-        .iperc-risk-3 { background: #FFCC80; color: #E65100; }
-        .iperc-risk-4 { background: #EF9A9A; color: #B71C1C; }
-        .iperc-risk-5 { background: #B71C1C; color: white; }
-        .iperc-legend { display: flex; gap: 12px; margin-top: 12px; font-size: 11px; flex-wrap: wrap; }
-        .iperc-legend-item { display: flex; align-items: center; gap: 4px; }
-        .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+/* ─── CALENDAR ────────────────────────────────────── */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-top:7px;}
+.cal-hd{font-family:var(--fh);font-size:9px;color:var(--t2);text-align:center;
+  letter-spacing:1px;padding:3px 0;}
+.cal-day{background:var(--c3);border:1px solid var(--br);border-radius:5px;
+  min-height:72px;padding:5px;}
+.cal-dn{font-family:var(--fm);font-size:9px;color:var(--t2);margin-bottom:3px;}
+.cal-ev{border-radius:3px;padding:2px 4px;font-size:9px;margin-bottom:2px;
+  cursor:pointer;line-height:1.3;}
+.ce-g{background:rgba(45,212,160,.18);color:var(--go);}
+.ce-b{background:rgba(75,124,243,.18);color:var(--ac3);}
+.ce-a{background:rgba(246,166,35,.18);color:var(--wa);}
 
-        /* ===== TABS ===== */
-        .tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 16px; overflow-x: auto; }
-        .tab {
-            padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--text-secondary);
-            cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; transition: all 0.2s;
-        }
-        .tab:hover { color: var(--southern-green); }
-        .tab.active { color: var(--southern-green); border-bottom-color: var(--southern-green); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+/* ─── CHAT ────────────────────────────────────────── */
+.chatbox{display:flex;flex-direction:column;background:var(--c2);
+  border:1px solid var(--br);border-radius:var(--r);height:470px;overflow:hidden;}
+.chat-hd{background:var(--c3);border-bottom:1px solid var(--br);
+  padding:10px 14px;display:flex;align-items:center;gap:9px;}
+.ai-av{width:32px;height:32px;background:var(--ac);border-radius:7px;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.chat-msgs{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.msg{max-width:88%;padding:9px 13px;border-radius:9px;font-size:12.5px;line-height:1.6;}
+.msg-ai{background:var(--c3);border:1px solid var(--br);
+  border-radius:3px 9px 9px 9px;color:var(--t0);align-self:flex-start;}
+.msg-usr{background:rgba(75,124,243,.12);border:1px solid rgba(75,124,243,.2);
+  border-radius:9px 3px 9px 9px;color:var(--t0);align-self:flex-end;}
+.msg-ai strong{color:var(--ac3);}
+.thinking{display:flex;gap:4px;align-items:center;padding:10px 13px;}
+.dot{width:5px;height:5px;background:var(--ac);border-radius:50%;animation:bop 1.2s infinite;}
+.dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
+@keyframes bop{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.chat-in{border-top:1px solid var(--br);padding:10px 14px;display:flex;gap:8px;}
+.chat-inp{flex:1;background:var(--c3);border:1px solid var(--br);border-radius:var(--r);
+  color:var(--t0);font-family:var(--fb);font-size:12.5px;padding:7px 10px;
+  outline:none;resize:none;min-height:36px;max-height:100px;}
+.chat-inp:focus{border-color:var(--ac);}
+.suggs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.sugg{padding:4px 11px;background:var(--c3);border:1px solid var(--br);border-radius:20px;
+  font-size:11px;color:var(--t1);cursor:pointer;transition:all .14s;}
+.sugg:hover{border-color:var(--ac);color:var(--ac3);}
 
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu-btn {
-            display: none; width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--border);
-            background: var(--bg-card); color: var(--text-primary); font-size: 18px; cursor: pointer;
-            align-items: center; justify-content: center;
-        }
-        .mobile-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 999;
-        }
-        .mobile-overlay.active { display: block; }
+/* ─── HISTORY ITEM ────────────────────────────────── */
+.hi{padding:9px 11px;background:var(--c3);border-radius:var(--r);
+  margin-bottom:7px;border-left:3px solid var(--go);}
+.hi-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
+.hi-name{font-weight:600;font-size:12px;color:var(--t0);}
+.hi-meta{font-family:var(--fm);font-size:10px;color:var(--t2);}
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.mobile-open { transform: translateX(0); }
-            .main-content { margin-left: 0 !important; }
-            .mobile-menu-btn { display: flex; }
-            .toggle-btn { display: none; }
-        }
-        @media (max-width: 768px) {
-            .kpi-grid { grid-template-columns: 1fr; }
-            .section-grid { grid-template-columns: 1fr; }
-            .content { padding: 16px; }
-            .header { padding: 0 16px; }
-            .header-left h1 { font-size: 16px; }
-            .safety-grid { grid-template-columns: repeat(2, 1fr); }
-            .iperc-matrix { grid-template-columns: repeat(3, 1fr); }
-            .iperc-cell { padding: 12px 4px; }
-            .days-counter .days-number { font-size: 36px; }
-        }
-        @media (max-width: 480px) {
-            .kpi-value { font-size: 22px; }
-            .section-grid { grid-template-columns: 1fr; }
-            .data-table { font-size: 11px; }
-            .data-table th, .data-table td { padding: 8px 6px; }
-        }
+/* ─── PROGRESS ────────────────────────────────────── */
+.pbar{background:var(--c3);border-radius:2px;height:3px;overflow:hidden;margin-top:8px;}
+.pfill{height:100%;border-radius:2px;transition:width 1.3s ease;}
 
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-in { animation: fadeIn 0.5s ease forwards; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
-        .delay-4 { animation-delay: 0.4s; }
+/* ─── STAT ROW ────────────────────────────────────── */
+.sr{display:flex;justify-content:space-between;align-items:center;
+  padding:6px 0;border-bottom:1px solid rgba(28,43,68,.6);}
+.sr:last-child{border-bottom:none;}
+.sr-lb{font-size:12px;color:var(--t1);}
+.sr-vl{font-family:var(--fm);font-size:12px;color:var(--ac3);}
 
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+/* ─── PHOTO GRID ──────────────────────────────────── */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:7px;}
+.pslot{background:var(--c3);border:1px dashed var(--br2);border-radius:5px;
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:18px;cursor:pointer;transition:all .14s;overflow:hidden;}
+.pslot:hover{border-color:var(--ac);}
+.pslot img{width:100%;height:100%;object-fit:cover;}
 
-        /* ===== FULL WIDTH SECTIONS ===== */
-        .full-width { grid-column: 1 / -1; }
+/* ─── CHART ───────────────────────────────────────── */
+.ch{position:relative;}
+.ch-sm{height:170px;} .ch-md{height:230px;} .ch-lg{height:280px;}
 
-        /* ===== STATUS INDICATORS ===== */
-        .status-dot {
-            width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px;
-        }
-        .status-dot.active { background: var(--southern-accent); box-shadow: 0 0 0 3px rgba(76,175,80,0.2); }
-        .status-dot.warning { background: var(--southern-orange); }
-        .status-dot.danger { background: var(--southern-red); }
+/* ─── MODAL ───────────────────────────────────────── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;
+  display:none;align-items:center;justify-content:center;}
+.modal-bg.open{display:flex;}
+.modal{background:var(--c2);border:1px solid var(--br2);border-radius:10px;
+  padding:20px;width:480px;max-width:95vw;max-height:90vh;overflow-y:auto;
+  animation:fadeUp .22s ease;}
+.modal-title{font-family:var(--fh);font-size:17px;font-weight:800;color:var(--t0);margin-bottom:14px;}
 
-        /* ===== SEARCH BAR ===== */
-        .search-bar {
-            display: flex; align-items: center; gap: 8px; padding: 8px 14px;
-            background: var(--bg-primary); border: 1px solid var(--border); border-radius: 8px;
-            width: 280px; transition: all 0.2s;
-        }
-        .search-bar:focus-within { border-color: var(--southern-accent); box-shadow: 0 0 0 3px rgba(76,175,80,0.1); }
-        .search-bar input {
-            border: none; background: none; outline: none; font-size: 13px; color: var(--text-primary); width: 100%;
-        }
-        .search-bar input::placeholder { color: var(--text-secondary); }
-        @media (max-width: 768px) {
-            .search-bar { width: 180px; }
-            .header-left .breadcrumb { display: none; }
-        }
-    </style>
+/* ─── TOAST ───────────────────────────────────────── */
+#toasts{position:fixed;bottom:16px;right:16px;z-index:2000;display:flex;
+  flex-direction:column;gap:6px;}
+.toast{background:var(--c3);border:1px solid var(--br2);border-radius:7px;
+  padding:9px 14px;font-size:12px;color:var(--t0);min-width:240px;
+  animation:tst .22s ease;box-shadow:0 6px 20px rgba(0,0,0,.5);}
+.toast.tg{border-left:3px solid var(--go);}
+.toast.ta{border-left:3px solid var(--wa);}
+.toast.tr{border-left:3px solid var(--er);}
+@keyframes tst{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+
+/* ─── SEARCH BAR ──────────────────────────────────── */
+.sbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.sbar input{flex:1;background:var(--c3);border:1px solid var(--br);border-radius:var(--r);
+  color:var(--t0);font-family:var(--fb);font-size:12px;padding:6px 10px;outline:none;}
+.sbar input:focus{border-color:var(--ac);}
+
+/* ─── DIVIDER ─────────────────────────────────────── */
+hr.dv{border:none;border-top:1px solid var(--br);margin:12px 0;}
+
+/* ─── REPORT PREVIEW ──────────────────────────────── */
+#rpt-prev{background:#fff;border-radius:var(--r);padding:24px;color:#111;
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;margin-top:14px;}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:900px){
+  .g4{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .g21,.g12{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  #sidebar{position:fixed;left:0;top:0;bottom:0;
+    transform:translateX(-100%);transition:transform .24s ease;
+    z-index:200;width:240px !important;}
+  #sidebar.open{transform:translateX(0);box-shadow:8px 0 30px rgba(0,0,0,.8);}
+  /* always full on mobile */
+  #sidebar.slim{width:240px !important;}
+  #sidebar.slim .sb-name,#sidebar.slim .sb-ver,#sidebar.slim .sb-sec,
+  #sidebar.slim .ni > span:last-child,#sidebar.slim .sb-foot{display:block !important;}
+  #sidebar.slim .ni{justify-content:flex-start !important;padding:7px 14px !important;gap:9px !important;}
+  #sidebar.slim .ni-ic{width:16px !important;font-size:13px !important;}
+  #sidebar.slim .sb-head{justify-content:flex-start !important;}
+  .tb-srch,.tb-time{display:none;}
+  #pages{padding:10px;}
+  .g4,.g3,.g2,.g21,.g12{grid-template-columns:1fr;}
+  .kv{font-size:28px;}
+  .ph-title{font-size:20px;}
+  .chatbox{height:380px;}
+  .ch-lg{height:200px;}
+  .pgrid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:420px){
+  .g4{grid-template-columns:1fr;}
+  .login-card{width:95vw;padding:24px;}
+}
+</style>
 </head>
 <body>
-    <!-- Mobile Overlay -->
-    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMobileMenu()"></div>
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="toggle-btn" onclick="toggleSidebar()" id="toggleBtn"><i class="fas fa-chevron-left"></i></div>
-        <div class="sidebar-header">
-            <div class="sidebar-logo">CS</div>
-            <div class="sidebar-title">
-                Campamentos<br>Southern
-                <span>Sistema de Gestión Integral</span>
-            </div>
+<!-- ═══════════════ LOGIN ═══════════════ -->
+<div id="login">
+  <div class="login-card" id="lcard">
+    <div class="login-logo">
+      <div class="login-logo-mark">🌿</div>
+      <div class="login-title">SIGAV</div>
+      <div class="login-sub">GESTIÓN DE ÁREAS VERDES · SPCC CUAJONE</div>
+    </div>
+    <div style="text-align:center;margin-bottom:20px">
+      <span class="login-restricted">🔒 ACCESO RESTRINGIDO · CAMPAMENTOS</span>
+    </div>
+    <div class="login-fg">
+      <label>Usuario</label>
+      <input type="text" id="lg-user" placeholder="Usuario" autocomplete="username">
+    </div>
+    <div class="login-fg">
+      <label>Contraseña</label>
+      <input type="password" id="lg-pass" placeholder="••••••••••" autocomplete="current-password"
+             onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">INGRESAR AL SISTEMA</button>
+    <div class="login-err" id="lg-err"></div>
+    <div class="login-footer">Southern Peru Copper Corporation · Mina Cuajone</div>
+  </div>
+</div>
+
+<!-- ═══════════════ APP ═══════════════ -->
+<div id="app">
+  <div id="sb-ov" onclick="closeSB()"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sb-head">
+      <div style="width:30px;height:30px;background:var(--ac);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0">🌿</div>
+      <div>
+        <div class="sb-name">SIGAV</div>
+        <div class="sb-ver">v2.0 · CUAJONE</div>
+      </div>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-sec">Principal</div>
+      <div class="ni active" onclick="goTo('panel',this)"><span class="ni-ic">▪</span><span>Panel de Control</span></div>
+      <div class="ni" onclick="goTo('zonas',this)"><span class="ni-ic">⬡</span><span>Zonas y Áreas</span></div>
+      <div class="ni" onclick="goTo('cuadrillas',this)"><span class="ni-ic">◈</span><span>Cuadrillas</span></div>
+      <div class="sb-sec">Operaciones</div>
+      <div class="ni" onclick="goTo('prog',this)"><span class="ni-ic">◷</span><span>Programación</span></div>
+      <div class="ni" onclick="goTo('ejec',this)"><span class="ni-ic">◉</span><span>Ejecución</span></div>
+      <div class="ni" onclick="goTo('comp',this)"><span class="ni-ic">◈</span><span>Comparativo</span></div>
+      <div class="sb-sec">Inteligencia</div>
+      <div class="ni" onclick="goTo('ia',this)"><span class="ni-ic">◎</span><span>Agente IA</span></div>
+      <div class="ni" onclick="goTo('inf',this)"><span class="ni-ic">◫</span><span>Informes</span></div>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <strong>René J. Coayla Causillas</strong>
+        Especialista Analítica · IA
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div id="content">
+    <div id="topbar">
+      <button class="tb-tog" id="sb-btn" onclick="toggleSB()">☰</button>
+      <div class="tb-bc">SIGAV / <b id="tb-cur">Panel de Control</b></div>
+      <div class="tb-srch">
+        <span style="color:var(--t2);font-size:11px">⌕</span>
+        <input type="text" placeholder="Buscar área, código..." oninput="gSearch(this.value)">
+      </div>
+      <div class="tb-live"><div class="tb-dot"></div>ACTIVO</div>
+      <div class="tb-time" id="clock"></div>
+      <button class="tb-logout" onclick="logout()">⎋ Salir</button>
+    </div>
+    <div id="pages">
+
+<!-- ═══ PANEL ═══ -->
+<section id="mod-panel" class="mod on">
+  <div class="ph">
+    <div class="ph-tag">· SIGAV · MINA CUAJONE ·</div>
+    <div class="ph-title">Panel de Control</div>
+    <div class="ph-sub">Campamentos: Ing. Marco Castañeda · Supervisión: Ing. Miriam · Estado operacional en tiempo real</div>
+  </div>
+  <div class="g4 r">
+    <div class="card"><div class="card-lb">m² Totales SPCC</div><div class="kv" id="kv1">0</div><div class="ku">alcance contratado</div><div class="kbar"><div class="kfill" style="width:100%;background:var(--go)"></div></div><div class="kd pos">↑ 3 zonas operativas</div></div>
+    <div class="card"><div class="card-lb">Áreas Codificadas</div><div class="kv" id="kv2">0</div><div class="ku">registradas en sistema</div><div class="kbar"><div class="kfill" style="width:95%;background:var(--ac)"></div></div><div class="kd neu">● 57 activas · 3 inactivas</div></div>
+    <div class="card"><div class="card-lb">Cuadrillas Activas</div><div class="kv" id="kv3">0</div><div class="ku">operando en campo</div><div class="kbar"><div class="kfill" style="width:100%;background:var(--ac)"></div></div><div class="kd pos">↑ 20 trabajadores</div></div>
+    <div class="card"><div class="card-lb">Diferencia SPCC vs Campo</div><div class="kv" id="kv4">0</div><div class="ku">m² diferencia</div><div class="kbar"><div class="kfill" style="width:88%;background:var(--wa)"></div></div><div class="kd neg">↑ campo gestiona +13.5%</div></div>
+  </div>
+  <div class="g3 r">
+    <div class="card"><div class="card-hd"><div class="card-lb">Villa Cuajone</div><span class="bx bg">ACTIVA</span></div>
+      <div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--go)">62,401 <span style="font-size:12px;color:var(--t2)">m² SPCC</span></div>
+      <div style="font-size:10px;color:var(--t2);margin-top:2px">C1 y C2 · 28 áreas</div>
+      <div class="pbar"><div class="pfill" style="width:69%;background:var(--go)"></div></div>
+      <div style="font-size:10px;color:var(--t2);margin-top:4px">69% del total</div>
+    </div>
+    <div class="card"><div class="card-hd"><div class="card-lb">Villa Botiflaca</div><span class="bx bb">ACTIVA</span></div>
+      <div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--ac3)">18,307 <span style="font-size:12px;color:var(--t2)">m² SPCC</span></div>
+      <div style="font-size:10px;color:var(--t2);margin-top:2px">C3 · 16 áreas</div>
+      <div class="pbar"><div class="pfill" style="width:20%;background:var(--ac)"></div></div>
+      <div style="font-size:10px;color:var(--t2);margin-top:4px">20% del total</div>
+    </div>
+    <div class="card"><div class="card-hd"><div class="card-lb">Concentradora</div><span class="bx ba">ACTIVA</span></div>
+      <div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--wa)">8,950 <span style="font-size:12px;color:var(--t2)">m² SPCC</span></div>
+      <div style="font-size:10px;color:var(--t2);margin-top:2px">C3 y C4 · 17 áreas</div>
+      <div class="pbar"><div class="pfill" style="width:10%;background:var(--wa)"></div></div>
+      <div style="font-size:10px;color:var(--t2);margin-top:4px">10% del total</div>
+    </div>
+  </div>
+  <div class="g2 r">
+    <div class="card"><div class="card-lb" style="margin-bottom:8px">Distribución por Zona — SPCC vs Campo</div><div class="ch ch-md"><canvas id="chPanel"></canvas></div></div>
+    <div class="card"><div class="card-lb" style="margin-bottom:8px">Alertas Operativas</div>
+      <div class="al al-r">✖ Club de Golf Cancha de Tierra — Sin actividad (Ing. Castañeda)</div>
+      <div class="al al-a">⚠ Cancha de fútbol Botiflaca — 6,011 m² sin programación</div>
+      <div class="al al-a">⚠ Concentradora ingreso — Sin registro de actividad</div>
+      <div class="al al-b">ℹ Casas desocupadas (prom. 12) — Actualizar mensualmente</div>
+      <div class="al al-g">✓ Cuadrillas C1, C2, C3 y C4 — Operando normalmente</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ZONAS ═══ -->
+<section id="mod-zonas" class="mod">
+  <div class="ph"><div class="ph-tag">· GESTIÓN ·</div><div class="ph-title">Zonas y Áreas</div><div class="ph-sub">60 áreas codificadas · metrados, estado y cuadrilla asignada</div></div>
+  <div class="ztabs">
+    <button class="ztab zt-vc" id="zt-vc" onclick="showZone('vc')">🌿 VILLA CUAJONE</button>
+    <button class="ztab" id="zt-vb" onclick="showZone('vb')">◈ VILLA BOTIFLACA</button>
+    <button class="ztab" id="zt-co" onclick="showZone('co')">◆ CONCENTRADORA</button>
+  </div>
+  <div id="z-vc">
+    <div class="g3 r">
+      <div class="card"><div class="card-lb">SPCC</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--go)">62,401 m²</div></div>
+      <div class="card"><div class="card-lb">Campo</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--t1)">68,766 m²</div></div>
+      <div class="card"><div class="card-lb">Diferencia</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--wa)">+6,365 m²</div></div>
+    </div>
+    <div class="card"><div class="sbar"><input id="s-vc" placeholder="Buscar área..." oninput="filterTbl('t-vc',this.value)"></div><div class="tw"><table><thead><tr><th>Código</th><th>Área / Ubicación</th><th>m² SPCC</th><th>m² Campo</th><th>Dif.</th><th>Cuad.</th><th>Estado</th></tr></thead><tbody id="t-vc"></tbody></table></div></div>
+  </div>
+  <div id="z-vb" style="display:none">
+    <div class="g3 r">
+      <div class="card"><div class="card-lb">SPCC</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--ac3)">18,307 m²</div></div>
+      <div class="card"><div class="card-lb">Campo</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--t1)">21,892 m²</div></div>
+      <div class="card"><div class="card-lb">Diferencia</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--wa)">+3,585 m²</div></div>
+    </div>
+    <div class="card"><div class="sbar"><input id="s-vb" placeholder="Buscar área..." oninput="filterTbl('t-vb',this.value)"></div><div class="tw"><table><thead><tr><th>Código</th><th>Área / Ubicación</th><th>m² SPCC</th><th>m² Campo</th><th>Dif.</th><th>Cuad.</th><th>Estado</th></tr></thead><tbody id="t-vb"></tbody></table></div></div>
+  </div>
+  <div id="z-co" style="display:none">
+    <div class="g3 r">
+      <div class="card"><div class="card-lb">SPCC</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--wa)">8,950 m²</div></div>
+      <div class="card"><div class="card-lb">Campo</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--t1)">11,057 m²</div></div>
+      <div class="card"><div class="card-lb">Diferencia</div><div style="font-family:var(--fh);font-size:26px;font-weight:800;color:var(--wa)">+2,107 m²</div></div>
+    </div>
+    <div class="card"><div class="sbar"><input id="s-co" placeholder="Buscar área..." oninput="filterTbl('t-co',this.value)"></div><div class="tw"><table><thead><tr><th>Código</th><th>Área / Ubicación</th><th>m² SPCC</th><th>m² Campo</th><th>Dif.</th><th>Cuad.</th><th>Estado</th></tr></thead><tbody id="t-co"></tbody></table></div></div>
+  </div>
+</section>
+
+<!-- ═══ CUADRILLAS ═══ -->
+<section id="mod-cuadrillas" class="mod">
+  <div class="ph"><div class="ph-tag">· OPERACIONES ·</div><div class="ph-title">Cuadrillas</div><div class="ph-sub">4 cuadrillas · 20 trabajadores · asignaciones y responsabilidades por zona</div></div>
+  <div class="g2 r">
+    <div class="qcard"><div class="qhd"><div><div class="qnum">CUADRILLA C1</div><div class="qzone">VILLA CUAJONE · Sector Golf y Presidencia</div></div><span class="bx bg">ACTIVA</span></div>
+      <div class="wlist">
+        <div class="wi"><span class="wn wldr">★ Apaza Arucutipa, Yan Carlos</span><span class="bx bg">Líder</span></div>
+        <div class="wi"><span class="wn">Bustinza Mango, Néstor</span></div>
+        <div class="wi"><span class="wn">Apaza Manzano, Washington Luis</span></div>
+        <div class="wi"><span class="wn">Calizaya Checalla, Nolberto</span></div>
+        <div class="wi"><span class="wn">Felipe Maquera, Rodrigo</span></div>
+        <div class="wi"><span class="wn">Tapia Mendoza, Eugenio</span></div>
+        <div class="wi"><span class="wn">Coayla Causillas, René Jacinto</span><span class="bx bb">Técnico</span></div>
+      </div>
+      <div class="qareas">VC-07 Club de Golf (25,800 m²) · VC-08 Casa Presidencia (7,910 m²) · VC-05 Casas desocupadas (6,900 m²) · VC-03 CD12-2 · Suches 10/11/12 · Esq. Tacna-Moquegua</div>
+    </div>
+    <div class="qcard"><div class="qhd"><div><div class="qnum">CUADRILLA C2</div><div class="qzone">VILLA CUAJONE · Zona Central y Servicios</div></div><span class="bx bg">ACTIVA</span></div>
+      <div class="wlist">
+        <div class="wi"><span class="wn wldr">★ Condori Teves, Rosel</span><span class="bx bg">Líder</span></div>
+        <div class="wi"><span class="wn">Quispe Soncco, Jhon</span></div>
+        <div class="wi"><span class="wn">Orocollo Ajajahui, Omar</span></div>
+      </div>
+      <div class="qareas">VC-21 Hospital (11,204 m²) · VC-14 Ciclovía (1,841 m²) · VC-09 Hotel CD13 · VC-10 Piscina CD14 · VC-11 REC jardines · VC-15 Gimnasio · VC-16 Grifo CD19 · VC-27 Jardineras Torata</div>
+    </div>
+    <div class="qcard"><div class="qhd"><div><div class="qnum">CUADRILLA C3</div><div class="qzone">VILLA BOTIFLACA + CONCENTRADORA</div></div><span class="bx bg">ACTIVA</span></div>
+      <div class="wlist">
+        <div class="wi"><span class="wn wldr">★ Condori Espinoza, Erick Alonso</span><span class="bx bg">Líder</span></div>
+        <div class="wi"><span class="wn">Molina Humire, Oscar Helver</span></div>
+        <div class="wi"><span class="wn">Silva Huacasi, Andre Oswaldo</span></div>
+        <div class="wi"><span class="wn">Tala Centeno, Edgar Melecio</span></div>
+        <div class="wi"><span class="wn">Chique Ninaraqui, Cristian Josué</span></div>
+      </div>
+      <div class="qareas">VB-15 CD44 Admin (1,775 m²) · VB-12 Plaza El Minero (1,769 m²) · VB-10 CD22-CD23 jardines · VB-03 CD35 REC · VB-07/08 Av. Central · CO-03/04 Sector Plaza · CO-07 Circ. Cuaternario</div>
+    </div>
+    <div class="qcard"><div class="qhd"><div><div class="qnum">CUADRILLA C4</div><div class="qzone">VARIOS · Calles y Árboles — Itinerante</div></div><span class="bx ba">ITINERANTE</span></div>
+      <div class="wlist">
+        <div class="wi"><span class="wn wldr">★ Roque Pari, Alfredo</span><span class="bx bg">Líder</span></div>
+        <div class="wi"><span class="wn">Huamán La Torre, Yhoseth</span></div>
+        <div class="wi"><span class="wn">Luna Cabrera, Fabricio Jordy</span></div>
+        <div class="wi"><span class="wn">Sacaca Tipo, Yimmi Roy</span></div>
+        <div class="wi"><span class="wn">Velásquez Miranda, Yilson</span></div>
+      </div>
+      <div class="qareas">Calles Tacna, Ilo, Moquegua, Sama, Omate, Yacango — 1,200 árboles · CO-09 Ingreso Conc. (4,100 m²) · CO-08 Estac. Metalurgia · CO-10 a CO-17 Sector Industrial</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROGRAMACIÓN ═══ -->
+<section id="mod-prog" class="mod">
+  <div class="ph"><div class="ph-tag">· OPERACIONES ·</div><div class="ph-title">Programación</div><div class="ph-sub">Planificación semanal · asignación por cuadrilla y área</div></div>
+  <div class="g21 r">
+    <div class="card"><div class="card-lb" style="margin-bottom:8px">Semana — <span id="cal-week"></span></div>
+      <div class="cal-grid"><div class="cal-hd">LUN</div><div class="cal-hd">MAR</div><div class="cal-hd">MIÉ</div><div class="cal-hd">JUE</div><div class="cal-hd">VIE</div><div class="cal-hd">SÁB</div><div class="cal-hd">DOM</div></div>
+      <div class="cal-grid" id="cal-body"></div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:10px">
+        <div class="card-lb" style="margin-bottom:9px">Nueva Actividad</div>
+        <div class="fg"><label>Cuadrilla</label>
+          <select id="p-cuad"><option value="">Seleccionar...</option>
+            <option value="C1">C1 — Villa Cuajone (Golf)</option>
+            <option value="C2">C2 — Villa Cuajone (Central)</option>
+            <option value="C3">C3 — Botiflaca + Concentradora</option>
+            <option value="C4">C4 — Varios / Itinerante</option>
+          </select>
         </div>
-        <nav class="sidebar-nav">
-            <div class="nav-section">
-                <div class="nav-section-title">Principal</div>
-                <a href="#" class="nav-item active" onclick="showSection('dashboard')">
-                    <i class="fas fa-chart-line"></i><span class="nav-text">Dashboard Ejecutivo</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('ot')">
-                    <i class="fas fa-clipboard-list"></i><span class="nav-text">Órdenes de Trabajo</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('actividades')">
-                    <i class="fas fa-tasks"></i><span class="nav-text">Control de Actividades</span>
-                </a>
-            </div>
-            <div class="nav-section">
-                <div class="nav-section-title">Operaciones</div>
-                <a href="#" class="nav-item" onclick="showSection('personal')">
-                    <i class="fas fa-users"></i><span class="nav-text">Personal y Asistencia</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('inventario')">
-                    <i class="fas fa-boxes"></i><span class="nav-text">Inventario</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('seguridad')">
-                    <i class="fas fa-shield-alt"></i><span class="nav-text">Seguridad SSO</span>
-                </a>
-            </div>
-            <div class="nav-section">
-                <div class="nav-section-title">Análisis</div>
-                <a href="#" class="nav-item" onclick="showSection('reportes')">
-                    <i class="fas fa-file-alt"></i><span class="nav-text">Reportes</span>
-                </a>
-                <a href="#" class="nav-item" onclick="showSection('config')">
-                    <i class="fas fa-cog"></i><span class="nav-text">Configuración</span>
-                </a>
-            </div>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="user-avatar">JR</div>
-            <div class="user-info">
-                <div class="name">Juan R. Coayla</div>
-                <div class="role">Gerente de Operaciones</div>
-            </div>
+        <div class="fg"><label>Actividad</label>
+          <select id="p-tipo"><option>Corte de césped</option><option>Riego</option><option>Poda de arbustos</option><option>Poda de árboles</option><option>Fumigación</option><option>Siembra / Trasplante</option><option>Limpieza general</option><option>Fertilización</option><option>Inspección técnica</option></select>
         </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-left">
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><i class="fas fa-bars"></i></button>
-                <div>
-                    <h1><span class="status-dot active"></span>Dashboard Ejecutivo</h1>
-                    <div class="breadcrumb">Campamentos Southern > Mina Cuajone > Áreas Verdes</div>
-                </div>
-            </div>
-            <div class="header-right">
-                <div class="search-bar">
-                    <i class="fas fa-search" style="color: var(--text-secondary); font-size: 13px;"></i>
-                    <input type="text" placeholder="Buscar...">
-                </div>
-                <button class="header-btn notification-badge"><i class="fas fa-bell"></i></button>
-                <button class="header-btn" onclick="toggleTheme()"><i class="fas fa-moon" id="themeIcon"></i></button>
-            </div>
-        </header>
-
-        <!-- Content -->
-        <div class="content">
-            <!-- KPI Cards -->
-            <div class="kpi-grid">
-                <div class="kpi-card green animate-in delay-1">
-                    <div class="kpi-header">
-                        <div class="kpi-icon"><i class="fas fa-leaf"></i></div>
-                        <span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 12%</span>
-                    </div>
-                    <div class="kpi-value">4.8 Ha</div>
-                    <div class="kpi-label">Área Mantenida</div>
-                    <div class="kpi-sub">Mes actual · Meta: 5.0 Ha</div>
-                </div>
-                <div class="kpi-card blue animate-in delay-2">
-                    <div class="kpi-header">
-                        <div class="kpi-icon"><i class="fas fa-hard-hat"></i></div>
-                        <span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 3</span>
-                    </div>
-                    <div class="kpi-value">24</div>
-                    <div class="kpi-label">Personal Activo</div>
-                    <div class="kpi-sub">Presentes hoy · 2 de licencia</div>
-                </div>
-                <div class="kpi-card orange animate-in delay-3">
-                    <div class="kpi-header">
-                        <div class="kpi-icon"><i class="fas fa-clipboard-check"></i></div>
-                        <span class="kpi-trend down"><i class="fas fa-arrow-down"></i> 2</span>
-                    </div>
-                    <div class="kpi-value">18/24</div>
-                    <div class="kpi-label">Actividades en Progreso</div>
-                    <div class="kpi-sub">75% de avance general</div>
-                </div>
-                <div class="kpi-card red animate-in delay-4">
-                    <div class="kpi-header">
-                        <div class="kpi-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                        <span class="kpi-trend down"><i class="fas fa-arrow-down"></i> 5</span>
-                    </div>
-                    <div class="kpi-value">3</div>
-                    <div class="kpi-label">Stock Crítico</div>
-                    <div class="kpi-sub">Ítems bajo mínimo · Reordenar</div>
-                </div>
-                <div class="kpi-card gold animate-in delay-4">
-                    <div class="kpi-header">
-                        <div class="kpi-icon"><i class="fas fa-percentage"></i></div>
-                        <span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 8%</span>
-                    </div>
-                    <div class="kpi-value">92%</div>
-                    <div class="kpi-label">Cumplimiento OT</div>
-                    <div class="kpi-sub">Completadas a tiempo · Meta: 95%</div>
-                </div>
-            </div>
-
-            <!-- Charts Section -->
-            <div class="section-grid">
-                <div class="section-card animate-in delay-2">
-                    <div class="section-header">
-                        <div class="section-title"><i class="fas fa-chart-bar"></i> Avance General del Mes</div>
-                        <div class="section-actions">
-                            <button class="btn-sm"><i class="fas fa-download"></i> Exportar</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="avanceChart"></canvas>
-                    </div>
-                </div>
-                <div class="section-card animate-in delay-3">
-                    <div class="section-header">
-                        <div class="section-title"><i class="fas fa-chart-line"></i> Cumplimiento OT — Tendencia</div>
-                        <div class="section-actions">
-                            <button class="btn-sm">Semana</button>
-                            <button class="btn-sm primary">Mes</button>
-                        </div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="tendenciaChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Progress & OT Status -->
-            <div class="section-grid">
-                <div class="section-card animate-in delay-2">
-                    <div class="section-header">
-                        <div class="section-title"><i class="fas fa-tasks"></i> Actividades — Seguimiento de Avance</div>
-                        <div class="section-actions">
-                            <button class="btn-sm primary"><i class="fas fa-plus"></i> Nueva</button>
-                        </div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">Poda de árboles — Zona Norte</span>
-                            <span class="progress-value">85%</span>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill green" style="width:85%"></div></div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">Riego automatizado — Campamento A</span>
-                            <span class="progress-value">62%</span>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill blue" style="width:62%"></div></div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">Fertilización — Área Este</span>
-                            <span class="progress-value">45%</span>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill orange" style="width:45%"></div></div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">Control de plagas — Zona Sur</span>
-                            <span class="progress-value">28%</span>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill red" style="width:28%"></div></div>
-                    </div>
-                    <div class="progress-item">
-                        <div class="progress-header">
-                            <span class="progress-label">Siembra de césped — Campamento B</span>
-                            <span class="progress-value">91%</span>
-                        </div>
-                        <div class="progress-bar"><div class="progress-fill green" style="width:91%"></div></div>
-                    </div>
-                </div>
-
-                <div class="section-card animate-in delay-3">
-                    <div class="section-header">
-                        <div class="section-title"><i class="fas fa-clipboard-list"></i> Estado de Solicitudes OT</div>
-                        <div class="section-actions">
-                            <button class="btn-sm"><i class="fas fa-filter"></i> Filtrar</button>
-                        </div>
-                    </div>
-                    <div class="chart-container sm">
-                        <canvas id="otStatusChart"></canvas>
-                    </div>
-                    <div style="margin-top: 16px;">
-                        <table class="data-table">
-                            <thead>
-                                <tr><th>Estado</th><th>Cantidad</th><th>%</th></tr>
-                            </thead>
-                            <tbody>
-                                <tr><td><span class="badge badge-success">Completadas</span></td><td>42</td><td>58%</td></tr>
-                                <tr><td><span class="badge badge-info">En ejecución</span></td><td>18</td><td>25%</td></tr>
-                                <tr><td><span class="badge badge-warning">Pendientes</span></td><td>8</td><td>11%</td></tr>
-                                <tr><td><span class="badge badge-danger">Rechazadas</span></td><td>4</td><td>6%</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Stock & Personal -->
-            <div class="section-grid">
-                <div class="section-card animate-in delay-2">
-                    <div class="section-header">
-                        <div class="section-title"><i class="fas fa-exclamation-triangle"></i> Stock Crítico</div>
-                        <div class="section-actions">
-                            <button class="btn-sm primary"><i class="fas fa-shopping-cart"></i> Pedido</button>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Código</th><th>Ítem</th><th>Stock</th><th>Mín.</th><th>Estado</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>INS-042</td><td>Fertilizante NPK 20-20-20</td><td style="color:var(--southern-red);font-weight:700;">3</td><td>15</td><td><span class="badge badge-danger">Crítico</span></td></tr>
-                            <tr><td>EPP-018</td><td>Guantes de cuero reforzados</td><td style="color:var(--southern-red);font-weight:700;">5</td><td>20</td><td><span class="badge badge-danger">Crítico</span></td></tr>
-                            <tr><td>HRR-031</td><td>Tijeras de podar profesionales</td><td style="color:var(--southern-orange);font-weight:700;">2</td><td>8</td><td><span class="badge badge-warning">Bajo</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="section-card animate-in delay-3">
-                    <div class="section-header">
-                        <div class="section-title"><i class="fas fa-users"></i> Personal y Asistencia</div>
-                        <div class="section-actions">
-                            <button class="btn-sm primary"><i class="fas fa-check-circle"></i> Registrar</button>
-                        </div>
-                    </div>
-                    <div style="display: flex; gap: 16px; margin-bottom: 16px; flex-wrap: wrap;">
-                        <div style="text-align: center; flex: 1; min-width: 80px;">
-                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-green);">24</div>
-                            <div style="font-size: 11px; color: var(--text-secondary);">Presentes</div>
-                        </div>
-                        <div style="text-align: center; flex: 1; min-width: 80px;">
-                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-orange);">2</div>
-                            <div style="font-size: 11px; color: var(--text-secondary);">Licencia</div>
-                        </div>
-                        <div style="text-align: center; flex: 1; min-width: 80px;">
-                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-red);">0</div>
-                            <div style="font-size: 11px; color: var(--text-secondary);">Ausentes</div>
-                        </div>
-                        <div style="text-align: center; flex: 1; min-width: 80px;">
-                            <div style="font-size: 28px; font-weight: 800; color: var(--southern-blue);">92%</div>
-                            <div style="font-size: 11px; color: var(--text-secondary);">Asistencia</div>
-                        </div>
-                    </div>
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>Nombre</th><th>Cargo</th><th>Estado</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>Carlos Mendoza</strong></td><td>Supervisor SSO</td><td><span class="badge badge-success">Activo</span></td></tr>
-                            <tr><td><strong>Luis Torres</strong></td><td>Jefe de Cuadrilla</td><td><span class="badge badge-success">Activo</span></td></tr>
-                            <tr><td><strong>Ana Quispe</strong></td><td>Operaria</td><td><span class="badge badge-warning">Licencia</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Safety Section -->
-            <div class="section-card animate-in delay-2 full-width">
-                <div class="section-header">
-                    <div class="section-title"><i class="fas fa-shield-alt"></i> Panel de Seguridad SSO — Áreas Verdes Campamentos Cuajone · SPCC</div>
-                    <div class="section-actions">
-                        <button class="btn-sm"><i class="fas fa-file-pdf"></i> Reporte</button>
-                    </div>
-                </div>
-                
-                <div class="days-counter">
-                    <div class="days-number">67</div>
-                    <div class="days-label">DÍAS SIN ACCIDENTES</div>
-                    <div class="days-sub">Áreas Verdes Campamentos Cuajone · Meta anual: 365 días</div>
-                </div>
-
-                <div class="safety-grid">
-                    <div class="safety-item green">
-                        <i class="fas fa-search"></i>
-                        <div class="safety-label">IPERC</div>
-                        <div class="safety-count">12</div>
-                    </div>
-                    <div class="safety-item blue">
-                        <i class="fas fa-file-alt"></i>
-                        <div class="safety-label">PETS</div>
-                        <div class="safety-count">8</div>
-                    </div>
-                    <div class="safety-item orange">
-                        <i class="fas fa-lock"></i>
-                        <div class="safety-label">PETAR</div>
-                        <div class="safety-count">3</div>
-                    </div>
-                    <div class="safety-item blue">
-                        <i class="fas fa-clipboard-check"></i>
-                        <div class="safety-label">ATS</div>
-                        <div class="safety-count">24</div>
-                    </div>
-                    <div class="safety-item orange">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <div class="safety-label">Actos/Cond.</div>
-                        <div class="safety-count">2</div>
-                    </div>
-                    <div class="safety-item red">
-                        <i class="fas fa-ambulance"></i>
-                        <div class="safety-label">Incidentes</div>
-                        <div class="safety-count">0</div>
-                    </div>
-                    <div class="safety-item green">
-                        <i class="fas fa-hard-hat"></i>
-                        <div class="safety-label">EPP</div>
-                        <div class="safety-count">26</div>
-                    </div>
-                </div>
-
-                <!-- IPERC Matrix -->
-                <div style="margin-top: 20px;">
-                    <div class="section-title" style="margin-bottom: 12px;"><i class="fas fa-th"></i> Matriz IPERC — Referencia Rápida</div>
-                    <div class="iperc-matrix">
-                        <div class="iperc-header"></div>
-                        <div class="iperc-header">A<br>Común</div>
-                        <div class="iperc-header">B<br>Ha sucedido</div>
-                        <div class="iperc-header">C<br>Podría suceder</div>
-                        <div class="iperc-header">D<br>Raro</div>
-                        <div class="iperc-header">E<br>Imposible</div>
-                        
-                        <div class="iperc-header">1 · Catastrófico</div>
-                        <div class="iperc-cell iperc-risk-3">1</div>
-                        <div class="iperc-cell iperc-risk-3">2</div>
-                        <div class="iperc-cell iperc-risk-4">4</div>
-                        <div class="iperc-cell iperc-risk-4">7</div>
-                        <div class="iperc-cell iperc-risk-5">11</div>
-                        
-                        <div class="iperc-header">2 · Mortalidad</div>
-                        <div class="iperc-cell iperc-risk-3">3</div>
-                        <div class="iperc-cell iperc-risk-4">5</div>
-                        <div class="iperc-cell iperc-risk-4">8</div>
-                        <div class="iperc-cell iperc-risk-5">12</div>
-                        <div class="iperc-cell iperc-risk-5">16</div>
-                        
-                        <div class="iperc-header">3 · Permanente</div>
-                        <div class="iperc-cell iperc-risk-4">6</div>
-                        <div class="iperc-cell iperc-risk-4">9</div>
-                        <div class="iperc-cell iperc-risk-5">13</div>
-                        <div class="iperc-cell iperc-risk-5">17</div>
-                        <div class="iperc-cell iperc-risk-5">20</div>
-                        
-                        <div class="iperc-header">4 · Temporal</div>
-                        <div class="iperc-cell iperc-risk-4">10</div>
-                        <div class="iperc-cell iperc-risk-5">14</div>
-                        <div class="iperc-cell iperc-risk-5">18</div>
-                        <div class="iperc-cell iperc-risk-5">21</div>
-                        <div class="iperc-cell iperc-risk-5">23</div>
-                        
-                        <div class="iperc-header">5 · Menor</div>
-                        <div class="iperc-cell iperc-risk-5">15</div>
-                        <div class="iperc-cell iperc-risk-5">19</div>
-                        <div class="iperc-cell iperc-risk-5">22</div>
-                        <div class="iperc-cell iperc-risk-5">24</div>
-                        <div class="iperc-cell iperc-risk-5">25</div>
-                    </div>
-                    <div class="iperc-legend">
-                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#C8E6C9"></div>1-9 Intolerable</div>
-                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#FFF9C4"></div>10-14 Importante</div>
-                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#FFCC80"></div>15-19 Moderado</div>
-                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#EF9A9A"></div>20-22 Tolerable</div>
-                        <div class="iperc-legend-item"><div class="legend-dot" style="background:#B71C1C"></div>23-25 Aceptable</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- OT Table -->
-            <div class="section-card animate-in delay-3 full-width">
-                <div class="section-header">
-                    <div class="section-title"><i class="fas fa-list-alt"></i> Solicitudes de Trabajo (OT) — Ciclo Completo</div>
-                    <div class="section-actions">
-                        <button class="btn-sm"><i class="fas fa-filter"></i> Filtrar</button>
-                        <button class="btn-sm primary"><i class="fas fa-plus"></i> Nueva OT</button>
-                    </div>
-                </div>
-                <div class="tabs">
-                    <div class="tab active" onclick="switchTab(this, 'ot-pendientes')">Pendientes (8)</div>
-                    <div class="tab" onclick="switchTab(this, 'ot-revision')">En Revisión (3)</div>
-                    <div class="tab" onclick="switchTab(this, 'ot-aprobadas')">Aprobadas (5)</div>
-                    <div class="tab" onclick="switchTab(this, 'ot-ejecucion')">En Ejecución (18)</div>
-                    <div class="tab" onclick="switchTab(this, 'ot-completadas')">Completadas (42)</div>
-                </div>
-                <div id="ot-pendientes" class="tab-content active">
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>OT #</th><th>Descripción</th><th>Solicitante</th><th>Fecha</th><th>Prioridad</th><th>Acciones</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>OT-2026-089</strong></td>
-                                <td>Reparación sistema de riego — Campamento A</td>
-                                <td>Carlos Mendoza</td>
-                                <td>04/06/2026</td>
-                                <td><span class="badge badge-danger">Alta</span></td>
-                                <td><button class="btn-sm">Ver</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>OT-2026-090</strong></td>
-                                <td>Poda de seguridad — Zona de alta tensión</td>
-                                <td>Luis Torres</td>
-                                <td>04/06/2026</td>
-                                <td><span class="badge badge-danger">Alta</span></td>
-                                <td><button class="btn-sm">Ver</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>OT-2026-091</strong></td>
-                                <td>Siembra de árboles nativos — Área de reforestación</td>
-                                <td>Ana Quispe</td>
-                                <td>05/06/2026</td>
-                                <td><span class="badge badge-warning">Media</span></td>
-                                <td><button class="btn-sm">Ver</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="ot-revision" class="tab-content">
-                    <table class="data-table">
-                        <thead>
-                            <tr><th>OT #</th><th>Descripción</th><th>Revisor</th><th>Fecha</th><th>Estado</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>OT-2026-085</strong></td><td>Mantenimiento de cercos perimétricos</td><td>Juan R. Coayla</td><td>03/06/2026</td><td><span class="badge badge-info">En revisión</span></td></tr>
-                            <tr><td><strong>OT-2026-086</strong></td><td>Limpieza de canales de drenaje</td><td>Carlos Mendoza</td><td>03/06/2026</td><td><span class="badge badge-info">En revisión</span></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="ot-aprobadas" class="tab-content">
-                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; padding: 20px;">5 órdenes aprobadas listas para asignación</p>
-                </div>
-                <div id="ot-ejecucion" class="tab-content">
-                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; padding: 20px;">18 órdenes en ejecución activa</p>
-                </div>
-                <div id="ot-completadas" class="tab-content">
-                    <p style="color: var(--text-secondary); font-size: 13px; text-align: center; padding: 20px;">42 órdenes completadas este mes</p>
-                </div>
-            </div>
-
-            <!-- EPP Control -->
-            <div class="section-card animate-in delay-2 full-width">
-                <div class="section-header">
-                    <div class="section-title"><i class="fas fa-hard-hat"></i> Control de EPP por Trabajador</div>
-                    <div class="section-actions">
-                        <button class="btn-sm"><i class="fas fa-file-excel"></i> Exportar</button>
-                    </div>
-                </div>
-                <div style="overflow-x: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Trabajador</th><th>Casco</th><th>Lentes</th><th>Guantes</th><th>Calzado</th><th>Careta</th><th>Mascarilla</th><th>Estado</th><th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Carlos Mendoza</strong><br><small style="color:var(--text-secondary)">Supervisor SSO</small></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">Completo</span></td>
-                                <td><button class="btn-sm">Editar</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Luis Torres</strong><br><small style="color:var(--text-secondary)">Jefe de Cuadrilla</small></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-warning">⚠ Vence 15/06</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-warning">Por vencer</span></td>
-                                <td><button class="btn-sm">Editar</button></td>
-                            </tr>
-                            <tr>
-                                <td><strong>Roberto Sánchez</strong><br><small style="color:var(--text-secondary)">Operario</small></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-danger">✗ Vencido</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-success">✓ OK</span></td>
-                                <td><span class="badge badge-danger">Incompleto</span></td>
-                                <td><button class="btn-sm">Editar</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div style="text-align: center; padding: 30px; color: var(--text-secondary); font-size: 12px; border-top: 1px solid var(--border); margin-top: 20px;">
-                <p><strong>Campamentos Southern S.A.C.</strong> · Sistema de Gestión Integral v2.0</p>
-                <p>Mina Cuajone, Moquegua — Perú · © 2026 Todos los derechos reservados</p>
-                <p style="margin-top: 8px; color: var(--southern-green); font-weight: 600;">Powered by Southern Technology</p>
-            </div>
+        <div class="fgr">
+          <div class="fg"><label>Fecha</label><input type="date" id="p-fecha"></div>
+          <div class="fg"><label>Hora</label><input type="time" id="p-hora" value="07:00"></div>
         </div>
-    </main>
+        <div class="fg"><label>Área</label>
+          <select id="p-area"><option value="">Seleccionar...</option>
+            <optgroup label="Villa Cuajone">
+              <option>VC-07 · Club de Golf (25,800 m²)</option><option>VC-08 · Casa Presidencia (7,910 m²)</option>
+              <option>VC-21 · Hospital (11,204 m²)</option><option>VC-14 · Ciclovía (1,841 m²)</option>
+            </optgroup>
+            <optgroup label="Villa Botiflaca">
+              <option>VB-12 · Plaza El Minero (1,769 m²)</option><option>VB-15 · CD44 Admin (1,775 m²)</option>
+              <option>VB-10 · CD22-CD23 jardines (1,841 m²)</option>
+            </optgroup>
+            <optgroup label="Concentradora">
+              <option>CO-09 · Ingreso concentradora (4,100 m²)</option><option>CO-03 · Sector Plaza (1,863 m²)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="fg"><label>Observaciones</label><textarea id="p-obs" placeholder="Instrucciones, materiales..."></textarea></div>
+        <button class="btn btn-p" onclick="addAct()">◷ PROGRAMAR</button>
+      </div>
+      <div class="card"><div class="card-lb" style="margin-bottom:8px">Esta semana</div><div id="prog-list">
+        <div class="al al-g">✓ C1 · VC-07 Club de Golf · Corte · Lun</div>
+        <div class="al al-g">✓ C2 · VC-21 Hospital · Riego · Lun</div>
+        <div class="al al-b">↻ C3 · VB-12 Plaza Minero · Poda · Mié</div>
+        <div class="al al-a">⚠ C2 · VC-14 Ciclovía · Sin fecha</div>
+      </div></div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        // ===== SIDEBAR TOGGLE =====
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-            const toggleBtn = document.getElementById('toggleBtn');
-            sidebar.classList.toggle('collapsed');
-            mainContent.classList.toggle('collapsed');
-            toggleBtn.innerHTML = sidebar.classList.contains('collapsed') ? '<i class="fas fa-chevron-right"></i>' : '<i class="fas fa-chevron-left"></i>';
-        }
+<!-- ═══ EJECUCIÓN ═══ -->
+<section id="mod-ejec" class="mod">
+  <div class="ph"><div class="ph-tag">· OPERACIONES ·</div><div class="ph-title">Ejecución</div><div class="ph-sub">Registro digital con evidencia · trazabilidad completa por área, cuadrilla y fecha</div></div>
+  <div class="g2 r">
+    <div class="card">
+      <div class="card-lb" style="margin-bottom:10px">Registrar Trabajo</div>
+      <div class="fgr">
+        <div class="fg"><label>Fecha</label><input type="date" id="e-fecha"></div>
+        <div class="fg"><label>Cuadrilla</label>
+          <select id="e-cuad"><option>C1 — Apaza Yan Carlos</option><option>C2 — Condori Teves Rosel</option><option>C3 — Condori Espinoza Erick</option><option>C4 — Roque Pari Alfredo</option></select>
+        </div>
+      </div>
+      <div class="fg"><label>Área ejecutada</label>
+        <select id="e-area">
+          <option>VC-07 · Club de Golf (25,800 m²)</option><option>VC-21 · Hospital (11,204 m²)</option>
+          <option>VC-08 · CD6-1 Casa Presidencia (7,910 m²)</option><option>VB-12 · Plaza El Minero (1,769 m²)</option>
+          <option>VB-15 · CD44 Administración (1,775 m²)</option><option>CO-09 · Ingreso concentradora (4,100 m²)</option>
+        </select>
+      </div>
+      <div class="fgr">
+        <div class="fg"><label>Actividad</label>
+          <select id="e-tipo"><option>Corte de césped</option><option>Riego</option><option>Poda de arbustos</option><option>Poda de árboles</option><option>Fumigación</option><option>Limpieza general</option><option>Fertilización</option></select>
+        </div>
+        <div class="fg"><label>m² ejecutados</label><input type="number" id="e-m2" placeholder="Ej: 1500"></div>
+      </div>
+      <div class="fg"><label>Personal presente</label><input type="text" id="e-pers" placeholder="Nombres de trabajadores"></div>
+      <div class="fg"><label>Observaciones</label><textarea id="e-obs" placeholder="Estado, equipos, SSO..."></textarea></div>
+      <div class="fg"><label>Evidencia fotográfica</label>
+        <div class="pgrid" id="pgrid">
+          <div class="pslot" onclick="trigPhoto()">📷</div>
+          <div class="pslot" onclick="trigPhoto()">📷</div>
+          <div class="pslot" onclick="trigPhoto()">📷</div>
+          <div class="pslot" onclick="trigPhoto()">📷</div>
+        </div>
+        <input type="file" id="ph-in" accept="image/*" multiple style="display:none" onchange="loadPh(this)">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-p" onclick="saveEjec()">✓ REGISTRAR</button>
+        <button class="btn btn-s" onclick="exportCSV()">⬇ CSV</button>
+      </div>
+    </div>
+    <div class="card"><div class="card-hd"><div class="card-lb">Historial</div><button class="btn btn-r btn-xs" onclick="clearHist()">Limpiar</button></div><div id="ejec-hist">
+      <div class="hi"><div class="hi-top"><span class="hi-name">Club de Golf · Corte de césped</span><span class="bx bg">✓</span></div><div class="hi-meta">C1 · 25,800 m² · 02/06/2025 · Apaza Yan Carlos</div></div>
+      <div class="hi"><div class="hi-top"><span class="hi-name">Hospital · Riego y limpieza</span><span class="bx bg">✓</span></div><div class="hi-meta">C2 · 11,204 m² · 02/06/2025 · Condori Teves Rosel</div></div>
+      <div class="hi" style="border-left-color:var(--wa)"><div class="hi-top"><span class="hi-name">Plaza El Minero · Poda andenería</span><span class="bx ba">En curso</span></div><div class="hi-meta">C3 · 1,769 m² · 03/06/2025</div></div>
+    </div></div>
+  </div>
+</section>
 
-        // ===== MOBILE MENU =====
-        function toggleMobileMenu() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('mobileOverlay');
-            sidebar.classList.toggle('mobile-open');
-            overlay.classList.toggle('active');
-        }
+<!-- ═══ COMPARATIVO ═══ -->
+<section id="mod-comp" class="mod">
+  <div class="ph"><div class="ph-tag">· ANALÍTICA ·</div><div class="ph-title">Comparativo</div><div class="ph-sub">Metrados SPCC vs Campo · diferencias por zona y área</div></div>
+  <div class="g3 r">
+    <div class="card"><div class="card-lb">Alcance SPCC</div><div style="font-family:var(--fh);font-size:30px;font-weight:800;color:var(--go)">89,658</div><div class="ku">m² según contrato</div></div>
+    <div class="card"><div class="card-lb">Medición Campo</div><div style="font-family:var(--fh);font-size:30px;font-weight:800;color:var(--t1)">101,715</div><div class="ku">m² medición contratista</div></div>
+    <div class="card"><div class="card-lb">Diferencia</div><div style="font-family:var(--fh);font-size:30px;font-weight:800;color:var(--wa)">+12,057</div><div class="ku">m² · campo gestiona +13.5%</div></div>
+  </div>
+  <div class="g2 r">
+    <div class="card"><div class="card-lb" style="margin-bottom:8px">SPCC vs Campo por Zona</div><div class="ch ch-lg"><canvas id="chComp"></canvas></div></div>
+    <div class="card"><div class="card-lb" style="margin-bottom:8px">Distribución Alcance SPCC</div><div class="ch ch-lg"><canvas id="chDon"></canvas></div></div>
+  </div>
+  <div class="card"><div class="card-lb" style="margin-bottom:8px">Principales Diferencias por Área</div>
+    <div class="tw"><table><thead><tr><th>Zona</th><th>Código</th><th>Área</th><th>m² SPCC</th><th>m² Campo</th><th>Diferencia</th><th>Variación</th></tr></thead>
+    <tbody>
+      <tr><td>V. Cuajone</td><td class="tc">VC-07</td><td class="tn">Club de Golf (césped)</td><td class="tr">25,800</td><td class="tr">30,152</td><td class="tr" style="color:var(--wa)">+4,352</td><td class="tr" style="color:var(--wa)">+16.9%</td></tr>
+      <tr><td>Concentradora</td><td class="tc">CO-04</td><td class="tn">Sector Plaza aledaños</td><td class="tr">1,819</td><td class="tr">4,397</td><td class="tr" style="color:var(--wa)">+2,578</td><td class="tr" style="color:var(--wa)">+141.7%</td></tr>
+      <tr><td>Concentradora</td><td class="tc">CO-17</td><td class="tn">Taller Ex-Primaria</td><td class="tr">200</td><td class="tr">2,134</td><td class="tr" style="color:var(--wa)">+1,934</td><td class="tr" style="color:var(--wa)">+967%</td></tr>
+      <tr><td>V. Cuajone</td><td class="tc">VC-26</td><td class="tn">Ingreso Villa Cuajone, bosque</td><td class="tr">250</td><td class="tr">1,976</td><td class="tr" style="color:var(--wa)">+1,726</td><td class="tr" style="color:var(--wa)">+690%</td></tr>
+      <tr><td>Concentradora</td><td class="tc">CO-09</td><td class="tn">Ingreso concentradora</td><td class="tr">4,100</td><td class="tr">2,334</td><td class="tr" style="color:var(--er)">−1,766</td><td class="tr" style="color:var(--er)">−43.1%</td></tr>
+      <tr><td>V. Cuajone</td><td class="tc">VC-08</td><td class="tn">CD6-1 Casa Presidencia</td><td class="tr">7,910</td><td class="tr">6,332</td><td class="tr" style="color:var(--er)">−1,578</td><td class="tr" style="color:var(--er)">−19.9%</td></tr>
+    </tbody></table></div>
+  </div>
+</section>
 
-        // ===== THEME TOGGLE =====
-        let darkMode = false;
-        function toggleTheme() {
-            darkMode = !darkMode;
-            document.body.setAttribute('data-theme', darkMode ? 'dark' : 'light');
-            document.getElementById('themeIcon').className = darkMode ? 'fas fa-sun' : 'fas fa-moon';
-        }
+<!-- ═══ AGENTE IA ═══ -->
+<section id="mod-ia" class="mod">
+  <div class="ph"><div class="ph-tag">· INTELIGENCIA ARTIFICIAL ·</div><div class="ph-title">Agente SIGAV · IA</div><div class="ph-sub">Datos reales de Cuajone · análisis, cronogramas e informes bajo demanda · Claude (Anthropic)</div></div>
+  <div class="suggs">
+    <button class="sugg" onclick="doSugg(this)">¿Áreas más grandes?</button>
+    <button class="sugg" onclick="doSugg(this)">Programa semanal C3</button>
+    <button class="sugg" onclick="doSugg(this)">m² por cuadrilla</button>
+    <button class="sugg" onclick="doSugg(this)">Mayores diferencias SPCC vs campo</button>
+    <button class="sugg" onclick="doSugg(this)">Plan mensual Botiflaca</button>
+    <button class="sugg" onclick="doSugg(this)">Informe ejecutivo estado actual</button>
+    <button class="sugg" onclick="doSugg(this)">Áreas inactivas y causa</button>
+    <button class="sugg" onclick="doSugg(this)">Optimizar rutas por zona</button>
+  </div>
+  <div class="chatbox">
+    <div class="chat-hd">
+      <div class="ai-av">◎</div>
+      <div>
+        <div style="font-family:var(--fh);font-weight:800;font-size:14px;letter-spacing:.5px">Agente SIGAV</div>
+        <div style="font-family:var(--fm);font-size:9px;color:var(--t2)">Base de datos real cargada · 3 zonas · 60 áreas · 4 cuadrillas</div>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:7px">
+        <button class="btn btn-s btn-xs" onclick="clearChat()" title="Reiniciar">↺</button>
+        <div class="tb-live"><div class="tb-dot"></div>ONLINE</div>
+      </div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg msg-ai">👋 Soy el <strong>Agente SIGAV</strong>. Base de datos cargada:<br>🌿 3 zonas · 📍 60 áreas · 📏 89,658 m² SPCC · 👷 4 cuadrillas · 20 trabajadores<br>Jefatura: <strong>Ing. Castañeda</strong> · Supervisión: <strong>Ing. Miriam</strong><br><br>¿En qué te asisto?</div>
+    </div>
+    <div class="chat-in">
+      <textarea class="chat-inp" id="chatInp" placeholder="Consulta sobre áreas, cuadrillas, metrados, cronogramas..." rows="1" onkeydown="chatKey(event)"></textarea>
+      <button class="btn btn-p" onclick="sendChat()">↵</button>
+    </div>
+  </div>
+</section>
 
-        // ===== TAB SWITCHING =====
-        function switchTab(tabElement, contentId) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            tabElement.classList.add('active');
-            document.getElementById(contentId).classList.add('active');
-        }
+<!-- ═══ INFORMES ═══ -->
+<section id="mod-inf" class="mod">
+  <div class="ph"><div class="ph-tag">· INFORMES ·</div><div class="ph-title">Generación de Informes</div><div class="ph-sub">Reportes automáticos listos para Jefatura de Campamentos</div></div>
+  <div class="g2 r">
+    <div class="card"><div class="card-lb" style="margin-bottom:10px">Configurar</div>
+      <div class="fg"><label>Tipo</label>
+        <select id="inf-tipo"><option>Informe Semanal de Ejecución</option><option>Informe Mensual por Zona</option><option>Análisis Comparativo SPCC vs Campo</option><option>Estado General de Áreas Verdes</option><option>Informe por Cuadrilla</option><option>Indicadores de Gestión</option><option>Áreas sin Actividad</option></select>
+      </div>
+      <div class="fg"><label>Zona</label>
+        <select id="inf-zona"><option>Todas las zonas</option><option>Villa Cuajone</option><option>Villa Botiflaca</option><option>Concentradora</option></select>
+      </div>
+      <div class="fgr">
+        <div class="fg"><label>Desde</label><input type="date" id="inf-d1"></div>
+        <div class="fg"><label>Hasta</label><input type="date" id="inf-d2"></div>
+      </div>
+      <div class="fg"><label>Elaborado por</label><input id="inf-autor" value="René J. Coayla Causillas — Gestión Técnica SIGAV"></div>
+      <div class="fg"><label>Dirigido a</label><input id="inf-dest" value="Ing. Marco Castañeda — Jefe de Campamentos, SPCC"></div>
+      <div class="btn-row">
+        <button class="btn btn-p" onclick="genInf()">◫ GENERAR</button>
+        <button class="btn btn-a" onclick="window.print()">⎙ IMPRIMIR</button>
+      </div>
+    </div>
+    <div class="card"><div class="card-lb" style="margin-bottom:8px">Vista Previa</div>
+      <div id="rpt-prev" style="background:var(--c3);border-radius:var(--r);padding:14px;font-size:12px;color:var(--t2);min-height:180px">Configure y haga clic en <b style="color:var(--t0)">Generar</b> para ver la vista previa.</div>
+    </div>
+  </div>
+</section>
 
-        // ===== NAV SECTION =====
-        function showSection(section) {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            event.target.closest('.nav-item').classList.add('active');
-            if(window.innerWidth < 1024) toggleMobileMenu();
-        }
+    </div><!-- /pages -->
+  </div><!-- /content -->
+</div><!-- /app -->
 
-        // ===== CHARTS =====
-        const chartColors = {
-            green: '#1B5E20',
-            accent: '#4CAF50',
-            light: '#E8F5E9',
-            blue: '#1976D2',
-            orange: '#F57C00',
-            red: '#D32F2F',
-            gold: '#C5A572'
-        };
+<div class="modal-bg" id="modal-bg" onclick="if(event.target===this)closeMod()">
+  <div class="modal"><button onclick="closeMod()" style="float:right;background:none;border:none;color:var(--t2);cursor:pointer;font-size:16px">✕</button><div id="modal-c"></div></div>
+</div>
+<div id="toasts"></div>
 
-        // Avance General Chart
-        new Chart(document.getElementById('avanceChart'), {
-            type: 'bar',
-            data: {
-                labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
-                datasets: [{
-                    label: 'Área mantenida (Ha)',
-                    data: [1.1, 1.3, 1.2, 1.2],
-                    backgroundColor: chartColors.green,
-                    borderRadius: 6,
-                    barThickness: 40
-                }, {
-                    label: 'Meta (Ha)',
-                    data: [1.25, 1.25, 1.25, 1.25],
-                    backgroundColor: chartColors.gold,
-                    borderRadius: 6,
-                    barThickness: 40
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { family: 'Inter', size: 11 } } }
-                },
-                scales: {
-                    y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter', size: 11 } } },
-                    x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } }
-                }
-            }
-        });
+<script>
+// ═══════════ AUTH ════════════════════════════════════════
+const CREDS = {user:'MCastañeda', pass:'CampSou2026'};
+function doLogin(){
+  const u=document.getElementById('lg-user').value.trim();
+  const p=document.getElementById('lg-pass').value;
+  if(u===CREDS.user && p===CREDS.pass){
+    document.getElementById('login').style.opacity='0';
+    document.getElementById('login').style.transition='opacity .4s';
+    setTimeout(()=>{
+      document.getElementById('login').style.display='none';
+      document.getElementById('app').classList.add('ready');
+      initApp();
+    },400);
+  } else {
+    document.getElementById('lg-err').textContent='Usuario o contraseña incorrectos.';
+    const c=document.getElementById('lcard');
+    c.classList.remove('shake');
+    void c.offsetWidth;
+    c.classList.add('shake');
+    setTimeout(()=>document.getElementById('lg-err').textContent='',2500);
+  }
+}
 
-        // Tendencia Chart
-        new Chart(document.getElementById('tendenciaChart'), {
-            type: 'line',
-            data: {
-                labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Cumplimiento OT (%)',
-                    data: [78, 82, 85, 88, 90, 92],
-                    borderColor: chartColors.green,
-                    backgroundColor: 'rgba(27, 94, 32, 0.08)',
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: chartColors.green,
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5
-                }, {
-                    label: 'Meta (%)',
-                    data: [95, 95, 95, 95, 95, 95],
-                    borderColor: chartColors.gold,
-                    borderDash: [5, 5],
-                    fill: false,
-                    tension: 0,
-                    pointRadius: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'top', labels: { usePointStyle: true, padding: 20, font: { family: 'Inter', size: 11 } } }
-                },
-                scales: {
-                    y: { min: 60, max: 100, grid: { color: 'rgba(0,0,0,0.05)' }, ticks: { font: { family: 'Inter', size: 11 } } },
-                    x: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 11 } } }
-                }
-            }
-        });
+function logout(){
+  if(!confirm('¿Cerrar sesión?')) return;
+  document.getElementById('app').classList.remove('ready');
+  document.getElementById('app').style.display='none';
+  document.getElementById('login').style.display='flex';
+  document.getElementById('login').style.opacity='1';
+  document.getElementById('lg-user').value='';
+  document.getElementById('lg-pass').value='';
+}
 
-        // OT Status Doughnut
-        new Chart(document.getElementById('otStatusChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Completadas', 'En ejecución', 'Pendientes', 'Rechazadas'],
-                datasets: [{
-                    data: [42, 18, 8, 4],
-                    backgroundColor: [chartColors.green, chartColors.blue, chartColors.orange, chartColors.red],
-                    borderWidth: 0,
-                    hoverOffset: 8
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '65%',
-                plugins: {
-                    legend: { position: 'right', labels: { usePointStyle: true, padding: 15, font: { family: 'Inter', size: 11 } } }
-                }
-            }
-        });
+document.getElementById('lg-pass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 
-        // ===== ANIMATE PROGRESS BARS =====
-        setTimeout(() => {
-            document.querySelectorAll('.progress-fill').forEach(bar => {
-                const width = bar.style.width;
-                bar.style.width = '0%';
-                setTimeout(() => { bar.style.width = width; }, 100);
-            });
-        }, 500);
+// ═══════════ DATA ═════════════════════════════════════════
+const AREAS={
+  vc:[
+    {id:'VC-01',n:'Casa de visitas Suches 11',s:596,v:703,q:1,st:'activo'},
+    {id:'VC-02',n:'Casa de visitas Suches 12',s:254,v:629,q:1,st:'activo'},
+    {id:'VC-03',n:'CD12-2 Casa huéspedes, jardines',s:2040,v:2309,q:1,st:'activo'},
+    {id:'VC-04',n:'Casa de visitas Suches 10',s:254,v:402,q:1,st:'activo'},
+    {id:'VC-05',n:'Casas desocupadas (promedio 12)',s:6900,v:6900,q:1,st:'activo'},
+    {id:'VC-06',n:'Esquinas calle Tacna y Moquegua',s:290,v:290,q:1,st:'activo'},
+    {id:'VC-07',n:'Club de Golf, Cancha de césped',s:25800,v:30152,q:1,st:'activo'},
+    {id:'VC-08',n:'CD6-1 Casa Presidencia, jardines, huertos, bosque',s:7910,v:6332,q:1,st:'activo'},
+    {id:'VC-09',n:'Hotel CD13 interior',s:432,v:214,q:2,st:'activo'},
+    {id:'VC-10',n:'REC Piscina y comedor interior CD14',s:594,v:401,q:2,st:'activo'},
+    {id:'VC-11',n:'REC y hotel jardines exteriores',s:470,v:888,q:2,st:'activo'},
+    {id:'VC-12',n:'Calle Ilo, Cactuario',s:88,v:122,q:2,st:'activo'},
+    {id:'VC-13',n:'CD9 Calle Ilo, Andenería',s:125,v:263,q:2,st:'activo'},
+    {id:'VC-14',n:'Ciclovía',s:1841,v:2064,q:2,st:'activo'},
+    {id:'VC-15',n:'Gimnasio',s:136,v:130,q:2,st:'activo'},
+    {id:'VC-16',n:'Grifo y Ofic. Campamentos CD19',s:171,v:242,q:2,st:'activo'},
+    {id:'VC-17',n:'Mercantil frente al Grifo, andenería',s:126,v:166,q:2,st:'activo'},
+    {id:'VC-18',n:'Sama costado casa 301, bosque',s:50,v:105,q:2,st:'activo'},
+    {id:'VC-19',n:'Sector Yacango (Óvalo, árboles)',s:80,v:80,q:2,st:'activo'},
+    {id:'VC-20',n:'Vivero',s:0,v:0,q:2,st:'pendiente'},
+    {id:'VC-21',n:'Hospital',s:11204,v:11020,q:2,st:'activo'},
+    {id:'VC-22',n:'Casa de visitas Moquegua 28',s:373,v:373,q:2,st:'activo'},
+    {id:'VC-23',n:'Colegio JVC (costado casa 41)',s:193,v:193,q:2,st:'activo'},
+    {id:'VC-24',n:'Cerco vivo exterior calle Cuzco',s:120,v:322,q:2,st:'activo'},
+    {id:'VC-25',n:'Esquinas calle Torata y Tacna',s:386,v:245,q:2,st:'activo'},
+    {id:'VC-26',n:'Ingreso Villa Cuajone, bosque exterior',s:250,v:1976,q:2,st:'activo'},
+    {id:'VC-27',n:'Jardineras calle Torata',s:518,v:1045,q:2,st:'activo'},
+    {id:'VC-28',n:'Club de Golf, Cancha de Tierra (500 árboles)',s:0,v:0,q:1,st:'inactivo'},
+  ],
+  vb:[
+    {id:'VB-01',n:'CD30 Asuntos Internos, Jardineras',s:123,v:123,q:3,st:'activo'},
+    {id:'VB-02',n:'CD30 Comisaría PNP / Paradero, jardines',s:286,v:453,q:3,st:'activo'},
+    {id:'VB-03',n:'CD35 REC Centro de recreación',s:880,v:930,q:3,st:'activo'},
+    {id:'VB-04',n:'CD35 REC Centro de recreación, cactuario',s:25,v:25,q:3,st:'activo'},
+    {id:'VB-05',n:'Grifo Bencar, cactuario',s:30,v:30,q:3,st:'activo'},
+    {id:'VB-06',n:'Grifo Bencar, jardinera',s:50,v:50,q:3,st:'activo'},
+    {id:'VB-07',n:'Avenida Central, berma',s:230,v:230,q:3,st:'activo'},
+    {id:'VB-08',n:'Avenida Central, bermas laterales',s:402,v:402,q:3,st:'activo'},
+    {id:'VB-09',n:'CD22 Comedor, jardinería',s:124,v:122,q:3,st:'activo'},
+    {id:'VB-10',n:'CD22 y CD23, jardines',s:1841,v:1452,q:3,st:'activo'},
+    {id:'VB-11',n:'CD23 Residencial, andenería',s:374,v:521,q:3,st:'activo'},
+    {id:'VB-12',n:'Plaza "El Minero", andenería',s:1769,v:1485,q:3,st:'activo'},
+    {id:'VB-13',n:'Taller Recursos Hídricos sector B',s:40,v:40,q:3,st:'activo'},
+    {id:'VB-14',n:'Balanza logística ingreso concentradora',s:300,v:792,q:3,st:'activo'},
+    {id:'VB-15',n:'CD44 Edificio Administración, interior y exterior',s:1775,v:2002,q:3,st:'activo'},
+    {id:'VB-16',n:'Cancha de fútbol',s:6011,v:0,q:3,st:'inactivo'},
+  ],
+  co:[
+    {id:'CO-01',n:'Concentradora ingreso',s:0,v:58,q:3,st:'inactivo'},
+    {id:'CO-02',n:'Sector J, Cactuario al frente',s:40,v:40,q:3,st:'activo'},
+    {id:'CO-03',n:'Sector Plaza',s:1863,v:2404,q:3,st:'activo'},
+    {id:'CO-04',n:'Sector Plaza aledaños',s:1819,v:4397,q:3,st:'activo'},
+    {id:'CO-05',n:'Sector Plaza CD28 Cactuario',s:48,v:48,q:3,st:'activo'},
+    {id:'CO-06',n:'Sector Plaza CD28, Iglesia',s:277,v:277,q:3,st:'activo'},
+    {id:'CO-07',n:'Circuito Cuaternario',s:1050,v:977,q:3,st:'activo'},
+    {id:'CO-08',n:'Estacionamiento Metalurgia',s:150,v:645.7,q:4,st:'activo'},
+    {id:'CO-09',n:'Ingreso a concentradora',s:4100,v:2334,q:4,st:'activo'},
+    {id:'CO-10',n:'Laboratorio / Servicios Generales',s:290,v:638.4,q:4,st:'activo'},
+    {id:'CO-11',n:'Oficina Control Procesos y Metalurgia',s:960,v:1066,q:4,st:'activo'},
+    {id:'CO-12',n:'Óvalo cruce del Tren',s:130,v:634,q:4,st:'activo'},
+    {id:'CO-13',n:'Óvalo Ex Chancado primario',s:200,v:294,q:4,st:'activo'},
+    {id:'CO-14',n:'Pila de finos',s:1150,v:2018,q:4,st:'activo'},
+    {id:'CO-15',n:'Relaves',s:590,v:188,q:4,st:'activo'},
+    {id:'CO-16',n:'Taller de Mantenimiento',s:130,v:128.1,q:4,st:'activo'},
+    {id:'CO-17',n:'Taller Ex-Primaria',s:200,v:2134,q:4,st:'activo'},
+  ]
+};
 
-        // ===== REAL-TIME CLOCK =====
-        function updateClock() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
-            const dateStr = now.toLocaleDateString('es-PE', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-    </script>
+const IA_CTX=`Eres el Agente SIGAV, especialista en gestión de áreas verdes SPCC Mina Cuajone. Responde en español profesional y conciso.
+DATOS: Zonas: V.Cuajone 62401m²SPCC/68766campo · V.Botiflaca 18307/21892 · Concentradora 8950/11057 · TOTAL 89658/101715 dif+12057(+13.5%)
+Cuadrillas: C1(Apaza Yan Carlos)Golf+Presidencia · C2(Condori Teves Rosel)Central · C3(Condori Espinoza Erick)Botiflaca+Conc · C4(Roque Pari)Itinerante
+Jefatura: Ing.Castañeda(Jefe) · Ing.Miriam(Supervisora) · 60 áreas codificadas
+Top áreas: Club Golf 25800 · Hospital 11204 · Casa Presidencia 7910 · Casas desoc 6900 · Ingreso Conc 4100 · Ciclovía 1841 · CD44 Admin 1775 · Plaza Minero 1769
+Inactivas: Cancha Tierra Golf(instrucción Castañeda) · Cancha fútbol Botiflaca 6011m² · Concentradora ingreso
+Usa datos reales. Genera tablas cuando sea útil. Para cronogramas sé específico.`;
+
+// ═══════════ NAVIGATION ══════════════════════════════════
+const TITLES={panel:'Panel de Control',zonas:'Zonas y Áreas',cuadrillas:'Cuadrillas',
+  prog:'Programación',ejec:'Ejecución',comp:'Comparativo',ia:'Agente IA',inf:'Informes'};
+
+function goTo(id,el){
+  document.querySelectorAll('.mod').forEach(m=>m.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  document.getElementById('mod-'+id).classList.add('on');
+  el.classList.add('active');
+  document.getElementById('tb-cur').textContent=TITLES[id]||id;
+  if(id==='comp') initChartComp();
+  if(isMob()) closeSB();
+}
+
+// ═══════════ SIDEBAR TOGGLE ═══════════════════════════════
+function isMob(){return window.innerWidth<=768;}
+function toggleSB(){
+  const sb=document.getElementById('sidebar');
+  const ov=document.getElementById('sb-ov');
+  const btn=document.getElementById('sb-btn');
+  if(isMob()){
+    const op=sb.classList.toggle('open');
+    ov.style.display=op?'block':'none';
+    btn.textContent=op?'✕':'☰';
+  } else {
+    const sl=sb.classList.toggle('slim');
+    btn.textContent=sl?'☰':'✕';
+  }
+}
+function closeSB(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sb-ov').style.display='none';
+  document.getElementById('sb-btn').textContent='☰';
+}
+
+// ═══════════ CLOCK ════════════════════════════════════════
+function tick(){
+  const n=new Date();
+  const el=document.getElementById('clock');
+  if(el) el.textContent=n.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+}
+setInterval(tick,1000); tick();
+
+// ═══════════ KPI COUNTER ═════════════════════════════════
+function counter(id,target){
+  const el=document.getElementById(id);
+  if(!el)return;
+  let v=0;const dur=1300,step=14,inc=target/(dur/step);
+  const t=setInterval(()=>{
+    v+=inc; if(v>=target){v=target;clearInterval(t);}
+    el.textContent=Math.round(v).toLocaleString('es-PE');
+  },step);
+}
+
+// ═══════════ TABLES ═══════════════════════════════════════
+function buildTables(){
+  ['vc','vb','co'].forEach(z=>{
+    const tb=document.getElementById('t-'+z); if(!tb)return;
+    AREAS[z].forEach(a=>{
+      const d=a.v-a.s;
+      const dc=d>0?'color:var(--wa)':d<0?'color:var(--er)':'color:var(--t2)';
+      const ds=d!==0?(d>0?'+':'')+Math.round(d):'—';
+      const[sc,sl]=a.st==='activo'?['bg','● ACTIVO']:a.st==='inactivo'?['br','✖ INACT']:['ba','◌ PEND'];
+      tb.innerHTML+=`<tr>
+        <td class="tc">${a.id}</td><td class="tn">${a.n}</td>
+        <td class="tr">${a.s>0?a.s.toLocaleString('es-PE'):'—'}</td>
+        <td class="tr">${a.v>0?a.v.toLocaleString('es-PE'):'—'}</td>
+        <td class="tr" style="${dc}">${ds}</td>
+        <td class="tcc">C${a.q}</td>
+        <td><span class="bx ${sc}">${sl}</span></td>
+      </tr>`;
+    });
+  });
+}
+function filterTbl(id,q){
+  document.getElementById(id).querySelectorAll('tr').forEach(r=>{
+    r.style.display=r.textContent.toLowerCase().includes(q.toLowerCase())?'':'none';
+  });
+}
+function gSearch(q){/* global search placeholder */}
+
+// ═══════════ ZONE TABS ════════════════════════════════════
+function showZone(z){
+  ['vc','vb','co'].forEach(k=>{
+    document.getElementById('z-'+k).style.display=k===z?'block':'none';
+    document.getElementById('zt-'+k).className='ztab';
+  });
+  document.getElementById('zt-'+z).classList.add({vc:'zt-vc',vb:'zt-vb',co:'zt-co'}[z]);
+}
+
+// ═══════════ CALENDAR ═════════════════════════════════════
+const acts=JSON.parse(localStorage.getItem('sigav_acts')||'[]');
+function buildCal(){
+  const now=new Date();
+  const sow=new Date(now); sow.setDate(now.getDate()-((now.getDay()+6)%7));
+  const days=Array.from({length:7},(_,i)=>{const d=new Date(sow);d.setDate(d.getDate()+i);return d;});
+  const wEl=document.getElementById('cal-week');
+  if(wEl) wEl.textContent=days[0].toLocaleDateString('es-PE',{day:'numeric',month:'short'})+' — '+days[6].toLocaleDateString('es-PE',{day:'numeric',month:'short',year:'numeric'});
+  const cal=document.getElementById('cal-body'); if(!cal)return;
+  cal.innerHTML='';
+  const pre=[{d:0,c:'C1',t:'Golf·Corte'},{d:0,c:'C2',t:'Hospital·Riego'},
+    {d:2,c:'C3',t:'Plaza·Poda'},{d:3,c:'C3',t:'CD44·Riego'},{d:4,c:'C4',t:'Calles·Poda'}];
+  const clr={C1:'ce-g',C2:'ce-b',C3:'ce-a',C4:'ce-g'};
+  days.forEach((d,i)=>{
+    const cell=document.createElement('div'); cell.className='cal-day';
+    cell.innerHTML=`<div class="cal-dn">${d.getDate()}</div>`;
+    pre.filter(a=>a.d===i).forEach(a=>{
+      const ev=document.createElement('div');
+      ev.className=`cal-ev ${clr[a.c]||'ce-g'}`;
+      ev.textContent=`[${a.c}] ${a.t}`;
+      cell.appendChild(ev);
+    });
+    acts.filter(a=>a.dt===d.toISOString().split('T')[0]).forEach(a=>{
+      const ev=document.createElement('div');
+      ev.className=`cal-ev ${clr[a.c]||'ce-g'}`;
+      ev.textContent=`[${a.c}] ${a.tp}`;
+      cell.appendChild(ev);
+    });
+    cal.appendChild(cell);
+  });
+}
+function addAct(){
+  const c=document.getElementById('p-cuad').value;
+  const a=document.getElementById('p-area').value;
+  const tp=document.getElementById('p-tipo').value;
+  const dt=document.getElementById('p-fecha').value;
+  if(!c||!a||!dt){toast('Selecciona cuadrilla, área y fecha','a');return;}
+  acts.push({c,a,tp,dt});
+  localStorage.setItem('sigav_acts',JSON.stringify(acts));
+  const lst=document.getElementById('prog-list');
+  const div=document.createElement('div'); div.className='al al-g';
+  div.textContent=`✓ ${c} · ${a.split('·')[0].trim()} · ${tp} · ${dt}`;
+  lst.prepend(div);
+  buildCal();
+  toast('Actividad programada','g');
+}
+
+// ═══════════ EJECUCIÓN ════════════════════════════════════
+const ejecs=JSON.parse(localStorage.getItem('sigav_ejecs')||'[]');
+function saveEjec(){
+  const m2=document.getElementById('e-m2').value;
+  if(!m2){toast('Ingresa los m² ejecutados','a');return;}
+  const rec={
+    area:document.getElementById('e-area').value,
+    cuad:document.getElementById('e-cuad').value.split('—')[0].trim(),
+    tipo:document.getElementById('e-tipo').value,
+    m2, fecha:document.getElementById('e-fecha').value,
+    pers:document.getElementById('e-pers').value,
+    obs:document.getElementById('e-obs').value, ts:Date.now()
+  };
+  ejecs.unshift(rec);
+  localStorage.setItem('sigav_ejecs',JSON.stringify(ejecs.slice(0,60)));
+  const hi=document.createElement('div'); hi.className='hi';
+  hi.innerHTML=`<div class="hi-top"><span class="hi-name">${rec.area.split('·')[1]?.trim()||rec.area} · ${rec.tipo}</span><span class="bx bg">✓</span></div><div class="hi-meta">${rec.cuad} · ${Number(m2).toLocaleString()} m² · ${rec.fecha||'—'}</div>`;
+  document.getElementById('ejec-hist').prepend(hi);
+  toast('Ejecución registrada','g');
+}
+function clearHist(){
+  if(!confirm('¿Eliminar todo el historial de ejecuciones?'))return;
+  ejecs.length=0; localStorage.removeItem('sigav_ejecs');
+  document.getElementById('ejec-hist').innerHTML='<div style="color:var(--t2);padding:10px;font-size:12px">Sin registros.</div>';
+  toast('Historial eliminado','a');
+}
+function restoreEjecs(){
+  if(!ejecs.length)return;
+  const h=document.getElementById('ejec-hist'); h.innerHTML='';
+  ejecs.forEach(e=>{
+    const hi=document.createElement('div'); hi.className='hi';
+    hi.innerHTML=`<div class="hi-top"><span class="hi-name">${e.area?.split('·')[1]?.trim()||e.area} · ${e.tipo}</span><span class="bx bg">✓</span></div><div class="hi-meta">${e.cuad} · ${Number(e.m2).toLocaleString()} m² · ${e.fecha||'—'}</div>`;
+    h.appendChild(hi);
+  });
+}
+function trigPhoto(){document.getElementById('ph-in').click();}
+function loadPh(inp){
+  const g=document.getElementById('pgrid');
+  [...inp.files].slice(0,4).forEach((f,i)=>{
+    const r=new FileReader(); r.onload=e=>{
+      const s=g.children[i]; if(s){s.innerHTML=`<img src="${e.target.result}">`;}
+    }; r.readAsDataURL(f);
+  });
+}
+function exportCSV(){
+  if(!ejecs.length){toast('Sin registros para exportar','a');return;}
+  const h='Área,Cuadrilla,Actividad,m²,Fecha,Personal,Obs\n';
+  const rows=ejecs.map(e=>`"${e.area}","${e.cuad}","${e.tipo}",${e.m2},"${e.fecha}","${e.pers}","${e.obs}"`).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([h+rows],{type:'text/csv'}));
+  a.download='SIGAV_Ejecuciones.csv'; a.click();
+  toast('CSV exportado','g');
+}
+
+// ═══════════ CHARTS ══════════════════════════════════════
+const CCFG={
+  plugins:{legend:{labels:{color:'#7a96c4',font:{family:'Plus Jakarta Sans',size:11}}}},
+  scales:{x:{ticks:{color:'#3d5478'},grid:{color:'rgba(28,43,68,.5)'}},
+          y:{ticks:{color:'#3d5478'},grid:{color:'rgba(28,43,68,.5)'}}},
+  responsive:true,maintainAspectRatio:false
+};
+function initChartPanel(){
+  const ctx=document.getElementById('chPanel'); if(!ctx||ctx._i)return; ctx._i=true;
+  new Chart(ctx,{type:'bar',data:{
+    labels:['Villa Cuajone','Villa Botiflaca','Concentradora'],
+    datasets:[
+      {label:'SPCC (m²)',data:[62401,18307,8950],backgroundColor:'rgba(45,212,160,.7)',borderColor:'#2dd4a0',borderWidth:1},
+      {label:'Campo (m²)',data:[68766,21892,11057],backgroundColor:'rgba(246,166,35,.5)',borderColor:'#f6a623',borderWidth:1}
+    ]
+  },options:CCFG});
+}
+let cInit=false;
+function initChartComp(){
+  if(cInit)return; cInit=true;
+  const c1=document.getElementById('chComp');
+  const c2=document.getElementById('chDon');
+  if(c1) new Chart(c1,{type:'bar',data:{
+    labels:['Villa Cuajone','Villa Botiflaca','Concentradora'],
+    datasets:[
+      {label:'SPCC',data:[62401,18307,8950],backgroundColor:'rgba(75,124,243,.8)'},
+      {label:'Campo',data:[68766,21892,11057],backgroundColor:'rgba(246,166,35,.65)'}
+    ]
+  },options:{...CCFG,responsive:true,maintainAspectRatio:false}});
+  if(c2) new Chart(c2,{type:'doughnut',data:{
+    labels:['Villa Cuajone','Villa Botiflaca','Concentradora'],
+    datasets:[{data:[62401,18307,8950],
+      backgroundColor:['rgba(45,212,160,.8)','rgba(75,124,243,.8)','rgba(246,166,35,.8)'],
+      borderColor:'#0d1228',borderWidth:2}]
+  },options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{color:'#7a96c4',font:{family:'Plus Jakarta Sans',size:11}}}}}});
+}
+
+// ═══════════ AI CHAT ══════════════════════════════════════
+let conv=JSON.parse(localStorage.getItem('sigav_conv')||'[]');
+let chatLog=JSON.parse(localStorage.getItem('sigav_log')||'[]');
+function saveChat(){
+  try{localStorage.setItem('sigav_conv',JSON.stringify(conv.slice(-30)));
+      localStorage.setItem('sigav_log',JSON.stringify(chatLog.slice(-30)));}catch(e){}
+}
+function restoreChat(){
+  if(!chatLog.length)return;
+  const msgs=document.getElementById('chatMsgs');
+  msgs.innerHTML='';
+  chatLog.forEach(m=>{
+    const d=document.createElement('div');
+    d.className=`msg msg-${m.r}`;
+    d.innerHTML=m.h; msgs.appendChild(d);
+  });
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function clearChat(){
+  if(!confirm('¿Reiniciar conversación?'))return;
+  conv=[];chatLog=[];
+  localStorage.removeItem('sigav_conv');localStorage.removeItem('sigav_log');
+  document.getElementById('chatMsgs').innerHTML=`<div class="msg msg-ai">💬 Conversación reiniciada. <strong>Agente SIGAV</strong> listo.</div>`;
+  toast('Conversación reiniciada','a');
+}
+function rTxt(t){
+  return t.replace(/\n/g,'<br>')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/`(.*?)`/g,'<code style="font-family:var(--fm);background:var(--c0);padding:1px 5px;border-radius:3px;font-size:11px">$1</code>');
+}
+function addMsg(role,text){
+  const msgs=document.getElementById('chatMsgs');
+  const d=document.createElement('div');
+  d.className=`msg msg-${role}`;
+  const h=rTxt(text); d.innerHTML=h;
+  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
+  chatLog.push({r:role,h}); saveChat(); return d;
+}
+function addThink(){
+  const msgs=document.getElementById('chatMsgs');
+  const d=document.createElement('div');
+  d.className='msg msg-ai thinking';
+  d.innerHTML='<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+  msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; return d;
+}
+async function sendChat(){
+  const inp=document.getElementById('chatInp');
+  const txt=inp.value.trim(); if(!txt)return;
+  addMsg('usr',txt); inp.value='';
+  conv.push({role:'user',content:txt});
+  const th=addThink();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
+        system:IA_CTX,messages:conv})
+    });
+    const d=await res.json(); th.remove();
+    const reply=d.content?.[0]?.text||'Sin respuesta del servidor.';
+    addMsg('ai',reply); conv.push({role:'assistant',content:reply}); saveChat();
+  }catch(e){th.remove();addMsg('ai','⚠️ Error de conexión. Verifica el acceso a internet.');}
+}
+function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
+function doSugg(btn){document.getElementById('chatInp').value=btn.textContent;sendChat();}
+
+// ═══════════ INFORMES ════════════════════════════════════
+function genInf(){
+  const tipo=document.getElementById('inf-tipo').value;
+  const dest=document.getElementById('inf-dest').value;
+  const autor=document.getElementById('inf-autor').value;
+  const fecha=new Date().toLocaleDateString('es-PE',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('rpt-prev').innerHTML=`
+    <div style="border-bottom:2px solid #1a2744;padding-bottom:10px;margin-bottom:12px">
+      <div style="font-size:9px;color:#888;letter-spacing:1px;font-family:monospace">SOUTHERN PERU COPPER CORPORATION · ÁREA DE CAMPAMENTOS · MINA CUAJONE</div>
+      <div style="font-size:18px;font-weight:800;color:#111;margin:3px 0;letter-spacing:.5px">${tipo.toUpperCase()}</div>
+      <div style="font-size:10px;color:#666">Por: ${autor} · ${fecha}</div>
+      <div style="font-size:10px;color:#666">Para: ${dest}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:5px;padding:8px">
+        <div style="font-size:9px;color:#16a34a;font-weight:700">m² GESTIONADOS</div>
+        <div style="font-size:20px;font-weight:900;color:#111">89,658</div>
+      </div>
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:5px;padding:8px">
+        <div style="font-size:9px;color:#d97706;font-weight:700">ÁREAS ACTIVAS</div>
+        <div style="font-size:20px;font-weight:900;color:#111">57 / 60</div>
+      </div>
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:5px;padding:8px">
+        <div style="font-size:9px;color:#2563eb;font-weight:700">CUADRILLAS</div>
+        <div style="font-size:20px;font-weight:900;color:#111">4 activas</div>
+      </div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:10px">
+      <thead><tr style="background:#1a2744"><th style="padding:5px 7px;text-align:left;color:#fff">Zona</th><th style="padding:5px 7px;text-align:right;color:#fff">m² SPCC</th><th style="padding:5px 7px;text-align:right;color:#fff">m² Campo</th><th style="padding:5px 7px;text-align:right;color:#fff">Diferencia</th><th style="padding:5px 7px;text-align:center;color:#fff">Estado</th></tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #e5e7eb"><td style="padding:5px 7px">Villa Cuajone</td><td style="padding:5px 7px;text-align:right">62,401</td><td style="padding:5px 7px;text-align:right">68,766</td><td style="padding:5px 7px;text-align:right;color:#d97706">+6,365</td><td style="padding:5px 7px;text-align:center;color:#16a34a">✓ ACTIVA</td></tr>
+        <tr style="border-bottom:1px solid #e5e7eb;background:#f9f9f9"><td style="padding:5px 7px">Villa Botiflaca</td><td style="padding:5px 7px;text-align:right">18,307</td><td style="padding:5px 7px;text-align:right">21,892</td><td style="padding:5px 7px;text-align:right;color:#d97706">+3,585</td><td style="padding:5px 7px;text-align:center;color:#16a34a">✓ ACTIVA</td></tr>
+        <tr style="border-bottom:1px solid #e5e7eb"><td style="padding:5px 7px">Concentradora</td><td style="padding:5px 7px;text-align:right">8,950</td><td style="padding:5px 7px;text-align:right">11,057</td><td style="padding:5px 7px;text-align:right;color:#d97706">+2,107</td><td style="padding:5px 7px;text-align:center;color:#16a34a">✓ ACTIVA</td></tr>
+        <tr style="background:#eef1f8;font-weight:700"><td style="padding:5px 7px">TOTAL</td><td style="padding:5px 7px;text-align:right">89,658</td><td style="padding:5px 7px;text-align:right">101,715</td><td style="padding:5px 7px;text-align:right;color:#d97706">+12,057</td><td></td></tr>
+      </tbody>
+    </table>
+    <div style="font-size:9px;color:#aaa;border-top:1px solid #e5e7eb;padding-top:7px">SIGAV — Sistema Inteligente de Gestión de Áreas Verdes · ${fecha}</div>`;
+  toast('Informe generado','g');
+}
+
+// ═══════════ TOAST ════════════════════════════════════════
+function toast(msg,type='g'){
+  const c=document.getElementById('toasts');
+  const t=document.createElement('div');
+  t.className=`toast t${type}`;
+  t.textContent={g:'✓ ',a:'⚠ ',r:'✖ '}[type]||'● '+msg;
+  t.textContent={g:'✓',a:'⚠',r:'✖'}[type]+' '+msg;
+  c.appendChild(t);
+  setTimeout(()=>t.style.opacity='0',2400);
+  setTimeout(()=>t.remove(),2700);
+}
+
+// ═══════════ MODAL ════════════════════════════════════════
+function closeMod(){document.getElementById('modal-bg').classList.remove('open');}
+
+// ═══════════ INIT ═════════════════════════════════════════
+function initApp(){
+  buildTables(); buildCal(); initChartPanel();
+  counter('kv1',89658); counter('kv2',60); counter('kv3',4); counter('kv4',12057);
+  const hoy=new Date().toISOString().split('T')[0];
+  ['e-fecha','p-fecha','inf-d1','inf-d2'].forEach(id=>{
+    const el=document.getElementById(id); if(el)el.value=hoy;
+  });
+  restoreChat();
+  restoreEjecs();
+}
+</script>
 </body>
 </html>
