@@ -927,7 +927,7 @@ input[type=range]:focus{box-shadow:none}
               <!-- Metadatos -->
               <div class="fg" style="grid-template-columns:1fr">
                 <div class="fgr"><label class="fl">Dirigido a</label><input class="fi" type="text" id="rep-dir" value="Christian Castañeda · Jefe de Campamentos"></div>
-                <div class="fgr"><label class="fl">Elaborado por</label><input class="fi" type="text" id="rep-autor" value="René J. Coayla Causillas · Especialista Analítica"></div>
+                <div class="fgr"><label class="fl">Elaborado por</label><input class="fi" type="text" id="rep-autor" value="René J. Coayla Causillas · Operador SIGAV"></div>
                 <div class="fgr"><label class="fl">Observaciones adicionales</label><textarea class="fi" id="rep-obs" rows="2" placeholder="Contexto, incidencias del período..."></textarea></div>
               </div>
 
@@ -964,16 +964,6 @@ input[type=range]:focus{box-shadow:none}
           </div>
         </div>
 
-        <!-- Vista previa del informe -->
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title"><div class="ct-dot"></div>Vista Previa del Informe</div>
-            <div style="font-size:11px;color:var(--txt3)" id="rep-timestamp"></div>
-          </div>
-          <div class="card-body" style="min-height:400px;padding:0" id="rep-preview">
-            <div class="empty" style="padding:60px 20px"><div class="empty-ico" style="font-size:40px">📋</div><p>Configure las opciones y haga clic en <strong>"Generar Informe"</strong></p></div>
-          </div>
-        </div>
       </div>
 
       <!-- ═══ DATABASE KPIs ═══ -->
@@ -1099,7 +1089,7 @@ input[type=range]:focus{box-shadow:none}
                     <div class="fgr"><label class="fl">Nombre del sistema</label><input class="fi" id="cfg-sys-name" value="SIGAV · Áreas Verdes SPCC"></div>
                     <div class="fgr"><label class="fl">Jefe de Campamentos</label><input class="fi" id="cfg-jefe" value="Christian Castañeda"></div>
                     <div class="fgr"><label class="fl">Supervisora de Áreas Verdes</label><input class="fi" id="cfg-sup" value="Miriam Purizaca"></div>
-                    <div class="fgr"><label class="fl">Especialista Analítica</label><input class="fi" id="cfg-analista" value="René J. Coayla Causillas"></div>
+                    <div class="fgr"><label class="fl">Operador SIGAV</label><input class="fi" id="cfg-analista" value="René J. Coayla Causillas"></div>
                     <div class="fgr"><label class="fl">Empresa</label><input class="fi" id="cfg-empresa" value="SPCC · Southern Peru Copper Corporation"></div>
                     <div class="fgr"><label class="fl">Ubicación</label><input class="fi" id="cfg-loc" value="Mina Cuajone · Moquegua, Perú"></div>
                     <div class="fgr"><label class="fl">Versión</label><input class="fi" value="v7.0 · 2026" readonly style="opacity:.6"></div>
@@ -1307,7 +1297,7 @@ function save() { try { localStorage.setItem(STORE,JSON.stringify(S)); } catch(e
 ═══════════════════════════════════ */
 const USERS=[
   {user:'admin',pass:'spcc2026',name:'Administrador SPCC',role:'Administrador'},
-  {user:'rene',pass:'rene2026',name:'René J. Coayla Causillas',role:'Especialista Analítica'},
+  {user:'rene',pass:'rene2026',name:'René J. Coayla Causillas',role:'Operador SIGAV'},
   {user:'miriam',pass:'miriam26',name:'Miriam Purizaca',role:'Supervisora Áreas Verdes'},
   {user:'christian',pass:'christian26',name:'Christian Castañeda',role:'Jefe de Campamentos'},
 ];
@@ -2632,14 +2622,11 @@ async function generarReporteProfesional(){
   const dir=document.getElementById('rep-dir').value;
   const autor=document.getElementById('rep-autor').value;
   const obs=document.getElementById('rep-obs').value.trim();
-  const preview=document.getElementById('rep-preview');
   const now=nowLima();
   const week=isoWeekNumber(now);
   const fecha=now.toLocaleDateString('es-PE',{weekday:'long',day:'2-digit',month:'long',year:'numeric'});
   const hora=now.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
   const mesActual=now.toLocaleDateString('es-PE',{month:'long',year:'numeric'});
-
-  preview.innerHTML=`<div style="padding:32px;text-align:center;color:var(--txt3)"><div style="font-size:32px;margin-bottom:12px">⏳</div><div style="font-size:14px;font-weight:600">Generando informe profesional con IA...</div><div style="font-size:12px;margin-top:6px">Compilando datos, gráficas y análisis</div></div>`;
 
   // Recolectar datos del sistema
   const m2Ej=calcM2Ejecutado();
