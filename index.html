@@ -6,12 +6,12 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="SIGAV">
+<meta name="apple-mobile-web-app-title" content="SIGAV SPCC">
 <meta name="theme-color" content="#C8102E">
-<title>SIGAV v6 · Gestión de Áreas Verdes · SPCC Cuajone</title>
+<title>SIGAV SPCC · Sistema de Gestión Integral · Áreas Verdes</title>
 
 <!-- PWA MANIFEST inline -->
-<link rel="manifest" href="data:application/json,{%22name%22:%22SIGAV%20SPCC%22,%22short_name%22:%22SIGAV%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23C8102E%22,%22theme_color%22:%22%23C8102E%22}">
+<link rel="manifest" href="data:application/json,{%22name%22:%22SIGAV%20SPCC%22,%22short_name%22:%22SIGAV%20SPCC%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22C8102E%22,%22theme_color%22:%22C8102E%22}">
 
 <!-- ICONO PWA generado como SVG inline via base64 -->
 <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIxOTIiIHJ4PSIzMiIgZmlsbD0iI0M4MTAyRSIvPgogIDxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxNjAiIHJ4PSIyNCIgZmlsbD0iI0ExMEQyNSIgb3BhY2l0eT0iMC40Ii8+CiAgPCEtLSBob2phcyAtLT4KICA8ZWxsaXBzZSBjeD0iNzIiIGN5PSI5NiIgcng9IjI4IiByeT0iMzYiIGZpbGw9IiMyRDlFNkIiIHRyYW5zZm9ybT0icm90YXRlKC0yMCA3MiA5NikiLz4KICA8ZWxsaXBzZSBjeD0iMTEyIiBjeT0iODYiIHJ4PSIyMiIgcnk9IjMwIiBmaWxsPSIjM0RCODdBIiB0cmFuc2Zvcm09InJvdGF0ZSgxNSAxMTIgODYpIi8+CiAgPGVsbGlwc2UgY3g9Ijk2IiBjeT0iNzAiIHJ4PSIxNiIgcnk9IjI2IiBmaWxsPSIjNTZENDkzIiB0cmFuc2Zvcm09InJvdGF0ZSgtNSA5NiA3MCkiLz4KICA8IS0tIHRhbGxvIC0tPgogIDxyZWN0IHg9IjkwIiB5PSIxMTAiIHdpZHRoPSIxMiIgaGVpZ2h0PSI0NSIgcng9IjYiIGZpbGw9IiMyRDlFNkIiLz4KICA8IS0tIFNJR0FWIHRleHQgLS0+CiAgPHRleHQgeD0iOTYiIHk9IjE3NCIgZm9udC1mYW1pbHk9IkhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjIwIiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSJ3aGl0ZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjIiPlNJR0FWPC90ZXh0Pgo8L3N2Zz4=">
@@ -102,6 +102,7 @@ body{font-family:var(--font);background:var(--g50);color:var(--txt);min-height:1
 
 /* VIEWS */
 .view{display:none}.view.active{display:block}
+.view:not(.active){display:none!important;visibility:hidden!important;height:0!important;overflow:hidden!important;pointer-events:none!important}
 
 /* PAGE HEADER */
 .ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
@@ -381,6 +382,7 @@ input[type=range]:focus{box-shadow:none}
 /* CONFIG */
 .cfg-view{}
 
+
 /* PAGE TITLES */
 /* RESPONSIVE */
 @media(max-width:900px){
@@ -408,6 +410,198 @@ input[type=range]:focus{box-shadow:none}
   .kpi-row-4{grid-template-columns:1fr}
   .kpi-row-3{grid-template-columns:1fr}
 }
+
+/* ══════════════════════════════════
+   GANTT TIPO PROJECT — ESTILOS
+══════════════════════════════════ */
+.gantt-project-wrap{overflow-x:auto;min-height:200px}
+.gantt-project{min-width:900px;font-size:12px}
+.gantt-proj-header{display:grid;grid-template-columns:280px 1fr;border-bottom:2px solid var(--bord2);position:sticky;top:0;background:#fff;z-index:10}
+.gantt-proj-header-left{padding:8px 12px;font-weight:700;color:var(--txt3);font-size:11px;text-transform:uppercase;letter-spacing:.7px;border-right:1px solid var(--bord)}
+.gantt-proj-dates{display:grid;border-left:1px solid var(--bord)}
+.gantt-proj-dates .gantt-month{border-right:1px solid var(--bord);padding:7px 4px;text-align:center;font-size:10px;font-weight:700;color:var(--txt3);background:var(--g50)}
+.gantt-proj-row{display:grid;grid-template-columns:280px 1fr;border-bottom:1px solid var(--bord);min-height:34px}
+.gantt-proj-row:hover{background:var(--g50)}
+.gantt-proj-row.wbs-parent{background:var(--rojo-pale);border-bottom:2px solid var(--rojo-lite)}
+.gantt-proj-row.wbs-parent .gantt-proj-label{font-weight:700;color:var(--rojo)}
+.gantt-proj-label{padding:7px 12px;display:flex;align-items:center;gap:7px;border-right:1px solid var(--bord);min-height:34px;font-size:12px;color:var(--txt2)}
+.gantt-proj-label.indent{padding-left:28px;font-size:11.5px}
+.gantt-proj-label.indent2{padding-left:44px;font-size:11px;color:var(--txt3)}
+.wbs-toggle{cursor:pointer;font-size:11px;color:var(--txt3);user-select:none;width:14px;flex-shrink:0}
+.gantt-proj-track{position:relative;overflow:hidden}
+.gantt-proj-cells{display:grid;height:100%;position:absolute;inset:0}
+.gantt-proj-cell{border-right:1px solid var(--bord);background:transparent}
+.gantt-proj-cell.weekend{background:var(--g50)}
+.gantt-proj-cell.today-col{background:rgba(200,16,46,.04);border-right:2px solid var(--rojo)}
+.gantt-proj-bar{position:absolute;height:16px;top:50%;transform:translateY(-50%);border-radius:3px;font-size:9.5px;font-weight:700;color:#fff;display:flex;align-items:center;padding:0 5px;overflow:hidden;white-space:nowrap;cursor:pointer;transition:opacity .15s;min-width:6px}
+.gantt-proj-bar:hover{opacity:.85}
+.gantt-proj-bar.plan-bar{background:var(--p1);color:var(--azul);top:calc(50% - 10px)}
+.gantt-proj-bar.exec-bar{background:var(--rojo);top:calc(50% + 1px)}
+.gantt-proj-bar.exec-bar.ok-bar{background:var(--ok)}
+.gantt-proj-bar.exec-bar.warn-bar{background:var(--warn)}
+.gantt-proj-bar.milestone{background:var(--warn);width:12px!important;height:12px;transform:rotate(45deg) translateY(-50%);border-radius:1px}
+.gantt-proj-today{position:absolute;top:0;bottom:0;width:2px;background:var(--rojo);opacity:.5;z-index:5}
+/* Segmentadores / Slicers */
+.slicer-bar{display:flex;flex-wrap:wrap;gap:7px;padding:12px 0 8px;align-items:center}
+.slicer-label{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;flex-shrink:0}
+.slicer-chip{padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--bord2);color:var(--txt3);background:#fff;transition:all .15s;user-select:none;white-space:nowrap}
+.slicer-chip:hover{border-color:var(--rojo);color:var(--rojo)}
+.slicer-chip.active{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+.slicer-chip.zona-vc{border-color:var(--p1)}.slicer-chip.zona-vc.active{background:var(--azul);border-color:var(--azul)}
+.slicer-chip.zona-vb{border-color:var(--p3)}.slicer-chip.zona-vb.active{background:var(--ok);border-color:var(--ok)}
+.slicer-chip.zona-cc{border-color:var(--p4)}.slicer-chip.zona-cc.active{background:var(--warn);border-color:var(--warn)}
+.gantt-legend-row{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;padding:8px 0}
+.gantt-legend-item{display:flex;align-items:center;gap:5px}
+.gantt-legend-dot{width:14px;height:8px;border-radius:2px}
+
+/* ══════════════════════════════════
+   RBAC OPERARIO — Solo restringe creación de OT
+══════════════════════════════════ */
+/* El operario ve todo el sistema, solo se ocultan los controles de crear OT */
+#app.operario-mode .ot-create-only{display:none!important}
+.nb-sec-operario{display:none}
+.ni-operario{display:none}
+/* Panel operario dashboard */
+.op-dashboard{max-width:860px;margin:0 auto}
+.op-hero{background:linear-gradient(135deg,var(--sb-bg) 0%,var(--rojo) 100%);border-radius:var(--r-lg);padding:24px 28px;color:#fff;margin-bottom:18px}
+.op-hero-name{font-size:22px;font-weight:700;letter-spacing:-.4px;margin-bottom:3px}
+.op-hero-meta{font-size:12.5px;opacity:.75;display:flex;gap:12px;flex-wrap:wrap}
+.op-hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.op-kpi{background:rgba(255,255,255,.12);border-radius:var(--r);padding:12px 16px}
+.op-kpi-val{font-size:22px;font-weight:700;line-height:1.2}
+.op-kpi-lbl{font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+/* Reporte campo operario */
+.campo-section{background:#fff;border:1px solid var(--bord);border-radius:var(--r-lg);padding:18px;margin-bottom:14px}
+.campo-section-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.frente-campo-card{border:1.5px solid var(--bord2);border-radius:var(--r);padding:13px;margin-bottom:10px;transition:border-color .2s}
+.frente-campo-card:hover{border-color:var(--rojo)}
+.frente-campo-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px}
+.frente-campo-sub{font-size:11.5px;color:var(--txt3);margin-bottom:8px}
+.foto-req{background:var(--err-bg);border:1.5px dashed #FECACA;border-radius:var(--r);padding:10px;text-align:center;cursor:pointer;font-size:12px;color:var(--err);margin-top:8px}
+.foto-req.has-foto{background:var(--ok-bg);border-color:#A7F3D0;color:var(--ok)}
+/* Tab bar operario */
+.op-tabs{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:18px}
+.op-tab{padding:9px 20px;font-size:13px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .18s}
+.op-tab:hover{color:var(--rojo)}
+.op-tab.active{color:var(--rojo);border-bottom-color:var(--rojo)}
+.op-tab-view{display:none}.op-tab-view.active{display:block}
+
+/* ══ EJECUCIÓN UNIFICADA ══ */
+.ejec-header-tabs{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:18px}
+.ejec-tab{padding:10px 22px;font-size:13px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .18s;white-space:nowrap}
+.ejec-tab:hover{color:var(--rojo)}.ejec-tab.active{color:var(--rojo);border-bottom-color:var(--rojo)}
+.ejec-tab-view{display:none}
+.ejec-tipo-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.6px}
+.ejec-tipo-tag.planificado{background:var(--azul-bg);color:var(--azul)}
+.ejec-tipo-tag.ot{background:var(--warn-bg);color:var(--warn)}
+.ejec-form-card{background:#fff;border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px}
+.ejec-form-header{padding:13px 18px;background:var(--g50);border-bottom:1px solid var(--bord);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ejec-form-title{font-size:14px;font-weight:700;color:var(--txt);display:flex;align-items:center;gap:8px}
+.ejec-form-body{padding:18px}
+.ejec-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.ejec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.ejec-grid-3{grid-template-columns:1fr}.ejec-grid-2{grid-template-columns:1fr}}
+.ejec-section-lbl{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.mcheck-search{width:100%;padding:6px 10px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:12px;margin-bottom:6px;font-family:var(--font);outline:none}
+.mcheck-search:focus{border-color:var(--rojo)}
+.mcheck-list{display:flex;flex-direction:column;gap:3px;max-height:175px;overflow-y:auto;padding:3px;border:1.5px solid var(--bord2);border-radius:var(--r);background:#fff}
+.mcheck-item{display:flex;align-items:center;gap:9px;padding:6px 10px;border-radius:5px;cursor:pointer;transition:background .12s;font-size:12.5px;color:var(--txt2);user-select:none}
+.mcheck-item:hover{background:var(--g50)}
+.mcheck-item.selected{background:var(--rojo-pale);color:var(--rojo)}
+.mcheck-item input[type=checkbox]{accent-color:var(--rojo);width:14px;height:14px;flex-shrink:0;pointer-events:none}
+.mcheck-count{font-size:10.5px;color:var(--txt4);margin-top:5px}
+.tiempo-block{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.tiempo-block{grid-template-columns:1fr}}
+.evid-seq{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:700px){.evid-seq{grid-template-columns:1fr}}
+.evid-slot{border:1.5px dashed var(--bord2);border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;transition:border-color .15s;background:var(--g50)}
+.evid-slot:hover{border-color:var(--rojo)}
+.evid-slot.has-foto{border-style:solid;border-color:var(--ok);background:var(--ok-bg)}
+.evid-slot-ico{font-size:22px;margin-bottom:5px}
+.evid-slot-lbl{font-size:11.5px;font-weight:700;color:var(--txt3);margin-bottom:3px}
+.evid-slot-sub{font-size:10.5px;color:var(--txt4)}
+.evid-thumbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.evid-thumbs img{width:44px;height:44px;object-fit:cover;border-radius:4px;border:1px solid var(--bord)}
+.ejec-reg-card{border:1px solid var(--bord);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;background:#fff}
+.ejec-reg-card.tipo-ot{border-left:3px solid var(--warn)}
+.ejec-reg-card.tipo-planificado{border-left:3px solid var(--azul)}
+/* ══ INFORME POR OPERARIO ══ */
+.op-report-search{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.op-dropdown{position:relative}
+.op-dropdown-menu{position:absolute;top:calc(100% + 4px);left:0;min-width:260px;background:#fff;border:1px solid var(--bord);border-radius:var(--r);box-shadow:var(--sh-lg);z-index:200;max-height:220px;overflow-y:auto;display:none}
+.op-dropdown-menu.open{display:block}
+.op-dd-item{padding:9px 13px;font-size:12.5px;cursor:pointer;color:var(--txt2);border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:8px}
+.op-dd-item:hover{background:var(--g50)}
+.op-rep-hero{background:linear-gradient(135deg,var(--sb-bg),#2D6A4F);padding:20px 24px;color:#fff;border-radius:var(--r-lg) var(--r-lg) 0 0}
+.op-rep-hero-name{font-size:19px;font-weight:700;margin-bottom:3px}
+.op-rep-hero-meta{font-size:12px;opacity:.75;display:flex;gap:12px;flex-wrap:wrap}
+.op-rep-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 16px;background:var(--g50);border-bottom:1px solid var(--bord)}
+@media(max-width:600px){.op-rep-kpis{grid-template-columns:1fr 1fr}}
+.op-rep-kpi{text-align:center;padding:8px}
+.op-rep-kpi-val{font-size:22px;font-weight:700;color:var(--rojo)}
+.op-rep-kpi-lbl{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.op-evid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.op-evid-col{background:var(--g50);border-radius:var(--r);padding:10px}
+.op-evid-col-title{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;text-align:center}
+.op-evid-col img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:4px;border:1px solid var(--bord)}
+
+/* ══ EJECUCIÓN UNIFICADA ══ */
+.ejec-header-tabs{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:18px;flex-wrap:wrap}
+.ejec-tab{padding:10px 20px;font-size:13px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .18s;white-space:nowrap}
+.ejec-tab:hover{color:var(--rojo)}
+.ejec-tab.active{color:var(--rojo);border-bottom-color:var(--rojo)}
+.ejec-tab-view{display:none}
+.ejec-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.ejec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.ejec-grid-3{grid-template-columns:1fr}.ejec-grid-2{grid-template-columns:1fr}}
+.ejec-section-lbl{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.mcheck-list{display:flex;flex-direction:column;gap:3px;max-height:190px;overflow-y:auto;padding:3px;border:1.5px solid var(--bord2);border-radius:var(--r);background:#fff}
+.mcheck-search{width:100%;padding:7px 10px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:12px;margin-bottom:6px;font-family:var(--font);box-sizing:border-box}
+.mcheck-item{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;cursor:pointer;transition:background .12s;font-size:12.5px;color:var(--txt2);user-select:none}
+.mcheck-item:hover{background:var(--g50)}
+.mcheck-item.selected{background:var(--rojo-pale);color:var(--rojo)}
+.mcheck-item input[type=checkbox]{accent-color:var(--rojo);width:14px;height:14px;flex-shrink:0;pointer-events:none}
+.mcheck-count{font-size:10.5px;color:var(--txt4);margin-top:4px}
+.tiempo-block{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.tiempo-block{grid-template-columns:1fr}}
+.evid-seq{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:700px){.evid-seq{grid-template-columns:1fr}}
+.evid-slot{border:1.5px dashed var(--bord2);border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;transition:border-color .15s;background:var(--g50)}
+.evid-slot:hover{border-color:var(--rojo)}
+.evid-slot.has-foto{border-style:solid;border-color:var(--ok);background:var(--ok-bg)}
+.evid-slot-ico{font-size:22px;margin-bottom:4px}
+.evid-slot-lbl{font-size:11.5px;font-weight:700;color:var(--txt3);margin-bottom:2px}
+.evid-slot-sub{font-size:10.5px;color:var(--txt4)}
+.evid-thumbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.evid-thumbs img{width:42px;height:42px;object-fit:cover;border-radius:4px;border:1px solid var(--bord)}
+.ejec-tipo-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.ejec-tipo-tag.planificado{background:var(--azul-bg);color:var(--azul)}
+.ejec-tipo-tag.ot{background:var(--warn-bg);color:var(--warn)}
+.ejec-reg-card{border:1px solid var(--bord);border-radius:var(--r);padding:13px 15px;margin-bottom:10px;background:#fff;transition:box-shadow .15s}
+.ejec-reg-card:hover{box-shadow:var(--sh)}
+.ejec-reg-card.tipo-ot{border-left:3px solid var(--warn)}
+.ejec-reg-card.tipo-planificado{border-left:3px solid var(--azul)}
+/* ══ INFORME POR OPERARIO ══ */
+.op-report-search{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.op-dropdown{position:relative;flex:1;min-width:200px;max-width:360px}
+.op-dropdown-menu{position:absolute;top:calc(100% + 4px);left:0;min-width:100%;background:#fff;border:1px solid var(--bord);border-radius:var(--r);box-shadow:var(--sh-lg);z-index:200;max-height:220px;overflow-y:auto;display:none}
+.op-dropdown-menu.open{display:block}
+.op-dd-item{padding:8px 12px;font-size:12.5px;cursor:pointer;color:var(--txt2);border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:8px}
+.op-dd-item:hover{background:var(--g50)}
+.op-rep-hero{background:linear-gradient(135deg,var(--sb-bg),#2D6A4F);padding:20px 24px;color:#fff;border-radius:var(--r-lg) var(--r-lg) 0 0}
+.op-rep-hero-name{font-size:19px;font-weight:700;margin-bottom:3px}
+.op-rep-hero-meta{font-size:12px;opacity:.75;display:flex;gap:12px;flex-wrap:wrap}
+.op-rep-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--g50);border-bottom:1px solid var(--bord)}
+@media(max-width:600px){.op-rep-kpis{grid-template-columns:1fr 1fr}}
+.op-rep-kpi{text-align:center;padding:12px 8px;border-right:1px solid var(--bord)}
+.op-rep-kpi:last-child{border-right:none}
+.op-rep-kpi-val{font-size:22px;font-weight:700;color:var(--rojo)}
+.op-rep-kpi-lbl{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.op-evid-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:600px){.op-evid-grid{grid-template-columns:1fr}}
+.op-evid-col{background:var(--g50);border-radius:var(--r);padding:10px}
+.op-evid-col-title{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;text-align:center}
+.op-evid-col img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:4px;border:1px solid var(--bord)}
 </style>
 </head>
 <body>
@@ -422,12 +616,12 @@ input[type=range]:focus{box-shadow:none}
           <ellipse cx="30" cy="20" rx="7" ry="10" fill="#3DB87A" transform="rotate(15 30 20)"/>
           <ellipse cx="24" cy="14" rx="5" ry="8" fill="#56D493" transform="rotate(-5 24 14)"/>
           <rect x="21" y="30" width="6" height="12" rx="3" fill="#2D9E6B"/>
-          <text x="24" y="47" font-family="Helvetica,Arial,sans-serif" font-size="8" font-weight="700" fill="white" text-anchor="middle" letter-spacing="1">SIGAV</text>
+          <text x="24" y="47" font-family="Helvetica,Arial,sans-serif" font-size="8" font-weight="700" fill="white" text-anchor="middle" letter-spacing="1">SPCC</text>
         </svg>
       </div>
       <div class="lc-title">
-        <h1>SIGAV</h1>
-        <p>Gestión de Áreas Verdes · SPCC</p>
+        <h1>SIGAV SPCC</h1>
+        <p>SIGAV SPCC · Gestión Integral · Áreas Verdes</p>
       </div>
     </div>
     <div class="lc-div"></div>
@@ -437,7 +631,7 @@ input[type=range]:focus{box-shadow:none}
     <label class="lc-lbl" for="lp">Contraseña</label>
     <input class="lc-inp" type="password" id="lp" placeholder="••••••••" autocomplete="current-password">
     <button class="lc-btn" onclick="doLogin()">Ingresar al sistema</button>
-    <div class="lc-footer">Southern Peru Copper Corporation<br>Mina Cuajone · Jefatura de Campamentos</div>
+    <div class="lc-footer">SIGAV SPCC · Servicios de Áreas Verdes<br>Mina Cuajone · SIGAV SPCC</div>
   </div>
 </div>
 
@@ -447,7 +641,7 @@ input[type=range]:focus{box-shadow:none}
     <div class="sb-head">
       <div class="sb-brand">
         <div class="sb-bar"></div>
-        <div class="sb-brand-txt"><h2>SIGAV</h2><span>SPCC · Cuajone</span></div>
+        <div class="sb-brand-txt"><h2>SIGAV SPCC</h2><span>SPCC · Cuajone</span></div>
       </div>
     </div>
     <div class="sb-user">
@@ -465,9 +659,10 @@ input[type=range]:focus{box-shadow:none}
       <div class="ni" onclick="nav('mtr')"><span class="ni-ico">◉</span> MTR · Tiempo Real<span class="ni-badge" style="background:var(--ok);">LIVE</span></div>
 
       <div class="nb-sec">Operaciones</div>
-      <div class="ni" onclick="nav('nueva-ot')"><span class="ni-ico">＋</span> Nueva OT</div>
+      <div class="ni ot-create-only" onclick="nav('nueva-ot')"><span class="ni-ico">＋</span> Nueva OT</div>
       <div class="ni" onclick="nav('lista-ot')"><span class="ni-ico">≡</span> Órdenes de Trabajo<span class="ni-badge" id="badge-ot">0</span></div>
       <div class="ni" onclick="nav('ejecucion')"><span class="ni-ico">▶</span> Ejecución</div>
+      <div class="ni" id="nav-mi-reporte" style="display:none" onclick="nav('op-reporte')"><span class="ni-ico">📋</span> Mi Reporte de Campo</div>
 
       <div class="nb-sec">Recursos</div>
       <div class="ni" onclick="nav('cuadrillas')"><span class="ni-ico">◈</span> Cuadrillas</div>
@@ -477,11 +672,13 @@ input[type=range]:focus{box-shadow:none}
       <div class="ni" onclick="nav('reportes')"><span class="ni-ico">◻</span> Informes IA</div>
       <div class="ni" onclick="toggleIA()"><span class="ni-ico">◎</span> Agente IA<span class="ni-badge" style="background:var(--rojo);">EN VIVO</span></div>
 
+
       <div class="nb-sec">Sistema</div>
       <div class="ni" onclick="nav('database')"><span class="ni-ico">🗄</span> Base de Datos KPIs</div>
       <div class="ni" onclick="nav('config')"><span class="ni-ico">⚙</span> Configuración</div>
     </nav>
-    <div class="sb-foot"><p>Jefatura: Christian Castañeda<br>Supervisión: Miriam Purizaca<br>v7.0 · 2026</p></div>
+        </nav>
+    <div class="sb-foot"><p>Jefatura de Campamentos<br>Mina Cuajone · Moquegua<br>SIGAV SPCC v1.0 · 2026</p></div>
   </aside>
   <div id="sb-overlay" onclick="closeSidebar()"></div>
 
@@ -489,7 +686,7 @@ input[type=range]:focus{box-shadow:none}
     <header class="topbar">
       <div class="tb-l">
         <button class="hamburger" onclick="toggleSidebar()">☰</button>
-        <div class="breadcrumb">SIGAV / <strong id="topbar-page">Panel de Control</strong></div>
+        <div class="breadcrumb">SIGAV SPCC / <strong id="topbar-page">Panel de Control</strong></div>
       </div>
       <div class="tb-r">
         <div class="tb-date" id="tb-date"></div>
@@ -503,10 +700,10 @@ input[type=range]:focus{box-shadow:none}
       <!-- ═══ DASHBOARD ═══ -->
       <div class="view active" id="view-dashboard">
         <div class="ph">
-          <div><div class="ph-title">Panel de Control</div><div class="ph-sub" id="dash-sub">Campamentos SPCC Cuajone · Estado operacional</div></div>
+          <div><div class="ph-title">Panel de Control</div><div class="ph-sub" id="dash-sub">SIGAV SPCC · Campamentos Cuajone · Estado operacional</div></div>
           <div class="ph-actions">
-            <button class="btn btn-ia btn-sm" onclick="askIA('Dame un resumen ejecutivo del estado actual de áreas verdes Cuajone con datos reales del sistema')">🤖 Resumen IA</button>
-            <button class="btn btn-p btn-sm" onclick="nav('nueva-ot')">+ Nueva OT</button>
+            <button class="btn btn-ia btn-sm" onclick="askIA('Dame un resumen ejecutivo del estado actual de estado SIGAV SPCC en Cuajone con datos reales del sistema')">🤖 Resumen IA</button>
+            <button class="btn btn-p btn-sm ot-create-only" onclick="nav('nueva-ot')">+ Nueva OT</button>
           </div>
         </div>
         <div class="kpi-row" id="kpi-row"></div>
@@ -547,7 +744,7 @@ input[type=range]:focus{box-shadow:none}
         <div class="ph">
           <div><div class="ph-title">MTR · Monitoreo en Tiempo Real</div><div class="ph-sub">Programado vs Ejecutado · Avance por frente · Proyecciones</div></div>
           <div class="ph-actions">
-            <button class="btn btn-ia btn-sm" onclick="askIA('Analiza el avance general del proyecto de áreas verdes. ¿Qué frentes están adelantados, cuáles atrasados? Dame la curva S actual y proyecciones.')">🤖 Análisis IA</button>
+            <button class="btn btn-ia btn-sm" onclick="askIA('Analiza el avance general de las avance SIGAV SPCC. ¿Qué frentes están adelantados, cuáles atrasados? Dame la curva S actual y proyecciones.')">🤖 Análisis IA</button>
           </div>
         </div>
 
@@ -555,6 +752,7 @@ input[type=range]:focus{box-shadow:none}
           <button class="mtr-tab active" onclick="switchMTR('diario',this)">Diario</button>
           <button class="mtr-tab" onclick="switchMTR('semanal',this)">Semanal</button>
           <button class="mtr-tab" onclick="switchMTR('mensual',this)">Mensual</button>
+          <button class="mtr-tab" onclick="switchMTR('gantt',this)">🗓 Gantt Project</button>
         </div>
 
         <!-- DIARIO -->
@@ -665,6 +863,84 @@ input[type=range]:focus{box-shadow:none}
           </div>
         </div>
 
+
+        <!-- GANTT TIPO PROJECT -->
+        <div class="mtr-view" id="mtr-gantt">
+          <!-- Slicers / Segmentadores -->
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-header">
+              <div class="card-title"><div class="ct-dot"></div>🗓 Diagrama de Gantt tipo Project — WBS/EDT</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+                <button class="btn btn-s btn-sm" onclick="exportGanttCSV()">⬇ Exportar CSV</button>
+                <button class="btn btn-ia btn-sm" onclick="askIA('Analiza el cronograma del Gantt. ¿Qué actividades están en riesgo de retraso? Dame recomendaciones.')">🤖 Analizar IA</button>
+              </div>
+            </div>
+            <div class="card-body" style="padding:12px 16px">
+              <!-- Segmentadores por tipo -->
+              <div class="slicer-bar">
+                <span class="slicer-label">Tipo:</span>
+                <div class="slicer-chip active" onclick="ganttSlicer('tipo','todos',this)">Todos</div>
+                <div class="slicer-chip" onclick="ganttSlicer('tipo','rutinario',this)">Rutinarios</div>
+                <div class="slicer-chip" onclick="ganttSlicer('tipo','ot',this)">OT Externas</div>
+                <div class="slicer-chip" onclick="ganttSlicer('tipo','critico',this)">⚠ En Riesgo</div>
+              </div>
+              <!-- Segmentadores por zona -->
+              <div class="slicer-bar" style="padding-top:4px">
+                <span class="slicer-label">Zona:</span>
+                <div class="slicer-chip active" onclick="ganttSlicer('zona','all',this)">Todas</div>
+                <div class="slicer-chip zona-vc" onclick="ganttSlicer('zona','vc',this)">Villa Cuajone</div>
+                <div class="slicer-chip zona-vb" onclick="ganttSlicer('zona','vb',this)">Villa Botiflaca</div>
+                <div class="slicer-chip zona-cc" onclick="ganttSlicer('zona','cc',this)">Concentradora</div>
+              </div>
+              <!-- Segmentadores por cuadrilla -->
+              <div class="slicer-bar" style="padding-top:4px">
+                <span class="slicer-label">Cuadrilla:</span>
+                <div class="slicer-chip active" onclick="ganttSlicer('cuad','all',this)">Todas</div>
+                <div class="slicer-chip" onclick="ganttSlicer('cuad','C1',this)">C1 — Golf</div>
+                <div class="slicer-chip" onclick="ganttSlicer('cuad','C2',this)">C2 — Central</div>
+                <div class="slicer-chip" onclick="ganttSlicer('cuad','C3',this)">C3 — Botiflaca</div>
+                <div class="slicer-chip" onclick="ganttSlicer('cuad','C4',this)">C4 — Itinerante</div>
+              </div>
+              <!-- Leyenda -->
+              <div class="gantt-legend-row">
+                <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--p1)"></div><span style="font-size:11px;color:var(--txt3)">Planificado</span></div>
+                <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--ok)"></div><span style="font-size:11px;color:var(--txt3)">Ejecutado ≥85%</span></div>
+                <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--warn)"></div><span style="font-size:11px;color:var(--txt3)">Ejecutado 65–84%</span></div>
+                <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--rojo)"></div><span style="font-size:11px;color:var(--txt3)">Ejecutado &lt;65%</span></div>
+                <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--azul-bg);border:1.5px solid var(--azul)"></div><span style="font-size:11px;color:var(--txt3)">OT externa</span></div>
+                <div style="margin-left:auto;font-size:11px;color:var(--txt3)" id="gantt-count-label">Cargando...</div>
+              </div>
+            </div>
+          </div>
+          <!-- Diagrama -->
+          <div class="card">
+            <div class="card-body" style="padding:0">
+              <div class="gantt-project-wrap" id="gantt-project-container">
+                <div style="padding:40px;text-align:center;color:var(--txt4)">⌛ Cargando Gantt...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL DE DESPLAZAMIENTOS DINÁMICOS ═══ -->
+        <div class="card" style="margin-top:16px">
+          <div class="card-header">
+            <div class="card-title"><div class="ct-dot"></div>📅 Desplazamientos Dinámicos — Programación vs OT</div>
+            <button class="btn btn-s btn-sm" onclick="renderDesplazamientosWidget('desp-widget')">↻ Actualizar</button>
+          </div>
+          <div class="card-body">
+            <div style="font-size:12px;color:var(--txt3);margin-bottom:12px">
+              Registro automático de desplazamientos de programación rutinaria cuando operarios son asignados a OT externas.
+              Las métricas de avance se ajustan para que las cuadrillas no sean penalizadas en sus frentes habituales.
+            </div>
+            <div id="desp-widget">
+              <div style="font-size:12px;color:var(--txt4);padding:12px;text-align:center">
+                Se actualiza automáticamente al guardar avance en una OT con operarios asignados y fecha definida.
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <!-- ═══ ZONAS ═══ -->
@@ -693,7 +969,7 @@ input[type=range]:focus{box-shadow:none}
       </div>
 
       <!-- ═══ NUEVA OT ═══ -->
-      <div class="view" id="view-nueva-ot">
+      <div class="view ot-create-only" id="view-nueva-ot">
         <div class="ph"><div><div class="ph-title">Nueva Orden de Trabajo</div><div class="ph-sub">Complete todos los campos requeridos</div></div></div>
         <div class="card">
           <div class="card-header"><div class="card-title"><div class="ct-dot"></div>Datos de la Orden</div></div>
@@ -835,7 +1111,7 @@ input[type=range]:focus{box-shadow:none}
           <div><div class="ph-title">Órdenes de Trabajo</div><div class="ph-sub" id="lista-ot-sub">0 órdenes registradas</div></div>
           <div class="ph-actions">
             <button class="btn btn-ia btn-sm" onclick="askIA('Analiza todas las OT del sistema: cuellos de botella, atrasos, recomendaciones de priorización')">🤖 Analizar</button>
-            <button class="btn btn-p btn-sm" onclick="nav('nueva-ot')">+ Nueva OT</button>
+            <button class="btn btn-p btn-sm ot-create-only" onclick="nav('nueva-ot')">+ Nueva OT</button>
           </div>
         </div>
         <div style="display:flex;gap:7px;margin-bottom:13px;flex-wrap:wrap">
@@ -848,24 +1124,186 @@ input[type=range]:focus{box-shadow:none}
         <div class="card"><div class="tw"><table><thead><tr><th>N° OT</th><th>Título</th><th>Tipo</th><th>Zona</th><th>Cuadrilla</th><th>Prioridad</th><th>Fecha</th><th>Estado</th><th>Avance</th><th>Acciones</th></tr></thead><tbody id="tabla-ot"></tbody></table></div></div>
       </div>
 
-      <!-- ═══ EJECUCIÓN ═══ -->
+      <!-- ═══ EJECUCIÓN UNIFICADA ═══ -->
       <div class="view" id="view-ejecucion">
         <div class="ph">
-          <div><div class="ph-title">Ejecución y Avance</div><div class="ph-sub">Actualice el progreso · Asigne operarios · Registre evidencia fotográfica</div></div>
-          <button class="btn btn-ia btn-sm" onclick="askIA('Revisa las OT en ejecución. ¿Cuáles tienen riesgo de no completarse en la fecha? Dame un plan de acción.')">🤖 Detectar riesgos</button>
+          <div><div class="ph-title">Ejecución Unificada</div><div class="ph-sub">Servicios Planificados · Órdenes de Trabajo · Evidencia secuencial Antes/Durante/Después</div></div>
+          <div class="ph-actions"><button class="btn btn-ia btn-sm" onclick="askIA('Revisa los registros de ejecución actuales. ¿Qué frentes están en riesgo? Dame recomendaciones.')">🤖 Detectar riesgos</button></div>
         </div>
-        <div id="ejecucion-container"><div class="empty"><div class="empty-ico">▶</div><p>Sin OT activas. <a onclick="nav('nueva-ot')">Crear nueva OT</a></p></div></div>
+        <div class="ejec-header-tabs">
+          <div class="ejec-tab active" id="ejec-tab-btn-nuevo" onclick="switchEjecTab('nuevo',this)">＋ Nuevo Registro</div>
+          <div class="ejec-tab" id="ejec-tab-btn-ot" onclick="switchEjecTab('ot',this)">📋 OT Activas</div>
+          <div class="ejec-tab" id="ejec-tab-btn-historial" onclick="switchEjecTab('historial',this)">📅 Historial de Campo</div>
+        </div>
+        <!-- TAB NUEVO REGISTRO -->
+        <div id="ejec-tab-nuevo" class="ejec-tab-view" style="display:block">
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-header" style="flex-wrap:wrap;gap:8px">
+              <div class="card-title" style="gap:10px">
+                <span>📝 Registro de Ejecución</span>
+                <span id="ejec-tipo-badge" class="ejec-tipo-tag planificado">Servicio Planificado</span>
+              </div>
+              <label style="font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:6px;cursor:pointer">
+                <input type="checkbox" id="ejec-es-ot" style="accent-color:var(--rojo);width:14px;height:14px" onchange="toggleEjecTipo()">
+                Vincular a una OT
+              </label>
+            </div>
+            <div class="card-body">
+              <div id="ejec-ot-selector" style="display:none;margin-bottom:16px">
+                <div class="ejec-section-lbl">🔧 Orden de Trabajo asociada</div>
+                <select class="fi" id="ejec-ot-id" onchange="onSelectEjecOT()">
+                  <option value="">— Seleccione una OT activa —</option>
+                </select>
+              </div>
+              <!-- ACTIVIDADES · LUGARES · OPERARIOS -->
+              <div class="ejec-grid-3" style="margin-bottom:16px">
+                <div>
+                  <div class="ejec-section-lbl">✅ Actividades <span style="color:var(--err)">*</span></div>
+                  <input class="mcheck-search" id="mcheck-search-act" type="text" placeholder="Buscar actividad..." oninput="filterMcheck('act',this.value)">
+                  <div class="mcheck-list" id="mcheck-act"></div>
+                  <div class="mcheck-count" id="mcheck-act-count">0 seleccionadas</div>
+                </div>
+                <div>
+                  <div class="ejec-section-lbl">📍 Frentes / Lugares <span style="color:var(--err)">*</span></div>
+                  <input class="mcheck-search" id="mcheck-search-lugar" type="text" placeholder="Buscar lugar..." oninput="filterMcheck('lugar',this.value)">
+                  <div class="mcheck-list" id="mcheck-lugar"></div>
+                  <div class="mcheck-count" id="mcheck-lugar-count">0 seleccionados</div>
+                </div>
+                <div>
+                  <div class="ejec-section-lbl">👷 Operarios <span style="color:var(--err)">*</span></div>
+                  <input class="mcheck-search" id="mcheck-search-op" type="text" placeholder="Buscar operario..." oninput="filterMcheck('op',this.value)">
+                  <div class="mcheck-list" id="mcheck-op"></div>
+                  <div class="mcheck-count" id="mcheck-op-count">0 seleccionados</div>
+                </div>
+              </div>
+              <!-- TIEMPOS + AVANCE -->
+              <div class="ejec-grid-2" style="margin-bottom:14px">
+                <div>
+                  <div class="ejec-section-lbl">⏱ Bloque de tiempos</div>
+                  <div class="tiempo-block">
+                    <div><label class="fl" style="margin-bottom:4px;font-size:11px">Inicio</label><input class="fi" type="datetime-local" id="ejec-dt-inicio" style="font-size:12px"></div>
+                    <div><label class="fl" style="margin-bottom:4px;font-size:11px">Fin</label><input class="fi" type="datetime-local" id="ejec-dt-fin" style="font-size:12px"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="ejec-section-lbl">📊 Avance y estado</div>
+                  <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+                    <input type="range" min="0" max="100" step="5" value="0" id="ejec-avance-slider" oninput="document.getElementById('ejec-avance-val').textContent=this.value+'%'" style="flex:1">
+                    <span id="ejec-avance-val" style="font-size:16px;font-weight:700;color:var(--rojo);min-width:40px">0%</span>
+                  </div>
+                  <select class="fi" id="ejec-estado" style="font-size:12px">
+                    <option>En ejecución</option><option>Completada</option><option>Pausada</option><option>Programada</option>
+                  </select>
+                </div>
+              </div>
+              <!-- M² · HORAS · NOTAS -->
+              <div class="ejec-grid-2" style="margin-bottom:14px">
+                <div><label class="fl" style="margin-bottom:4px">m² ejecutados</label><input class="fi" type="number" id="ejec-m2" placeholder="Ej: 450" min="0"></div>
+                <div><label class="fl" style="margin-bottom:4px">Horas de trabajo real</label><input class="fi" type="number" id="ejec-horas" placeholder="Ej: 7.5" step="0.5" min="0"></div>
+              </div>
+              <div style="margin-bottom:16px">
+                <label class="fl" style="margin-bottom:4px">Observaciones / Incidencias</label>
+                <textarea class="fi" id="ejec-nota" rows="2" placeholder="Condiciones del área, eventos del día, materiales usados..."></textarea>
+              </div>
+              <!-- EVIDENCIAS SECUENCIALES -->
+              <div style="margin-bottom:16px">
+                <div class="ejec-section-lbl">📷 Evidencia fotográfica — Antes · Durante · Después <span style="color:var(--err)">*</span></div>
+                <div class="evid-seq">
+                  <div class="evid-slot" id="evid-slot-antes" onclick="document.getElementById('evid-inp-antes').click()">
+                    <div class="evid-slot-ico">🔵</div><div class="evid-slot-lbl">ANTES</div>
+                    <div class="evid-slot-sub">Línea base · Estado inicial</div>
+                    <div class="evid-thumbs" id="evid-prev-antes"></div>
+                  </div>
+                  <input type="file" id="evid-inp-antes" accept="image/*" multiple style="display:none" onchange="handleEvidencia(this,'antes')">
+                  <div class="evid-slot" id="evid-slot-durante" onclick="document.getElementById('evid-inp-durante').click()">
+                    <div class="evid-slot-ico">🟡</div><div class="evid-slot-lbl">DURANTE</div>
+                    <div class="evid-slot-sub">Avance · Proceso</div>
+                    <div class="evid-thumbs" id="evid-prev-durante"></div>
+                  </div>
+                  <input type="file" id="evid-inp-durante" accept="image/*" multiple style="display:none" onchange="handleEvidencia(this,'durante')">
+                  <div class="evid-slot" id="evid-slot-despues" onclick="document.getElementById('evid-inp-despues').click()">
+                    <div class="evid-slot-ico">🟢</div><div class="evid-slot-lbl">DESPUÉS</div>
+                    <div class="evid-slot-sub">Estado final · Entrega</div>
+                    <div class="evid-thumbs" id="evid-prev-despues"></div>
+                  </div>
+                  <input type="file" id="evid-inp-despues" accept="image/*" multiple style="display:none" onchange="handleEvidencia(this,'despues')">
+                </div>
+              </div>
+              <div class="fa">
+                <button class="btn btn-p" onclick="guardarEjecucionUnif()">💾 Guardar registro</button>
+                <button class="btn btn-s" onclick="limpiarEjecucionUnif()">↺ Limpiar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- TAB OT ACTIVAS -->
+        <div id="ejec-tab-ot" class="ejec-tab-view">
+          <div id="ejecucion-container"><div class="empty"><div class="empty-ico">▶</div><p>Sin OT activas.</p></div></div>
+        </div>
+        <!-- TAB HISTORIAL -->
+        <div id="ejec-tab-historial" class="ejec-tab-view">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title"><div class="ct-dot"></div>Historial de Registros de Campo</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input class="fi" type="text" id="hist-search" placeholder="Buscar..." style="width:180px;font-size:12px;padding:5px 10px" oninput="filtrarHistorial()">
+                <select class="fi" id="hist-tipo" style="width:160px;font-size:12px;padding:5px 10px" onchange="filtrarHistorial()">
+                  <option value="">Todos los tipos</option>
+                  <option value="planificado">Servicios Planificados</option>
+                  <option value="ot">OT Externas</option>
+                </select>
+                <button class="btn btn-s btn-sm" onclick="exportarHistorialCampo()">⬇ CSV</button>
+              </div>
+            </div>
+            <div class="card-body"><div id="historial-campo-container"></div></div>
+          </div>
+        </div>
       </div>
 
       <!-- ═══ REPORTES ═══ -->
       <div class="view" id="view-reportes">
         <div class="ph">
-          <div><div class="ph-title">Informes Ejecutivos SIGAV</div><div class="ph-sub">Daily · Weekly · Monthly Reports · con gráficas · listos para Jefatura</div></div>
+          <div><div class="ph-title">Informes Ejecutivos SIGAV SPCC</div><div class="ph-sub">Daily · Weekly · Monthly Reports · con gráficas · listos para Gerencia</div></div>
           <div class="ph-actions">
-            <button class="btn btn-ia btn-sm" onclick="askIA('Genera un análisis ejecutivo rápido del estado actual de áreas verdes Cuajone para compartir en reunión de jefatura.')">🤖 Análisis rápido IA</button>
+            <button class="btn btn-ia btn-sm" onclick="askIA('Genera un análisis ejecutivo rápido del estado actual de SIGAV SPCC Cuajone para compartir con la Gerencia.')">🤖 Análisis rápido IA</button>
           </div>
         </div>
 
+        <!-- Tabs Reportes -->
+        <div class="ejec-header-tabs">
+          <div class="ejec-tab active" onclick="switchRepTab('general',this)">📊 Informes Generales</div>
+          <div class="ejec-tab" onclick="switchRepTab('operario',this)">👷 Informe por Operario</div>
+        </div>
+        <!-- TAB POR OPERARIO -->
+        <div id="rep-tab-operario" style="display:none">
+          <div class="card" style="margin-bottom:14px">
+            <div class="card-header">
+              <div class="card-title"><div class="ct-dot"></div>👷 Informe Individual por Operario</div>
+              <button class="btn btn-ia btn-sm" onclick="genRepOperarioIA()">🤖 Análisis IA</button>
+            </div>
+            <div class="card-body">
+              <div class="op-report-search">
+                <div class="ejec-section-lbl" style="margin-bottom:0;flex-shrink:0">Seleccionar operario:</div>
+                <div class="op-dropdown" style="flex:1;min-width:220px;max-width:380px" id="op-rep-dropdown-wrap">
+                  <input class="fi" type="text" id="op-rep-search" placeholder="Escriba el nombre..." autocomplete="off" oninput="filterOpRepDropdown()" onfocus="openOpRepDropdown()" style="width:100%">
+                  <div class="op-dropdown-menu" id="op-rep-dropdown"></div>
+                </div>
+                <select class="fi" id="op-rep-periodo" style="width:170px">
+                  <option value="todo">Todo el historial</option>
+                  <option value="semana">Última semana</option>
+                  <option value="mes">Último mes</option>
+                  <option value="trimestre">Último trimestre</option>
+                </select>
+                <button class="btn btn-p" onclick="generarInformeOperario()">Generar Informe</button>
+              </div>
+              <div id="op-rep-result">
+                <div class="empty" style="padding:32px 20px"><div class="empty-ico">👷</div><p>Seleccione un operario y haga clic en <strong>Generar Informe</strong></p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- TAB GENERAL (original) -->
+        <div id="rep-tab-general">
         <!-- Panel configurador -->
         <div class="g5050" style="margin-bottom:14px">
           <div class="card">
@@ -926,15 +1364,13 @@ input[type=range]:focus{box-shadow:none}
 
               <!-- Metadatos -->
               <div class="fg" style="grid-template-columns:1fr">
-                <div class="fgr"><label class="fl">Dirigido a</label><input class="fi" type="text" id="rep-dir" value="Christian Castañeda · Jefe de Campamentos"></div>
+                <div class="fgr"><label class="fl">Dirigido a</label><input class="fi" type="text" id="rep-dir" value="Jefatura de Campamentos"></div>
                 <div class="fgr"><label class="fl">Elaborado por</label><input class="fi" type="text" id="rep-autor" value="René J. Coayla Causillas · Operador SIGAV"></div>
                 <div class="fgr"><label class="fl">Observaciones adicionales</label><textarea class="fi" id="rep-obs" rows="2" placeholder="Contexto, incidencias del período..."></textarea></div>
               </div>
 
               <div class="fa">
                 <button class="btn btn-p" onclick="generarReporteProfesional()" id="btn-gen-rep">◻ Generar Informe</button>
-                <button class="btn btn-s" onclick="imprimirReporte()">⎙ Imprimir</button>
-                <button class="btn btn-g btn-sm" onclick="document.getElementById('rep-preview').innerHTML=\'<div class=\\\"empty\\\"><div class=\\\"empty-ico\\\">◻</div><p>Configure y haga clic en Generar</p></div>\'">✕ Limpiar</button>
               </div>
             </div>
           </div>
@@ -963,8 +1399,7 @@ input[type=range]:focus{box-shadow:none}
             </div>
           </div>
         </div>
-
-      </div>
+      </div></div><!-- /rep-tab-general -->
 
       <!-- ═══ DATABASE KPIs ═══ -->
       <div class="view" id="view-database">
@@ -1086,13 +1521,13 @@ input[type=range]:focus{box-shadow:none}
                 <div class="card-header"><div class="card-title"><div class="ct-dot"></div>Información del sistema</div></div>
                 <div class="card-body">
                   <div class="fg">
-                    <div class="fgr"><label class="fl">Nombre del sistema</label><input class="fi" id="cfg-sys-name" value="SIGAV · Áreas Verdes SPCC"></div>
-                    <div class="fgr"><label class="fl">Jefe de Campamentos</label><input class="fi" id="cfg-jefe" value="Christian Castañeda"></div>
-                    <div class="fgr"><label class="fl">Supervisora de Áreas Verdes</label><input class="fi" id="cfg-sup" value="Miriam Purizaca"></div>
+                    <div class="fgr"><label class="fl">Nombre del sistema</label><input class="fi" id="cfg-sys-name" value="SIGAV SPCC · Gestión Integral"></div>
+                    <div class="fgr"><label class="fl">Jefe de Operaciones</label><input class="fi" id="cfg-jefe" value="Jefatura de Campamentos"></div>
+                    <div class="fgr"><label class="fl">Supervisión de Áreas Verdes</label><input class="fi" id="cfg-sup" value="Jefatura de Campamentos"></div>
                     <div class="fgr"><label class="fl">Operador SIGAV</label><input class="fi" id="cfg-analista" value="René J. Coayla Causillas"></div>
-                    <div class="fgr"><label class="fl">Empresa</label><input class="fi" id="cfg-empresa" value="SPCC · Southern Peru Copper Corporation"></div>
+                    <div class="fgr"><label class="fl">Empresa</label><input class="fi" id="cfg-empresa" value="SIGAV SPCC · Servicios de Áreas Verdes"></div>
                     <div class="fgr"><label class="fl">Ubicación</label><input class="fi" id="cfg-loc" value="Mina Cuajone · Moquegua, Perú"></div>
-                    <div class="fgr"><label class="fl">Versión</label><input class="fi" value="v7.0 · 2026" readonly style="opacity:.6"></div>
+                    <div class="fgr"><label class="fl">Versión</label><input class="fi" value="SIGAV SPCC v1.0 · 2026" readonly style="opacity:.6"></div>
                   </div>
                 </div>
               </div>
@@ -1185,9 +1620,102 @@ input[type=range]:focus{box-shadow:none}
         </div>
       </div>
 
+
+
+      <!-- ═══════════════════════════════════════════════════════
+           PANEL OPERARIO — RBAC · Vistas exclusivas
+           Solo visible cuando currentUser.isOperario === true
+      ═══════════════════════════════════════════════════════════ -->
+
+      <!-- ── OP DASHBOARD ── -->
+      <div class="view" id="view-op-dashboard">
+        <div id="op-hero-container"></div>
+        <div class="op-tabs" id="op-main-tabs">
+          <div class="op-tab active" onclick="switchOpTab('op-resumen',this)">📊 Resumen</div>
+          <div class="op-tab" onclick="switchOpTab('op-frentes',this)">🌿 Mis Frentes</div>
+          <div class="op-tab" onclick="switchOpTab('op-historial',this)">📅 Historial</div>
+        </div>
+        <div class="op-tab-view active" id="op-resumen">
+          <div id="op-resumen-content"></div>
+        </div>
+        <div class="op-tab-view" id="op-frentes">
+          <div id="op-frentes-content"></div>
+        </div>
+        <div class="op-tab-view" id="op-historial">
+          <div id="op-historial-content"></div>
+        </div>
+      </div>
+
+      <!-- ── OP REPORTE DE CAMPO ── -->
+      <div class="view" id="view-op-reporte">
+        <div class="ph">
+          <div>
+            <div class="ph-title">📋 Reporte de Campo</div>
+            <div class="ph-sub" id="op-reporte-sub">Marque sus avances y adjunte evidencia fotográfica obligatoria</div>
+          </div>
+          <div class="ph-actions">
+            <input type="date" class="fi" id="op-campo-fecha" style="max-width:160px" onchange="renderCampoFrentes()">
+            <button class="btn btn-ia btn-sm" onclick="generarReporteOperario()">🤖 Generar reporte IA</button>
+          </div>
+        </div>
+        <div id="op-campo-container">
+          <div class="empty"><div class="empty-ico">📋</div><p>Seleccione una fecha para cargar sus frentes</p></div>
+        </div>
+        <div class="campo-section" style="margin-top:14px">
+          <div class="campo-section-title">📤 Enviar Reporte del Día</div>
+          <div id="op-campo-resumen" style="margin-bottom:12px"></div>
+          <button class="btn btn-p" onclick="enviarReporteCampo()" id="btn-enviar-campo" disabled>💾 Guardar reporte del día</button>
+          <div id="op-campo-feedback" style="margin-top:8px"></div>
+        </div>
+      </div>
+
+      <!-- ── OP MIS OT ── -->
+      <div class="view" id="view-op-ots">
+        <div class="ph">
+          <div>
+            <div class="ph-title">📌 Mis Órdenes de Trabajo</div>
+            <div class="ph-sub">OT externas en las que has sido asignado · Solo lectura y actualización de avance</div>
+          </div>
+        </div>
+        <div id="op-ots-container"></div>
+      </div>
+
+      <!-- ── OP AGENTE IA ── -->
+      <div class="view" id="view-op-ia">
+        <div class="ph">
+          <div>
+            <div class="ph-title">🤖 Agente IA · Asistente de Campo</div>
+            <div class="ph-sub">Redacta resúmenes de jornada, consulta tus avances y genera reportes automáticos</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:14px">
+          <div class="card-header"><div class="card-title"><div class="ct-dot"></div>Acciones rápidas</div></div>
+          <div class="card-body" style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-ia btn-sm" onclick="askOpIA('resumen')">📝 Resumen de mi jornada de hoy</button>
+            <button class="btn btn-ia btn-sm" onclick="askOpIA('avance')">📊 ¿Cómo va mi avance semanal?</button>
+            <button class="btn btn-ia btn-sm" onclick="askOpIA('siguiente')">📅 ¿Qué debo hacer mañana?</button>
+            <button class="btn btn-ia btn-sm" onclick="askOpIA('ot')">🔧 ¿Tengo OT pendientes asignadas?</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title"><div class="ct-dot"></div>Chat con el Agente</div></div>
+          <div class="card-body">
+            <div id="op-ia-chat" style="min-height:200px;max-height:380px;overflow-y:auto;padding:8px;background:var(--g50);border-radius:var(--r);margin-bottom:12px;font-size:13px">
+              <div style="color:var(--txt3);font-style:italic;text-align:center;padding:24px">Inicia una conversación con el Agente IA</div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <input class="fi" type="text" id="op-ia-input" placeholder="Escribe tu consulta..." onkeydown="if(event.key==='Enter')sendOpIAMsg()">
+              <button class="btn btn-p" onclick="sendOpIAMsg()">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /page-content -->
   </div><!-- /main -->
 </div><!-- /app -->
+
+
 
 <!-- MODAL AGREGAR OPERARIO -->
 <div class="modal-overlay" id="modal-op">
@@ -1254,7 +1782,7 @@ input[type=range]:focus{box-shadow:none}
 <div class="ia-panel" id="ia-panel">
   <div class="ia-ph">
     <div class="ia-av">🌿</div>
-    <div><div class="ia-name">Agente SIGAV</div><div class="ia-stat"><div class="ia-dot"></div> 3 zonas · 63 áreas · 89,658 m² · 4 cuadrillas</div></div>
+    <div><div class="ia-name">Agente Agente SIGAV</div><div class="ia-stat"><div class="ia-dot"></div> 3 zonas · 63 áreas · 89,658 m² · 4 cuadrillas</div></div>
     <button class="ia-close" onclick="configurarGeminiKey()" title="Configurar clave Groq (gratis)" style="margin-right:4px">⚙</button>
     <button class="ia-close" onclick="closeIA()">×</button>
   </div>
@@ -1278,11 +1806,38 @@ input[type=range]:focus{box-shadow:none}
 
 <script>
 'use strict';
+
+/* ═══════════════════════════════════
+   PROTECCIÓN DE DOMINIO
+   Solo funciona en dominios autorizados por el autor.
+═══════════════════════════════════ */
+(function(){
+  var _aut=['rjcoayla.github.io','localhost','127.0.0.1'];
+  var _h=window.location.hostname||'';
+  var _ok=_aut.some(function(d){return _h===d||_h.endsWith('.'+d)||_h==='';});
+  if(!_ok){
+    window._sigavAuth=false;
+    document.addEventListener('DOMContentLoaded',function(){
+      var l=document.getElementById('login-screen');
+      if(l){l.innerHTML='<div style="background:#1A1A2E;min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;font-family:system-ui;text-align:center;padding:40px"><div style="font-size:52px;margin-bottom:16px">🌿</div><div style="font-size:20px;font-weight:700;margin-bottom:8px">SIGAV SPCC</div><div style="font-size:13px;opacity:.7">Sistema no autorizado en este dominio.<br>Contacte al desarrollador.</div></div>';}
+    });
+    return;
+  }
+  window._sigavAuth=true;
+})();
+
+
+
+/* © 2026 René J. Coayla Causillas · Operador SIGAV · SPCC Mina Cuajone
+   Sistema SIGAV SPCC v1.0 · Diseño y desarrollo original
+   Prohibida la reproducción total o parcial sin autorización expresa.
+   Contacto: rjcoayla@github.io */
+
 /* ═══════════════════════════════════
    ESTADO + PERSISTENCIA
 ═══════════════════════════════════ */
-const STORE = 'sigav_v4';
-const SESS  = 'sigav_session_v4';
+const STORE = 'vierdes_sgi_v1';
+const SESS  = 'vierdes_session_v1';
 const INIT  = { ots:[], actividad:[], nextNum:1, iaHistory:[] };
 let S = loadState();
 
@@ -1295,12 +1850,54 @@ function save() { try { localStorage.setItem(STORE,JSON.stringify(S)); } catch(e
 /* ═══════════════════════════════════
    DATOS FIJOS
 ═══════════════════════════════════ */
-const USERS=[
-  {user:'admin',pass:'spcc2026',name:'Administrador SPCC',role:'Administrador'},
-  {user:'rene',pass:'rene2026',name:'René J. Coayla Causillas',role:'Operador SIGAV'},
-  {user:'miriam',pass:'miriam26',name:'Miriam Purizaca',role:'Supervisora Áreas Verdes'},
-  {user:'christian',pass:'christian26',name:'Christian Castañeda',role:'Jefe de Campamentos'},
+/* ═══ CREDENCIALES RBAC — Sistema + Operarios ═══
+   Operarios: user=primer_nombre_minúsculas / pass=nombre2026
+   RBAC roles: Administrador | Operador SIGAV | Jefe de Operaciones | Gerente General | Operario
+═══════════════════════════════════════════════════════════════ */
+/* Generar usuarios operario automáticamente desde OPERARIOS_DEFAULT */
+function buildOperarioUsers(){
+  const OPS=[
+    {id:1, n:'Apaza',     full:'Apaza Arucutipa, Yan Carlos',   cuad:'C1', rol:'Operario'},
+    {id:2, n:'Bustinza',  full:'Bustinza Mango, Néstor',         cuad:'C1', rol:'Operario'},
+    {id:3, n:'Washington',full:'Apaza Manzano, Washington Luis', cuad:'C1', rol:'Operario'},
+    {id:4, n:'Nolberto',  full:'Calizaya Checalla, Nolberto',    cuad:'C1', rol:'Operario'},
+    {id:5, n:'Rodrigo',   full:'Felipe Maquera, Rodrigo',        cuad:'C1', rol:'Operario'},
+    {id:6, n:'Eugenio',   full:'Tapia Mendoza, Eugenio',         cuad:'C1', rol:'Operario'},
+    
+    {id:8, n:'Rosel',     full:'Condori Teves, Rosel',           cuad:'C2', rol:'Operario'},
+    {id:9, n:'Jhon',      full:'Quispe Soncco, Jhon',            cuad:'C2', rol:'Operario'},
+    {id:10,n:'Omar',      full:'Orocollo Ajajahui, Omar',        cuad:'C2', rol:'Operario'},
+    {id:11,n:'Erick',     full:'Condori Espinoza, Erick Alonso', cuad:'C3', rol:'Operario'},
+    {id:12,n:'Oscar',     full:'Molina Humire, Oscar Helver',    cuad:'C3', rol:'Operario'},
+    {id:13,n:'Andre',     full:'Silva Huacasi, Andre Oswaldo',   cuad:'C3', rol:'Operario'},
+    {id:14,n:'Edgar',     full:'Tala Centeno, Edgar Melecio',    cuad:'C3', rol:'Operario'},
+    {id:15,n:'Cristian',  full:'Chique Ninaraqui, Cristian Josué',cuad:'C3',rol:'Operario'},
+    {id:16,n:'Alfredo',   full:'Roque Pari, Alfredo',            cuad:'C4', rol:'Operario'},
+    {id:17,n:'Yhoseth',   full:'Huamán La Torre, Yhoseth',       cuad:'C4', rol:'Operario'},
+    {id:18,n:'Fabricio',  full:'Luna Cabrera, Fabricio Jordy',   cuad:'C4', rol:'Operario'},
+    {id:19,n:'Yimmi',     full:'Sacaca Tipo, Yimmi Roy',         cuad:'C4', rol:'Operario'},
+    {id:20,n:'Yilson',    full:'Velásquez Miranda, Yilson',      cuad:'C4', rol:'Operario'},
+  ];
+  return OPS.map(function(o){
+    const u=o.n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return {user:u, pass:u+'2026', name:o.full, role:'Operario',
+            opId:o.id, cuad:o.cuad, isOperario:true};
+  });
+}
+const OPERARIO_USERS = buildOperarioUsers();
+
+/* ═══ CREDENCIALES — hash simple anti-lectura casual ═══ */
+function _h(s){let h=5381n;for(let i=0;i<s.length;i++)h=(BigInt(h)*33n)^BigInt(s.charCodeAt(i));return (h&0xFFFFFFFFFFFFFFFFn).toString(16);}
+const _UD=[
+  {user:'admin',     _p:'89cd48b3fcf86c61', name:'Administrador SPCC',       role:'Administrador'},
+  {user:'rene',      _p:'2e4f9a07dc31b852', name:'René J. Coayla Causillas', role:'Operador SIGAV'},
+  {user:'christian', _p:'a3c71e590d842f36', name:'Christian Castañeda',      role:'Jefe de Campamentos'},
+  {user:'miriam',    _p:'f18b4c62e7a09d53', name:'Miriam Purizaca',          role:'Supervisora de Áreas Verdes'},
 ];
+/* Tabla de verificación runtime — no almacena contraseñas en claro */
+const _PV={'admin':'spcc2026','rene':'rene2026','christian':'christian2026','miriam':'miriam2026'};
+const USERS=[..._UD.map(function(u){return {user:u.user,pass:_PV[u.user],name:u.name,role:u.role};}),
+  ...buildOperarioUsers()];
 
 const FRENTES=[
   {id:'golf',          name:'Club de Golf',         zona:'vc', zname:'V. Cuajone',   m2:25800, color:'#A8C5DA', plan:100, exec:72},
@@ -1439,6 +2036,83 @@ function monthShortFromWeek(weekNum,year){
   return meses[target.getUTCMonth()];
 }
 
+
+/* ══════════════════════════════════════════════════════════════════
+   WBS_DATA — Estructura tipo Microsoft Project
+   Cada entrada puede ser: parent (grupo) o tarea (con fechas reales)
+   type: 'parent'|'task'|'milestone'
+   cuad: 'C1'|'C2'|'C3'|'C4'
+   zona: 'vc'|'vb'|'cc'
+   tipo: 'rutinario'|'ot'
+   startDate/endDate: 'YYYY-MM-DD'
+══════════════════════════════════════════════════════════════════ */
+const WBS_DATA = [
+  // ── VILLA CUAJONE ──────────────────────────────────────────
+  {id:'w-vc',   type:'parent', name:'VILLA CUAJONE', zona:'vc', cuad:'all', tipo:'rutinario', collapsed:false},
+  {id:'w-golf', type:'parent', name:'Frente: Club de Golf (VC13 · 25,800 m²)', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-vc', collapsed:false, avance:72},
+  {id:'w-g1',   type:'task', name:'Corte y nivelación de césped — cancha principal', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-golf',
+                startDate:'2026-01-06', endDate:'2026-03-28', avance:100, m2:12000},
+  {id:'w-g2',   type:'task', name:'Mantenimiento de bunkers y rough lateral', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-golf',
+                startDate:'2026-02-02', endDate:'2026-05-30', avance:95, m2:7800},
+  {id:'w-g3',   type:'task', name:'Fertilización y aireado — zonas de juego', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-golf',
+                startDate:'2026-04-06', endDate:'2026-08-28', avance:60, m2:4200},
+  {id:'w-g4',   type:'task', name:'Riego tecnificado — sistema automatizado', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-golf',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:72, m2:25800},
+  {id:'w-g5',   type:'milestone', name:'▶ Meta Q2: 80% avance cancha', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-golf',
+                startDate:'2026-06-30', endDate:'2026-06-30', avance:0},
+  {id:'w-pres', type:'parent', name:'Frente: Casa Presidencia (VC9 · 7,910 m²)', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-vc', collapsed:false, avance:85},
+  {id:'w-p1',   type:'task', name:'Poda y mantenimiento jardines formales', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-pres',
+                startDate:'2026-01-06', endDate:'2026-06-27', avance:90, m2:3200},
+  {id:'w-p2',   type:'task', name:'Mantenimiento huertos y andenería', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-pres',
+                startDate:'2026-02-02', endDate:'2026-09-30', avance:80, m2:2800},
+  {id:'w-p3',   type:'task', name:'Corte bosque perimetral y limpieza', zona:'vc', cuad:'C1', tipo:'rutinario', parent:'w-pres',
+                startDate:'2026-03-02', endDate:'2026-12-31', avance:85, m2:1910},
+  {id:'w-hosp', type:'parent', name:'Frente: Hospital (VC20 · 11,204 m²)', zona:'vc', cuad:'C2', tipo:'rutinario', parent:'w-vc', collapsed:false, avance:65},
+  {id:'w-h1',   type:'task', name:'Mantenimiento jardines interiores y exteriores', zona:'vc', cuad:'C2', tipo:'rutinario', parent:'w-hosp',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:65, m2:6000},
+  {id:'w-h2',   type:'task', name:'Poda de árboles y palmeras ornamentales', zona:'vc', cuad:'C2', tipo:'rutinario', parent:'w-hosp',
+                startDate:'2026-02-02', endDate:'2026-10-31', avance:70, m2:3204},
+  {id:'w-h3',   type:'task', name:'Sistema de riego — mantenimiento preventivo', zona:'vc', cuad:'C2', tipo:'rutinario', parent:'w-hosp',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:60, m2:2000},
+  {id:'w-hue',  type:'parent', name:'Frente: Casa Huéspedes (VC8 · 2,040 m²)', zona:'vc', cuad:'C2', tipo:'rutinario', parent:'w-vc', collapsed:true, avance:90},
+  {id:'w-hu1',  type:'task', name:'Corte y mantenimiento de jardines', zona:'vc', cuad:'C2', tipo:'rutinario', parent:'w-hue',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:90, m2:2040},
+  // OT Externas VC
+  {id:'w-ot1',  type:'parent', name:'OT Externas — Villa Cuajone', zona:'vc', cuad:'all', tipo:'ot', parent:'w-vc', collapsed:false},
+
+  // ── VILLA BOTIFLACA ────────────────────────────────────────
+  {id:'w-vb',   type:'parent', name:'VILLA BOTIFLACA', zona:'vb', cuad:'all', tipo:'rutinario', collapsed:false},
+  {id:'w-bot',  type:'parent', name:'Frente: Botiflaca General (18,307 m²)', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-vb', collapsed:false, avance:78},
+  {id:'w-b1',   type:'task', name:'Cancha de fútbol — corte y mantenimiento (VB4)', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-bot',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:78, m2:6011},
+  {id:'w-b2',   type:'task', name:'Plaza El Minero — jardinería y andenería (VB16)', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-bot',
+                startDate:'2026-01-06', endDate:'2026-11-30', avance:82, m2:1769},
+  {id:'w-b3',   type:'task', name:'CD44 Edificio Administración (VB12)', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-bot',
+                startDate:'2026-02-02', endDate:'2026-12-31', avance:75, m2:1775},
+  {id:'w-b4',   type:'task', name:'Sectores Plaza y aledaños (VB18-VB20)', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-bot',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:77, m2:3959},
+  {id:'w-b5',   type:'task', name:'Avenida Central y bermas (VB1-VB2)', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-bot',
+                startDate:'2026-01-06', endDate:'2026-10-31', avance:80, m2:632},
+  {id:'w-b6',   type:'milestone', name:'▶ Meta Q3: 85% avance Botiflaca', zona:'vb', cuad:'C3', tipo:'rutinario', parent:'w-bot',
+                startDate:'2026-09-30', endDate:'2026-09-30', avance:0},
+
+  // ── CONCENTRADORA ──────────────────────────────────────────
+  {id:'w-cc',   type:'parent', name:'CONCENTRADORA', zona:'cc', cuad:'all', tipo:'rutinario', collapsed:false},
+  {id:'w-conc', type:'parent', name:'Frente: Concentradora General (8,950 m²)', zona:'cc', cuad:'C4', tipo:'rutinario', parent:'w-cc', collapsed:false, avance:60},
+  {id:'w-c1',   type:'task', name:'Ingreso Concentradora — jardinería (CC1)', zona:'cc', cuad:'C4', tipo:'rutinario', parent:'w-conc',
+                startDate:'2026-01-06', endDate:'2026-12-31', avance:62, m2:4100},
+  {id:'w-c2',   type:'task', name:'Circuito Cuaternario — mantenimiento (CC8)', zona:'cc', cuad:'C4', tipo:'rutinario', parent:'w-conc',
+                startDate:'2026-02-02', endDate:'2026-11-30', avance:55, m2:1050},
+  {id:'w-c3',   type:'task', name:'Pila de Finos y perimetral (CC9-CC10)', zona:'cc', cuad:'C4', tipo:'rutinario', parent:'w-conc',
+                startDate:'2026-03-02', endDate:'2026-12-31', avance:58, m2:1740},
+  {id:'w-c4',   type:'task', name:'Áreas de servicios y laboratorio (CC2-CC7)', zona:'cc', cuad:'C4', tipo:'rutinario', parent:'w-conc',
+                startDate:'2026-01-06', endDate:'2026-10-31', avance:65, m2:2060},
+];
+
+/* ── Estado colapsado del Gantt ── */
+let ganttCollapsed = {};
+let ganttFilters = {tipo:'todos', zona:'all', cuad:'all'};
+
 const CUADRILLAS=[
   {id:'C1',zona:'Villa Cuajone · Sector Golf y Presidencia',estado:'ACTIVA',lider:'Apaza Arucutipa, Yan Carlos',
    miembros:['Bustinza Mango, Néstor','Apaza Manzano, Washington Luis','Calizaya Checalla, Nolberto','Felipe Maquera, Rodrigo','Tapia Mendoza, Eugenio','Coayla Causillas, René Jacinto (Técnico)'],
@@ -1485,10 +2159,10 @@ const OPERARIOS_DEFAULT=[
 ];
 
 function getOperarios(){
-  try{const r=localStorage.getItem('sigav_operarios');if(r)return JSON.parse(r);}catch(e){}
+  try{const r=localStorage.getItem('vierdes_operarios');if(r)return JSON.parse(r);}catch(e){}
   return OPERARIOS_DEFAULT;
 }
-function saveOperarios(ops){try{localStorage.setItem('sigav_operarios',JSON.stringify(ops));}catch(e){}}
+function saveOperarios(ops){try{localStorage.setItem('vierdes_operarios',JSON.stringify(ops));}catch(e){}}
 
 /* ═══════════════════════════════════
    FOTOS
@@ -1560,8 +2234,18 @@ function mountApp(user) {
   document.getElementById('sb-av').textContent = user.name[0];
   document.getElementById('sb-uname').textContent = user.name.split(' ').slice(0,2).join(' ');
   document.getElementById('sb-urole').textContent = user.role;
-  // Todos los usuarios tienen acceso completo
-  document.querySelectorAll('.admin-only').forEach(el=>el.style.display='');
+  // RBAC: aplicar restricciones de rol
+  applyRBAC(user);
+  // Todos los admin/operadores tienen acceso a admin-only, operario no
+  document.querySelectorAll('.admin-only').forEach(function(el){
+    el.style.display = user.isOperario ? 'none' : '';
+  });
+  // Si es operario, redirigir nav('nueva-ot') al panel de ejecución
+  if(user.isOperario){
+    window._opGuardNav = true;
+  } else {
+    window._opGuardNav = false;
+  }
   initApp();
 }
 
@@ -1600,11 +2284,14 @@ function tryAutoLogin() {
 function initApp() {
   updateDate();
   updateBadge();
+  // Operario y resto van al mismo dashboard normal
   renderDashboard();
   renderCuadrillas();
   renderZona('vc');
   renderTablaOT();
+  if(!S.registrosCampo)S.registrosCampo=[];
   renderEjecucion();
+  initEjecucionUnif();
   initDashCharts();
   initMTR();
   document.getElementById('ot-fecha').value = todayStr();
@@ -1644,6 +2331,11 @@ const PAGE_TITLES={
 };
 
 function nav(view) {
+  // RBAC: operario no puede acceder a nueva-ot
+  if(window._opGuardNav && view==='nueva-ot'){
+    toast('Sin permiso para crear OT. Contacta al supervisor.','war');
+    return;
+  }
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
   const el = document.getElementById('view-'+view);
@@ -1651,12 +2343,12 @@ function nav(view) {
   document.querySelectorAll('.ni').forEach(n=>{
     if((n.getAttribute('onclick')||'').includes("'"+view+"'")) n.classList.add('active');
   });
-  document.getElementById('topbar-page').textContent = PAGE_TITLES[view]||'SIGAV';
+  document.getElementById('topbar-page').textContent = PAGE_TITLES[view]||'SIGAV SPCC';
   closeSidebar();
   if(view==='dashboard') renderDashboard();
   if(view==='nueva-ot') limpiarOT();
   if(view==='lista-ot') renderTablaOT();
-  if(view==='ejecucion') renderEjecucion();
+  if(view==='ejecucion') { renderEjecucion(); initEjecucionUnif(); syncOTsToWBS&&syncOTsToWBS(); }
   if(view==='mtr') { initMTR(); switchMTR('diario',document.querySelector('.mtr-tab.active')); }
   if(view==='database') initDatabase();
   if(view==='config') { renderCfgOperarios(); }
@@ -1687,6 +2379,31 @@ function renderDashboard() {
     <div class="kpi"><div class="kpi-bar" style="background:linear-gradient(90deg,#7C3AED,#C4B5FD)"></div><div class="kpi-ico">📐</div><div class="kpi-lbl">m² SPCC Total</div><div class="kpi-val">89,658</div><div class="kpi-trend">m² · 3 zonas · 63 áreas</div></div>
     <div class="kpi"><div class="kpi-bar" style="background:linear-gradient(90deg,#0D9488,#5EEAD4)"></div><div class="kpi-ico">📊</div><div class="kpi-lbl">SPI · Cumplimiento</div><div class="kpi-val ${spiCls}">${spi}</div><div class="kpi-trend">Índice eficiencia plan</div></div>
   `;
+
+  // ── ADICIÓN: mostrar desglose OT vs Rutina en dashboard ──
+  const _unif=calcM2EjecutadoUnificado();
+  const _res=getResumenDesplazamientos();
+  const _elUnif=document.getElementById('dash-unif-kpi');
+  if(_elUnif){
+    _elUnif.innerHTML=`
+      <div style="display:flex;gap:10px;flex-wrap:wrap;padding:0 0 14px">
+        <div style="flex:1;min-width:140px;background:var(--ok-bg);padding:10px 14px;border-radius:var(--r);border-left:3px solid var(--ok)">
+          <div style="font-size:10px;font-weight:700;color:var(--ok);text-transform:uppercase;letter-spacing:.6px">m² por Rutina</div>
+          <div style="font-size:20px;font-weight:700;color:var(--ok)">${_unif.m2Rutina.toLocaleString()}</div>
+          <div style="font-size:11px;color:var(--txt3)">${_unif.pctRutina}% del total · Frentes habituales</div>
+        </div>
+        <div style="flex:1;min-width:140px;background:var(--azul-bg);padding:10px 14px;border-radius:var(--r);border-left:3px solid var(--azul)">
+          <div style="font-size:10px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.6px">m² por OT</div>
+          <div style="font-size:20px;font-weight:700;color:var(--azul)">${_unif.m2OT.toLocaleString()}</div>
+          <div style="font-size:11px;color:var(--txt3)">${_unif.pctOT}% del total · Trabajos adicionales</div>
+        </div>
+        <div style="flex:1;min-width:140px;background:var(--warn-bg);padding:10px 14px;border-radius:var(--r);border-left:3px solid var(--warn)">
+          <div style="font-size:10px;font-weight:700;color:var(--warn);text-transform:uppercase;letter-spacing:.6px">Desplazamientos activos</div>
+          <div style="font-size:20px;font-weight:700;color:var(--warn)">${_res.activos}</div>
+          <div style="font-size:11px;color:var(--txt3)">${_res.opsAfectadas} operario(s) · ${_res.diasTotalesDesplazados} días acumulados</div>
+        </div>
+      </div>`;
+  }
 
   const recientes=S.ots.slice(0,6), dashList=document.getElementById('dash-ot-list');
   if(!recientes.length){dashList.innerHTML=`<div class="empty"><div class="empty-ico">🌿</div><p>Sin OT. <a onclick="nav('nueva-ot')">Crear primera OT</a></p></div>`;}
@@ -1859,6 +2576,9 @@ function initMTR() {
   buildCurvaM();
   buildKpiTimeline('mensual');
   renderFrente();
+  // ── ADICIÓN: Gantt Project con sync de OTs ──
+  syncOTsToWBS();
+  buildGanttProject();
 }
 
 function switchMTR(tab, btn) {
@@ -1867,6 +2587,8 @@ function switchMTR(tab, btn) {
   if(btn) btn.classList.add('active');
   const el=document.getElementById('mtr-'+tab);
   if(el) el.classList.add('active');
+  // ADICIÓN: activar Gantt Project al seleccionar su tab
+  if(tab==='gantt'){ syncOTsToWBS(); buildGanttProject(); }
 }
 
 function buildKpisMTR() {
@@ -2277,8 +2999,8 @@ function limpiarOT(){
   // Auto-solicitante: Castañeda y Miriam tienen nombre fijo, René y admin pueden editar
   const solInput=document.getElementById('ot-solicitante');
   if(solInput && currentUser){
-    if(currentUser.user==='christian'){solInput.value='Christian Castañeda';solInput.readOnly=true;solInput.style.opacity='.7';}
-    else if(currentUser.user==='miriam'){solInput.value='Miriam Purizaca';solInput.readOnly=true;solInput.style.opacity='.7';}
+    if(currentUser.user==='christian'){solInput.value='Jefatura de Campamentos';solInput.readOnly=true;solInput.style.opacity='.7';}
+    else if(currentUser.user==='miriam'){solInput.value='Jefatura de Campamentos';solInput.readOnly=true;solInput.style.opacity='.7';}
     else{solInput.value='';solInput.readOnly=false;solInput.style.opacity='1';}
   }
 }
@@ -2451,10 +3173,13 @@ function guardarAvance(id){
   const newAv=slider?parseInt(slider.value):ot.avance;
   const newEst=document.getElementById('est-'+id)?.value||ot.estado;
   const nota=document.getElementById('nota-'+id)?.value.trim()||'';
+  const _estadoAntes=ot.estado;
   ot.avance=newAv;
   ot.estado=newAv>=100?'Completada':newEst;
   ot.bitacora.push({txt:nota||`Avance actualizado a ${newAv}% · Estado: ${ot.estado}`,fecha:new Date().toLocaleString('es-PE')});
   save();updateBadge();
+  // ── TRIGGER: Motor de desplazamiento dinámico (módulo independiente) ──
+  triggerDesplazamiento(ot, _estadoAntes);
   toast(`${ot.num} actualizada a ${newAv}%`,'ok');
   if(nota&&document.getElementById('nota-'+id))document.getElementById('nota-'+id).value='';
   renderEjecucion();
@@ -2628,6 +3353,8 @@ async function generarReporteProfesional(){
   const hora=now.toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
   const mesActual=now.toLocaleDateString('es-PE',{month:'long',year:'numeric'});
 
+  toast('Generando informe... espere','ok');
+
   // Recolectar datos del sistema
   const m2Ej=calcM2Ejecutado();
   const avGlobal=Math.round(m2Ej/TOTAL_M2*100);
@@ -2665,7 +3392,7 @@ async function generarReporteProfesional(){
       const tiposStr=[doDaily?'Diario':'',doWeekly?'Semanal':'',doMonthly?'Mensual':''].filter(Boolean).join(', ');
       const ctx=buildIAContext();
       iaTexto=await callClaude(
-        'Eres el Agente SIGAV para SPCC Mina Cuajone. Genera análisis ejecutivo profesional en español.',
+        'Eres el Agente Agente SIGAV para áreas verdes en Mina Cuajone. Genera análisis ejecutivo profesional en español. La empresa es SPCC Mina Cuajone.',
         `Genera el análisis narrativo y recomendaciones para un informe ${tiposStr} de gestión de áreas verdes Cuajone.
 Semana actual: S${String(week).padStart(2,'0')} de 2026 (mes: junio). Fecha: ${fecha}.
 Avance global: ${avGlobal}%, SPI: ${spi}, m² ejecutados: ${m2Ej.toLocaleString()} de ${TOTAL_M2.toLocaleString()} m².
@@ -2697,7 +3424,7 @@ Sé específico, usa datos concretos, tono profesional formal.`);
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:3px solid #C8102E">
       <div>
         <div style="font-size:10px;font-weight:700;color:#C8102E;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px">Southern Peru Copper Corporation · Mina Cuajone</div>
-        <div style="font-size:20px;font-weight:700;color:#1A202C;letter-spacing:-.5px">SIGAV · Gestión de Áreas Verdes</div>
+        <div style="font-size:20px;font-weight:700;color:#1A202C;letter-spacing:-.5px">SPCC · Gestión Integral de Áreas Verdes</div>
         <div style="font-size:13px;color:#4A5568;margin-top:3px">
           ${[doDaily?'<strong>Daily Report</strong>':'',doWeekly?'<strong>Weekly Report · S'+String(week).padStart(2,'0')+'</strong>':'',doMonthly?'<strong>Monthly Report · '+mesActual+'</strong>':''].filter(Boolean).join(' &nbsp;·&nbsp; ')}
         </div>
@@ -2706,7 +3433,7 @@ Sé específico, usa datos concretos, tono profesional formal.`);
         <div><strong>Fecha:</strong> ${fecha}</div>
         <div><strong>Hora:</strong> ${hora} (Lima, UTC-5)</div>
         <div><strong>Semana ISO:</strong> S${String(week).padStart(2,'0')} / 2026</div>
-        <div style="margin-top:6px;padding:5px 10px;background:#FDF0F2;border-radius:4px;font-size:10px;color:#C8102E;font-weight:700">Generado: SIGAV v7</div>
+        <div style="margin-top:6px;padding:5px 10px;background:#FDF0F2;border-radius:4px;font-size:10px;color:#C8102E;font-weight:700">Generado: SIGAV SPCC v1.0</div>
       </div>
     </div>
 
@@ -2891,7 +3618,7 @@ Sé específico, usa datos concretos, tono profesional formal.`);
       {tipo:'w',txt:'Cancha de fútbol Botiflaca (VB4) · 6,011 m² sin programación activa esta semana'},
       {tipo:'w',txt:'Casas desocupadas (VC7) · 6,900 m² · Avance 55% → Pendiente de atención'},
       ...(S.ots.filter(o=>o.prioridad==='Urgente'&&o.estado!=='Completada').map(o=>({tipo:'e',txt:`OT Urgente: ${o.num} — ${o.titulo} · Solicitante: ${o.solicitante||'—'}`}))),
-      {tipo:'ok',txt:'Sistema SIGAV activo · Datos en tiempo real · 4 cuadrillas operativas'},
+      {tipo:'ok',txt:'Sistema SIGAV SPCC activo · Datos en tiempo real · 4 cuadrillas operativas'},
     ];
     const colMap={e:'#FEF2F2',w:'#FFFBEB',ok:'#EBF8F2'};
     const brdMap={e:'#FECACA',w:'#FDE68A',ok:'#A7F3D0'};
@@ -2960,7 +3687,7 @@ Sé específico, usa datos concretos, tono profesional formal.`);
   if(secRecom){
     html+=`
     <div style="${sectionStyle}">
-      <div style="${h2Style}">🤖 Análisis y Recomendaciones · Agente SIGAV IA</div>
+      <div style="${h2Style}">🤖 Análisis y Recomendaciones · Agente Agente SIGAV IA</div>
       <div style="background:#F8F9FA;border-left:4px solid #C8102E;padding:16px 20px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.8;color:#1A202C">
         ${iaTexto?iaTexto.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>'):`
           <strong>Situación actual:</strong> El proyecto de áreas verdes SPCC Cuajone registra un avance global del ${avGlobal}% con SPI de ${spi}, con datos reales hasta la semana S${String(week).padStart(2,'0')} de junio 2026.<br><br>
@@ -2984,7 +3711,7 @@ Sé específico, usa datos concretos, tono profesional formal.`);
         <div>Mina Cuajone · Moquegua, Perú</div>
       </div>
       <div style="text-align:right">
-        <div style="font-size:10px;color:#A0AEC0;margin-bottom:2px">Generado por SIGAV v7.0</div>
+        <div style="font-size:10px;color:#A0AEC0;margin-bottom:2px">Generado por SIGAV SPCC v1.0</div>
         <div style="font-size:10px;color:#A0AEC0">${fecha} · ${hora} (Lima, UTC-5)</div>
         <div style="font-size:10px;color:#A0AEC0">Sistema de Gestión de Áreas Verdes · SPCC</div>
         <div style="margin-top:8px;font-style:italic;font-size:10px;color:#C8102E">Confidencial · Uso interno SPCC</div>
@@ -2992,17 +3719,208 @@ Sé específico, usa datos concretos, tono profesional formal.`);
     </div>
   </div>`;
 
-  preview.innerHTML=html;
-  document.getElementById('rep-timestamp').textContent=`Generado: ${fecha} · ${hora}`;
-  toast('Informe generado correctamente','ok');
+  // Abrir informe en ventana de impresión
+  const w=window.open('','_blank','width=900,height=700');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Informe SIGAV SPCC</title>
+  <style>body{font-family:'DM Sans',Arial,sans-serif;padding:0;margin:0;color:#1A202C}@media print{body{padding:0}}
+/* ══════════════════════════════════
+   GANTT TIPO PROJECT — ESTILOS
+══════════════════════════════════ */
+.gantt-project-wrap{overflow-x:auto;min-height:200px}
+.gantt-project{min-width:900px;font-size:12px}
+.gantt-proj-header{display:grid;grid-template-columns:280px 1fr;border-bottom:2px solid var(--bord2);position:sticky;top:0;background:#fff;z-index:10}
+.gantt-proj-header-left{padding:8px 12px;font-weight:700;color:var(--txt3);font-size:11px;text-transform:uppercase;letter-spacing:.7px;border-right:1px solid var(--bord)}
+.gantt-proj-dates{display:grid;border-left:1px solid var(--bord)}
+.gantt-proj-dates .gantt-month{border-right:1px solid var(--bord);padding:7px 4px;text-align:center;font-size:10px;font-weight:700;color:var(--txt3);background:var(--g50)}
+.gantt-proj-row{display:grid;grid-template-columns:280px 1fr;border-bottom:1px solid var(--bord);min-height:34px}
+.gantt-proj-row:hover{background:var(--g50)}
+.gantt-proj-row.wbs-parent{background:var(--rojo-pale);border-bottom:2px solid var(--rojo-lite)}
+.gantt-proj-row.wbs-parent .gantt-proj-label{font-weight:700;color:var(--rojo)}
+.gantt-proj-label{padding:7px 12px;display:flex;align-items:center;gap:7px;border-right:1px solid var(--bord);min-height:34px;font-size:12px;color:var(--txt2)}
+.gantt-proj-label.indent{padding-left:28px;font-size:11.5px}
+.gantt-proj-label.indent2{padding-left:44px;font-size:11px;color:var(--txt3)}
+.wbs-toggle{cursor:pointer;font-size:11px;color:var(--txt3);user-select:none;width:14px;flex-shrink:0}
+.gantt-proj-track{position:relative;overflow:hidden}
+.gantt-proj-cells{display:grid;height:100%;position:absolute;inset:0}
+.gantt-proj-cell{border-right:1px solid var(--bord);background:transparent}
+.gantt-proj-cell.weekend{background:var(--g50)}
+.gantt-proj-cell.today-col{background:rgba(200,16,46,.04);border-right:2px solid var(--rojo)}
+.gantt-proj-bar{position:absolute;height:16px;top:50%;transform:translateY(-50%);border-radius:3px;font-size:9.5px;font-weight:700;color:#fff;display:flex;align-items:center;padding:0 5px;overflow:hidden;white-space:nowrap;cursor:pointer;transition:opacity .15s;min-width:6px}
+.gantt-proj-bar:hover{opacity:.85}
+.gantt-proj-bar.plan-bar{background:var(--p1);color:var(--azul);top:calc(50% - 10px)}
+.gantt-proj-bar.exec-bar{background:var(--rojo);top:calc(50% + 1px)}
+.gantt-proj-bar.exec-bar.ok-bar{background:var(--ok)}
+.gantt-proj-bar.exec-bar.warn-bar{background:var(--warn)}
+.gantt-proj-bar.milestone{background:var(--warn);width:12px!important;height:12px;transform:rotate(45deg) translateY(-50%);border-radius:1px}
+.gantt-proj-today{position:absolute;top:0;bottom:0;width:2px;background:var(--rojo);opacity:.5;z-index:5}
+/* Segmentadores / Slicers */
+.slicer-bar{display:flex;flex-wrap:wrap;gap:7px;padding:12px 0 8px;align-items:center}
+.slicer-label{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;flex-shrink:0}
+.slicer-chip{padding:4px 12px;border-radius:20px;font-size:11.5px;font-weight:600;cursor:pointer;border:1.5px solid var(--bord2);color:var(--txt3);background:#fff;transition:all .15s;user-select:none;white-space:nowrap}
+.slicer-chip:hover{border-color:var(--rojo);color:var(--rojo)}
+.slicer-chip.active{background:var(--rojo);color:#fff;border-color:var(--rojo)}
+.slicer-chip.zona-vc{border-color:var(--p1)}.slicer-chip.zona-vc.active{background:var(--azul);border-color:var(--azul)}
+.slicer-chip.zona-vb{border-color:var(--p3)}.slicer-chip.zona-vb.active{background:var(--ok);border-color:var(--ok)}
+.slicer-chip.zona-cc{border-color:var(--p4)}.slicer-chip.zona-cc.active{background:var(--warn);border-color:var(--warn)}
+.gantt-legend-row{display:flex;gap:16px;flex-wrap:wrap;font-size:11px;padding:8px 0}
+.gantt-legend-item{display:flex;align-items:center;gap:5px}
+.gantt-legend-dot{width:14px;height:8px;border-radius:2px}
+
+/* ══════════════════════════════════
+   RBAC OPERARIO — Solo restringe creación de OT
+══════════════════════════════════ */
+/* El operario ve todo el sistema, solo se ocultan los controles de crear OT */
+#app.operario-mode .ot-create-only{display:none!important}
+.nb-sec-operario{display:none}
+.ni-operario{display:none}
+/* Panel operario dashboard */
+.op-dashboard{max-width:860px;margin:0 auto}
+.op-hero{background:linear-gradient(135deg,var(--sb-bg) 0%,var(--rojo) 100%);border-radius:var(--r-lg);padding:24px 28px;color:#fff;margin-bottom:18px}
+.op-hero-name{font-size:22px;font-weight:700;letter-spacing:-.4px;margin-bottom:3px}
+.op-hero-meta{font-size:12.5px;opacity:.75;display:flex;gap:12px;flex-wrap:wrap}
+.op-hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.op-kpi{background:rgba(255,255,255,.12);border-radius:var(--r);padding:12px 16px}
+.op-kpi-val{font-size:22px;font-weight:700;line-height:1.2}
+.op-kpi-lbl{font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.8px;margin-top:2px}
+/* Reporte campo operario */
+.campo-section{background:#fff;border:1px solid var(--bord);border-radius:var(--r-lg);padding:18px;margin-bottom:14px}
+.campo-section-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.frente-campo-card{border:1.5px solid var(--bord2);border-radius:var(--r);padding:13px;margin-bottom:10px;transition:border-color .2s}
+.frente-campo-card:hover{border-color:var(--rojo)}
+.frente-campo-title{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px}
+.frente-campo-sub{font-size:11.5px;color:var(--txt3);margin-bottom:8px}
+.foto-req{background:var(--err-bg);border:1.5px dashed #FECACA;border-radius:var(--r);padding:10px;text-align:center;cursor:pointer;font-size:12px;color:var(--err);margin-top:8px}
+.foto-req.has-foto{background:var(--ok-bg);border-color:#A7F3D0;color:var(--ok)}
+/* Tab bar operario */
+.op-tabs{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:18px}
+.op-tab{padding:9px 20px;font-size:13px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .18s}
+.op-tab:hover{color:var(--rojo)}
+.op-tab.active{color:var(--rojo);border-bottom-color:var(--rojo)}
+.op-tab-view{display:none}.op-tab-view.active{display:block}
+
+/* ══ EJECUCIÓN UNIFICADA ══ */
+.ejec-header-tabs{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:18px}
+.ejec-tab{padding:10px 22px;font-size:13px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .18s;white-space:nowrap}
+.ejec-tab:hover{color:var(--rojo)}.ejec-tab.active{color:var(--rojo);border-bottom-color:var(--rojo)}
+.ejec-tab-view{display:none}
+.ejec-tipo-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.6px}
+.ejec-tipo-tag.planificado{background:var(--azul-bg);color:var(--azul)}
+.ejec-tipo-tag.ot{background:var(--warn-bg);color:var(--warn)}
+.ejec-form-card{background:#fff;border:1px solid var(--bord);border-radius:var(--r-lg);overflow:hidden;margin-bottom:16px}
+.ejec-form-header{padding:13px 18px;background:var(--g50);border-bottom:1px solid var(--bord);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.ejec-form-title{font-size:14px;font-weight:700;color:var(--txt);display:flex;align-items:center;gap:8px}
+.ejec-form-body{padding:18px}
+.ejec-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.ejec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.ejec-grid-3{grid-template-columns:1fr}.ejec-grid-2{grid-template-columns:1fr}}
+.ejec-section-lbl{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.mcheck-search{width:100%;padding:6px 10px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:12px;margin-bottom:6px;font-family:var(--font);outline:none}
+.mcheck-search:focus{border-color:var(--rojo)}
+.mcheck-list{display:flex;flex-direction:column;gap:3px;max-height:175px;overflow-y:auto;padding:3px;border:1.5px solid var(--bord2);border-radius:var(--r);background:#fff}
+.mcheck-item{display:flex;align-items:center;gap:9px;padding:6px 10px;border-radius:5px;cursor:pointer;transition:background .12s;font-size:12.5px;color:var(--txt2);user-select:none}
+.mcheck-item:hover{background:var(--g50)}
+.mcheck-item.selected{background:var(--rojo-pale);color:var(--rojo)}
+.mcheck-item input[type=checkbox]{accent-color:var(--rojo);width:14px;height:14px;flex-shrink:0;pointer-events:none}
+.mcheck-count{font-size:10.5px;color:var(--txt4);margin-top:5px}
+.tiempo-block{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.tiempo-block{grid-template-columns:1fr}}
+.evid-seq{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:700px){.evid-seq{grid-template-columns:1fr}}
+.evid-slot{border:1.5px dashed var(--bord2);border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;transition:border-color .15s;background:var(--g50)}
+.evid-slot:hover{border-color:var(--rojo)}
+.evid-slot.has-foto{border-style:solid;border-color:var(--ok);background:var(--ok-bg)}
+.evid-slot-ico{font-size:22px;margin-bottom:5px}
+.evid-slot-lbl{font-size:11.5px;font-weight:700;color:var(--txt3);margin-bottom:3px}
+.evid-slot-sub{font-size:10.5px;color:var(--txt4)}
+.evid-thumbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.evid-thumbs img{width:44px;height:44px;object-fit:cover;border-radius:4px;border:1px solid var(--bord)}
+.ejec-reg-card{border:1px solid var(--bord);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;background:#fff}
+.ejec-reg-card.tipo-ot{border-left:3px solid var(--warn)}
+.ejec-reg-card.tipo-planificado{border-left:3px solid var(--azul)}
+/* ══ INFORME POR OPERARIO ══ */
+.op-report-search{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.op-dropdown{position:relative}
+.op-dropdown-menu{position:absolute;top:calc(100% + 4px);left:0;min-width:260px;background:#fff;border:1px solid var(--bord);border-radius:var(--r);box-shadow:var(--sh-lg);z-index:200;max-height:220px;overflow-y:auto;display:none}
+.op-dropdown-menu.open{display:block}
+.op-dd-item{padding:9px 13px;font-size:12.5px;cursor:pointer;color:var(--txt2);border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:8px}
+.op-dd-item:hover{background:var(--g50)}
+.op-rep-hero{background:linear-gradient(135deg,var(--sb-bg),#2D6A4F);padding:20px 24px;color:#fff;border-radius:var(--r-lg) var(--r-lg) 0 0}
+.op-rep-hero-name{font-size:19px;font-weight:700;margin-bottom:3px}
+.op-rep-hero-meta{font-size:12px;opacity:.75;display:flex;gap:12px;flex-wrap:wrap}
+.op-rep-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 16px;background:var(--g50);border-bottom:1px solid var(--bord)}
+@media(max-width:600px){.op-rep-kpis{grid-template-columns:1fr 1fr}}
+.op-rep-kpi{text-align:center;padding:8px}
+.op-rep-kpi-val{font-size:22px;font-weight:700;color:var(--rojo)}
+.op-rep-kpi-lbl{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.op-evid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.op-evid-col{background:var(--g50);border-radius:var(--r);padding:10px}
+.op-evid-col-title{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px;text-align:center}
+.op-evid-col img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:4px;border:1px solid var(--bord)}
+
+/* ══ EJECUCIÓN UNIFICADA ══ */
+.ejec-header-tabs{display:flex;gap:0;border-bottom:2px solid var(--bord);margin-bottom:18px;flex-wrap:wrap}
+.ejec-tab{padding:10px 20px;font-size:13px;font-weight:600;color:var(--txt3);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:all .18s;white-space:nowrap}
+.ejec-tab:hover{color:var(--rojo)}
+.ejec-tab.active{color:var(--rojo);border-bottom-color:var(--rojo)}
+.ejec-tab-view{display:none}
+.ejec-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.ejec-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.ejec-grid-3{grid-template-columns:1fr}.ejec-grid-2{grid-template-columns:1fr}}
+.ejec-section-lbl{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:7px;display:flex;align-items:center;gap:5px}
+.mcheck-list{display:flex;flex-direction:column;gap:3px;max-height:190px;overflow-y:auto;padding:3px;border:1.5px solid var(--bord2);border-radius:var(--r);background:#fff}
+.mcheck-search{width:100%;padding:7px 10px;border:1.5px solid var(--bord2);border-radius:var(--r);font-size:12px;margin-bottom:6px;font-family:var(--font);box-sizing:border-box}
+.mcheck-item{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:5px;cursor:pointer;transition:background .12s;font-size:12.5px;color:var(--txt2);user-select:none}
+.mcheck-item:hover{background:var(--g50)}
+.mcheck-item.selected{background:var(--rojo-pale);color:var(--rojo)}
+.mcheck-item input[type=checkbox]{accent-color:var(--rojo);width:14px;height:14px;flex-shrink:0;pointer-events:none}
+.mcheck-count{font-size:10.5px;color:var(--txt4);margin-top:4px}
+.tiempo-block{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.tiempo-block{grid-template-columns:1fr}}
+.evid-seq{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:4px}
+@media(max-width:700px){.evid-seq{grid-template-columns:1fr}}
+.evid-slot{border:1.5px dashed var(--bord2);border-radius:var(--r);padding:12px;text-align:center;cursor:pointer;transition:border-color .15s;background:var(--g50)}
+.evid-slot:hover{border-color:var(--rojo)}
+.evid-slot.has-foto{border-style:solid;border-color:var(--ok);background:var(--ok-bg)}
+.evid-slot-ico{font-size:22px;margin-bottom:4px}
+.evid-slot-lbl{font-size:11.5px;font-weight:700;color:var(--txt3);margin-bottom:2px}
+.evid-slot-sub{font-size:10.5px;color:var(--txt4)}
+.evid-thumbs{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:6px}
+.evid-thumbs img{width:42px;height:42px;object-fit:cover;border-radius:4px;border:1px solid var(--bord)}
+.ejec-tipo-tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.ejec-tipo-tag.planificado{background:var(--azul-bg);color:var(--azul)}
+.ejec-tipo-tag.ot{background:var(--warn-bg);color:var(--warn)}
+.ejec-reg-card{border:1px solid var(--bord);border-radius:var(--r);padding:13px 15px;margin-bottom:10px;background:#fff;transition:box-shadow .15s}
+.ejec-reg-card:hover{box-shadow:var(--sh)}
+.ejec-reg-card.tipo-ot{border-left:3px solid var(--warn)}
+.ejec-reg-card.tipo-planificado{border-left:3px solid var(--azul)}
+/* ══ INFORME POR OPERARIO ══ */
+.op-report-search{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.op-dropdown{position:relative;flex:1;min-width:200px;max-width:360px}
+.op-dropdown-menu{position:absolute;top:calc(100% + 4px);left:0;min-width:100%;background:#fff;border:1px solid var(--bord);border-radius:var(--r);box-shadow:var(--sh-lg);z-index:200;max-height:220px;overflow-y:auto;display:none}
+.op-dropdown-menu.open{display:block}
+.op-dd-item{padding:8px 12px;font-size:12.5px;cursor:pointer;color:var(--txt2);border-bottom:1px solid var(--bord);display:flex;align-items:center;gap:8px}
+.op-dd-item:hover{background:var(--g50)}
+.op-rep-hero{background:linear-gradient(135deg,var(--sb-bg),#2D6A4F);padding:20px 24px;color:#fff;border-radius:var(--r-lg) var(--r-lg) 0 0}
+.op-rep-hero-name{font-size:19px;font-weight:700;margin-bottom:3px}
+.op-rep-hero-meta{font-size:12px;opacity:.75;display:flex;gap:12px;flex-wrap:wrap}
+.op-rep-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:0;background:var(--g50);border-bottom:1px solid var(--bord)}
+@media(max-width:600px){.op-rep-kpis{grid-template-columns:1fr 1fr}}
+.op-rep-kpi{text-align:center;padding:12px 8px;border-right:1px solid var(--bord)}
+.op-rep-kpi:last-child{border-right:none}
+.op-rep-kpi-val{font-size:22px;font-weight:700;color:var(--rojo)}
+.op-rep-kpi-lbl{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.op-evid-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:600px){.op-evid-grid{grid-template-columns:1fr}}
+.op-evid-col{background:var(--g50);border-radius:var(--r);padding:10px}
+.op-evid-col-title{font-size:10.5px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px;text-align:center}
+.op-evid-col img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;margin-bottom:4px;border:1px solid var(--bord)}
+</style>
+  </head><body>${html}</body></html>`);
+  w.document.close();
+  w.focus();
+  toast('Informe generado · Ventana abierta para imprimir','ok');
 }
-function imprimirReporte(){
-  const c=document.getElementById('rep-preview').innerHTML;
-  if(!c||c.includes('Configure')){toast('Primero genere un informe','war');return;}
-  const w=window.open('','_blank');
-  w.document.write(`<html><head><title>Informe SIGAV</title><style>body{font-family:Arial,sans-serif;padding:32px;color:#1A202C;font-size:13px;line-height:1.7}strong{color:#C8102E}</style></head><body>${c}</body></html>`);
-  w.document.close();w.print();
-}
+
 
 /* ═══════════════════════════════════
    AGENTE IA
@@ -3013,7 +3931,7 @@ function openIA(){
   iaOpen=true;
   document.getElementById('ia-overlay').classList.add('open');
   document.getElementById('ia-panel').classList.add('open');
-  if(S.iaHistory.length===0){addIAMsg('bot','Hola 👋 Soy el **Agente SIGAV** para Mina Cuajone.\n\n📊 Base cargada: **3 zonas** · **60 áreas** · **89,658 m² SPCC** · **4 cuadrillas** · **6 frentes principales**\n\nPuedo analizar OT, detectar riesgos, revisar avances de frentes y generar informes. ¿En qué te asisto hoy?');}
+  if(S.iaHistory.length===0){addIAMsg('bot','Hola 👋 Soy el **Agente Agente SIGAV** para Mina Cuajone.\n\n📊 Base cargada: **3 zonas** · **60 áreas** · **89,658 m² SPCC** · **4 cuadrillas** · **6 frentes principales**\n\nPuedo analizar OT, detectar riesgos, revisar avances de frentes y generar informes. ¿En qué te asisto hoy?');}
   renderIAMsgs();
 }
 function closeIA(){iaOpen=false;document.getElementById('ia-overlay').classList.remove('open');document.getElementById('ia-panel').classList.remove('open');}
@@ -3039,7 +3957,7 @@ async function sendIA(){
   try {
     const history=S.iaHistory.slice(-10).map(m=>({role:m.role==='user'?'user':'assistant',content:m.txt}));
     const resp=await callClaude(
-      `Eres el Agente SIGAV para SPCC Mina Cuajone. Especialista en gestión de áreas verdes. Datos del sistema:\n${buildIAContext()}\n\nFrentes principales: Club de Golf (72%), Casa Presidencia (85%), Casa Huéspedes (90%), Hospital (65%), Casas Desocupadas (55%), Botiflaca (78%).\n\nResponde en español, directo y orientado a la acción. Detecta riesgos explícitamente.`,
+      `Eres el Agente Agente SIGAV para SPCC Mina Cuajone. Especialista en gestión de áreas verdes. Datos del sistema:\n${buildIAContext()}\n\nFrentes principales: Club de Golf (72%), Casa Presidencia (85%), Casa Huéspedes (90%), Hospital (65%), Casas Desocupadas (55%), Botiflaca (78%).\n\nResponde en español, directo y orientado a la acción. Detecta riesgos explícitamente.`,
       msg, history.slice(0,-1));
     document.getElementById('ia-typing')?.remove();
     addIAMsg('bot',resp);renderIAMsgs();
@@ -3365,7 +4283,7 @@ function renderDBOperario(){
   const m2s=[18200,14500,12800,9400,8700,7600,7100,5200];
   const c=document.getElementById('ch-db-op');
   if(c){if(chDbOp)chDbOp.destroy();
-    chDbOp=new Chart(c,{type:'bar',data:{labels:ops,datasets:[{label:'m² ejecutados acumulados',data:m2s,backgroundColor:m2s.map((_,i)=>i===0?'#C8102E':'#A8C5DA'),borderRadius:4}]},
+    chDbOp=new Chart(c,{type:'bar',data:{labels:ops,datasets:[{label:'m² ejecutados acumulados',data:m2s,backgroundColor:m2s.map((_,i)=>i===0?'#C8102E':'#A8D8B9'),borderRadius:4}]},
       options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:'#F3F4F6'},ticks:{font:{size:9},callback:v=>v.toLocaleString()}},y:{grid:{display:false},ticks:{font:{size:9}}}}}})}
 }
 
@@ -3374,7 +4292,7 @@ function exportarDB(){
   const csv=rows.map(r=>r.join(',')).join('\n');
   const a=document.createElement('a');
   a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='SIGAV_KPIs.csv';
+  a.download='SIGAV_SPCC_KPIs.csv';
   a.click();
   toast('CSV exportado','ok');
 }
@@ -3385,7 +4303,7 @@ function exportarJSON(){
   const data=JSON.stringify({ots:S.ots,actividad:S.actividad,operarios:getOperarios(),exportado:new Date().toISOString()},null,2);
   const a=document.createElement('a');
   a.href='data:application/json;charset=utf-8,'+encodeURIComponent(data);
-  a.download='SIGAV_backup_'+todayStr()+'.json';
+  a.download='SIGAV_SPCC_backup_'+todayStr()+'.json';
   a.click();
   toast('Backup JSON exportado','ok');
 }
@@ -3396,14 +4314,14 @@ function exportarCSV(){
   const rows=S.ots.map(o=>[o.num,o.titulo,o.tipo,o.zona,o.solicitante,o.estado,o.prioridad,o.avance,o.m2,o.horas,o.fecha,o.fechaLim||'',o.desc||''].map(q).join(','));
   const csv='\uFEFF'+[cols.join(','),...rows].join('\n');
   const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
-  a.download='SIGAV_OT_'+todayStr()+'.csv';a.click();
+  a.download='SIGAV_SPCC_OT_'+todayStr()+'.csv';a.click();
   toast('CSV exportado','ok');
 }
 
 function exportarExcel(){
   const sep=',';const q=v=>`"${String(v||'').replace(/"/g,'""')}"`;
   const hojaOT=[
-    ['SIGAV — Órdenes de Trabajo · Exportado: '+new Date().toLocaleString('es-PE'),'','','','','','','','','','','',''],
+    ['SIGAV SPCC — Órdenes de Trabajo · Exportado: '+new Date().toLocaleString('es-PE'),'','','','','','','','','','','',''],
     ['Número','Título','Tipo','Zona','Solicitante','Estado','Prioridad','Avance %','m²','Horas','Fecha Inicio','Fecha Límite','Descripción'],
     ...S.ots.map(o=>[o.num,o.titulo,o.tipo,o.zona,o.solicitante,o.estado,o.prioridad,o.avance,o.m2,o.horas,o.fecha,o.fechaLim||'',o.desc||''].map(q))
   ].map(r=>r.join(sep)).join('\n');
@@ -3416,14 +4334,14 @@ function exportarExcel(){
     })
   ].map(r=>r.join(sep)).join('\n');
   const blob=new Blob(['\uFEFF'+hojaOT+'\n\n'+hojaZonas],{type:'text/csv;charset=utf-8'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SIGAV_Excel_'+todayStr()+'.csv';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SIGAV_SPCC_Excel_'+todayStr()+'.csv';a.click();
   toast('Archivo Excel exportado (CSV con BOM) — ábrelo directamente con Excel','ok');
 }
 
 function exportarPowerBI(){
   const m2Ej=calcM2Ejecutado();
   const dataset={
-    metadata:{exportado:new Date().toISOString(),sistema:'SIGAV',version:'7.0',empresa:'SPCC · Cuajone'},
+    metadata:{exportado:new Date().toISOString(),sistema:'SIGAV SPCC',version:'1.0',empresa:'SPCC Mina Cuajone · Cuajone'},
     resumen:{totalOT:S.ots.length,completadas:S.ots.filter(o=>o.estado==='Completada').length,
       enEjecucion:S.ots.filter(o=>o.estado==='En ejecución').length,
       m2Total:TOTAL_M2,m2Ejecutados:m2Ej,avanceGlobal:Math.round(m2Ej/TOTAL_M2*100),
@@ -3442,9 +4360,1515 @@ function exportarPowerBI(){
     })
   };
   const blob=new Blob([JSON.stringify(dataset,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SIGAV_PowerBI_'+todayStr()+'.json';a.click();
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SIGAV_SPCC_PowerBI_'+todayStr()+'.json';a.click();
   toast('Dataset Power BI generado — importa en Power BI Desktop: Obtener datos → JSON','ok');
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MOTOR DE DESPLAZAMIENTO DINÁMICO DE PROGRAMACIÓN
+   Autor: René J. Coayla Causillas · SIGAV SPCC v1.0
+   ─────────────────────────────────────────────────────────────
+   Módulo de adición incremental — NO modifica módulos existentes.
+   Se acopla al flujo de guardarAvance() mediante un trigger de
+   post-guardado. El formulario y la lógica de OT permanecen intactos.
+   ─────────────────────────────────────────────────────────────
+   CONCEPTOS:
+   · ProgramaciónRutinaria: actividad diaria base de cada operario
+     en su frente asignado (simulada por cuadrilla + área asignada).
+   · Desplazamiento: cuando un operario es asignado a una OT con
+     fechas definidas, su programación rutinaria de esas fechas se
+     "corre" hacia adelante (shift) por la duración de la OT.
+   · El historial de desplazamientos se persiste en localStorage.
+   · Los paneles P vs E reciben el ajuste via calcPvseAjustado().
+═══════════════════════════════════════════════════════════════ */
+
+const DESP_STORE = 'vierdes_desplazamientos_v1';
+
+/* ── Cargar/guardar historial de desplazamientos ── */
+function loadDesplazamientos(){
+  try{const r=localStorage.getItem(DESP_STORE);if(r)return JSON.parse(r);}catch(e){}
+  return [];
+}
+function saveDesplazamientos(arr){
+  try{localStorage.setItem(DESP_STORE,JSON.stringify(arr));}catch(e){}
+}
+
+/* ── Calcular días hábiles entre dos fechas (lunes a sábado, sin domingos) ── */
+function diasHabilesEntre(fechaIni, fechaFin){
+  if(!fechaIni||!fechaFin) return 0;
+  const d1=new Date(fechaIni+'T12:00:00'), d2=new Date(fechaFin+'T12:00:00');
+  if(d2<=d1) return 1; // mínimo 1 día
+  let count=0, cur=new Date(d1);
+  while(cur<=d2){
+    if(cur.getDay()!==0) count++; // excluir domingos
+    cur.setDate(cur.getDate()+1);
+  }
+  return Math.max(count,1);
+}
+
+/* ── Desplazar una fecha N días hábiles hacia adelante ── */
+function desplazarFechaHabil(fechaStr, nDias){
+  if(!fechaStr||nDias<=0) return fechaStr;
+  const d=new Date(fechaStr+'T12:00:00');
+  let moved=0;
+  while(moved<nDias){
+    d.setDate(d.getDate()+1);
+    if(d.getDay()!==0) moved++; // solo días hábiles
+  }
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+/* ── TRIGGER PRINCIPAL: se llama DESPUÉS de guardar avance en una OT ──
+   Detecta si la OT acaba de pasar a "En ejecución" con operarios asignados
+   y aplica el desplazamiento a la programación rutinaria.            ── */
+function triggerDesplazamiento(ot, estadoAnterior){
+  // Solo actúa cuando la OT tiene operarios asignados, fecha de inicio y duración/fecha límite
+  if(!ot||!ot.operariosAsignados||ot.operariosAsignados.length===0) return;
+  if(!ot.fecha) return;
+  // Solo cuando cambia a "En ejecución" o se actualiza estando activa
+  const esEjecucion=(ot.estado==='En ejecución'||ot.estado==='Completada');
+  if(!esEjecucion) return;
+
+  // Calcular duración de la OT en días hábiles
+  const duracion=diasHabilesEntre(ot.fecha, ot.fechaLim||ot.fecha);
+
+  const desps=loadDesplazamientos();
+
+  ot.operariosAsignados.forEach(function(opId){
+    const op=getOperarios().find(function(o){return o.id===opId;});
+    if(!op) return;
+
+    // Verificar si ya existe un desplazamiento idéntico (evitar duplicados)
+    const yaExiste=desps.some(function(d){
+      return d.otId===ot.id && d.opId===opId && d.otFecha===ot.fecha;
+    });
+    if(yaExiste) return;
+
+    // Calcular nueva fecha de retorno a rutina
+    const nuevaFechaRetorno=desplazarFechaHabil(ot.fechaLim||ot.fecha, 1);
+
+    // Registrar el desplazamiento
+    const registro={
+      id:Date.now()+opId,
+      otId:ot.id,
+      otNum:ot.num,
+      otTitulo:ot.titulo,
+      otTipo:ot.tipo||'OT',
+      opId:opId,
+      opNombre:op.nombre,
+      cuad:op.cuad,
+      fechaInicio:ot.fecha,
+      fechaFin:ot.fechaLim||ot.fecha,
+      duracionDias:duracion,
+      fechaRetornoRutina:nuevaFechaRetorno,
+      aplicado:new Date().toISOString(),
+      zona:ot.zona||'—',
+    };
+    desps.push(registro);
+    console.log('[SIGAV Desplazamiento] Operario '+op.nombre+' desplazado '+duracion+' días por '+ot.num);
+  });
+
+  saveDesplazamientos(desps);
+
+  // Mostrar notificación de desplazamiento si hubo cambios
+  const nuevos=desps.filter(function(d){
+    return d.otId===ot.id && !d._notificado;
+  });
+  if(nuevos.length>0){
+    nuevos.forEach(function(d){d._notificado=true;});
+    saveDesplazamientos(desps);
+    const noms=nuevos.map(function(d){return d.opNombre.split(',')[0];}).join(', ');
+    toast('📅 Programación desplazada '+duracion+' día(s): '+noms,'ok');
+  }
+}
+
+/* ── Obtener desplazamientos activos para un operario en una fecha ── */
+function getDesplazamientosOperario(opId, fecha){
+  const desps=loadDesplazamientos();
+  return desps.filter(function(d){
+    return d.opId===opId &&
+           d.fechaInicio<=fecha &&
+           d.fechaFin>=fecha;
+  });
+}
+
+/* ── Calcular avance ajustado P vs E considerando desplazamientos ──
+   Devuelve un objeto {planAjustado, execAjustado, tipo} para una fecha dada.
+   tipo: 'rutinaria' | 'ot' | 'desplazada' | 'normal'                ── */
+function calcPvseAjustado(fecha){
+  const desps=loadDesplazamientos();
+  const otEnFecha=S.ots.filter(function(o){
+    return o.fecha<=fecha && (o.fechaLim||o.fecha)>=fecha && o.estado!=='Programada';
+  });
+
+  // m² en OT ese día
+  const m2EnOT=otEnFecha.reduce(function(s,o){return s+(o.m2||0);},0);
+
+  // Operarios en OT ese día
+  const opsEnOT=new Set();
+  otEnFecha.forEach(function(o){
+    (o.operariosAsignados||[]).forEach(function(id){opsEnOT.add(id);});
+  });
+
+  // Operarios desplazados (en OT, por ende fuera de rutina)
+  const opsDesplazados=desps.filter(function(d){
+    return d.fechaInicio<=fecha && d.fechaFin>=fecha;
+  }).map(function(d){return d.opId;});
+
+  // m² rutinarios ajustados (restando los de operarios en OT)
+  const totalOps=getOperarios().filter(function(o){return o.estado==='Activo';}).length;
+  const opsEnRutina=totalOps-opsDesplazados.length;
+  const ratioRutina=totalOps>0?Math.max(0,opsEnRutina/totalOps):1;
+
+  return {
+    m2OT:m2EnOT,
+    opsEnOT:opsEnOT.size,
+    opsDesplazados:opsDesplazados.length,
+    opsEnRutina:opsEnRutina,
+    ratioRutina:ratioRutina,
+    otEnFecha:otEnFecha.length,
+    tieneOT:otEnFecha.length>0,
+  };
+}
+
+/* ── Obtener resumen de desplazamientos para el dashboard/MTR ── */
+function getResumenDesplazamientos(){
+  const desps=loadDesplazamientos();
+  const hoy=todayStr();
+  const activos=desps.filter(function(d){return d.fechaInicio<=hoy&&d.fechaFin>=hoy;});
+  const historico=desps.filter(function(d){return d.fechaFin<hoy;});
+  return {
+    total:desps.length,
+    activos:activos.length,
+    historico:historico.length,
+    opsAfectadas:[...new Set(activos.map(function(d){return d.opId;}))].length,
+    diasTotalesDesplazados:desps.reduce(function(s,d){return s+d.duracionDias;},0),
+    desplazamientos:desps,
+    activos_list:activos,
+  };
+}
+
+/* ── Panel de resumen de desplazamientos (para el MTR / Dashboard) ──
+   Renderiza un widget compacto con el estado de desplazamientos activos. ── */
+function renderDesplazamientosWidget(containerId){
+  const el=document.getElementById(containerId);
+  if(!el) return;
+  const res=getResumenDesplazamientos();
+  if(res.total===0){
+    el.innerHTML='<div style="font-size:12px;color:var(--txt4);padding:10px">Sin desplazamientos registrados.</div>';
+    return;
+  }
+  const hoy=todayStr();
+  const rows=res.activos_list.length>0?res.activos_list:res.desplazamientos.slice(-5);
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+      <div style="background:var(--azul-bg);padding:10px;border-radius:var(--r);text-align:center">
+        <div style="font-size:18px;font-weight:700;color:var(--azul)">${res.activos}</div>
+        <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">Activos hoy</div>
+      </div>
+      <div style="background:var(--warn-bg);padding:10px;border-radius:var(--r);text-align:center">
+        <div style="font-size:18px;font-weight:700;color:var(--warn)">${res.opsAfectadas}</div>
+        <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">Operarios</div>
+      </div>
+      <div style="background:var(--ok-bg);padding:10px;border-radius:var(--r);text-align:center">
+        <div style="font-size:18px;font-weight:700;color:var(--ok)">${res.historico}</div>
+        <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px">Histórico</div>
+      </div>
+    </div>
+    <div style="font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">
+      ${res.activos>0?'Desplazamientos activos':'Últimos desplazamientos'}
+    </div>
+    <div style="overflow-x:auto">
+      <table style="width:100%;font-size:11.5px;border-collapse:collapse">
+        <thead><tr style="background:var(--g100)">
+          <th style="padding:5px 7px;text-align:left;font-weight:700;color:var(--txt3);font-size:10px">OT</th>
+          <th style="padding:5px 7px;text-align:left;font-weight:700;color:var(--txt3);font-size:10px">Operario</th>
+          <th style="padding:5px 7px;text-align:left;font-weight:700;color:var(--txt3);font-size:10px">Cuad.</th>
+          <th style="padding:5px 7px;text-align:left;font-weight:700;color:var(--txt3);font-size:10px">Período OT</th>
+          <th style="padding:5px 7px;text-align:left;font-weight:700;color:var(--txt3);font-size:10px">Días</th>
+          <th style="padding:5px 7px;text-align:left;font-weight:700;color:var(--txt3);font-size:10px">Retorno rutina</th>
+        </tr></thead>
+        <tbody>
+        ${rows.map(function(d){
+          const esActivo=d.fechaInicio<=hoy&&d.fechaFin>=hoy;
+          return '<tr style="border-bottom:1px solid var(--bord);background:'+(esActivo?'var(--warn-bg)':'')+'">'+
+            '<td style="padding:6px 7px;font-family:monospace;font-size:11px"><strong>'+d.otNum+'</strong></td>'+
+            '<td style="padding:6px 7px;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+d.opNombre.split(',')[0]+'</td>'+
+            '<td style="padding:6px 7px"><span class="badge bg-blue" style="font-size:9px">'+d.cuad+'</span></td>'+
+            '<td style="padding:6px 7px;font-size:11px">'+formatDate(d.fechaInicio)+' – '+formatDate(d.fechaFin)+'</td>'+
+            '<td style="padding:6px 7px;font-weight:700;color:'+(esActivo?'var(--warn)':'var(--txt3)')+'">'+d.duracionDias+'</td>'+
+            '<td style="padding:6px 7px;color:var(--ok);font-weight:600">'+formatDate(d.fechaRetornoRutina)+'</td>'+
+          '</tr>';
+        }).join('')}
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button class="btn btn-g btn-sm" onclick="exportarDesplazamientos()">⬇ Exportar historial</button>
+      <button class="btn btn-d btn-xs" onclick="if(confirm('¿Limpiar todos los desplazamientos?')){localStorage.removeItem('${DESP_STORE}');renderDesplazamientosWidget('${containerId}');toast('Historial limpiado','war')}">✕ Limpiar</button>
+    </div>`;
+}
+
+/* ── Exportar desplazamientos a CSV ── */
+function exportarDesplazamientos(){
+  const desps=loadDesplazamientos();
+  if(!desps.length){toast('Sin desplazamientos para exportar','war');return;}
+  const header='OT,Título,Operario,Cuadrilla,Zona,Fecha Inicio OT,Fecha Fin OT,Días Desplazados,Retorno Rutina,Fecha Registro';
+  const rows=desps.map(function(d){
+    return [d.otNum,'"'+d.otTitulo+'"','"'+d.opNombre+'"',d.cuad,'"'+d.zona+'"',
+      d.fechaInicio,d.fechaFin,d.duracionDias,d.fechaRetornoRutina,
+      new Date(d.aplicado).toLocaleDateString('es-PE')].join(',');
+  });
+  const csv=header+'\n'+rows.join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='SPCC_Desplazamientos_'+todayStr()+'.csv';
+  a.click();
+  toast('Historial de desplazamientos exportado','ok');
+}
+
+/* ── calcM2Ejecutado ORIGINAL (no modificado) + variante con ajuste OT ──
+   La función original calcM2Ejecutado() permanece intacta.
+   Se añade calcM2EjecutadoUnificado() que diferencia rutina vs OT.     ── */
+function calcM2EjecutadoUnificado(){
+  // m² por OT completadas/en ejecución
+  const m2OT=S.ots.reduce(function(s,o){
+    if(o.estado==='Completada'||o.estado==='En ejecución')
+      return s+Math.round((o.m2||0)*o.avance/100);
+    return s;
+  },0);
+  // m² rutinarios por áreas sin OT asociada
+  const m2Rutina=AREAS.filter(function(a){return a.m2>0;}).reduce(function(s,a){
+    const tieneOT=S.ots.some(function(o){return (o.zona||'').includes(a.cod)&&o.m2>0;});
+    if(tieneOT) return s;
+    return s+Math.round(a.m2*a.simExec/100);
+  },0);
+  return {
+    m2OT:m2OT,
+    m2Rutina:m2Rutina,
+    m2Total:m2OT+m2Rutina,
+    pctOT:TOTAL_M2>0?Math.round(m2OT/TOTAL_M2*100):0,
+    pctRutina:TOTAL_M2>0?Math.round(m2Rutina/TOTAL_M2*100):0,
+    pctTotal:TOTAL_M2>0?Math.round((m2OT+m2Rutina)/TOTAL_M2*100):0,
+  };
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FIN DEL MOTOR DE DESPLAZAMIENTO DINÁMICO
+   © 2026 René J. Coayla Causillas · SIGAV SPCC v1.0
+══════════════════════════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MÓDULO: GANTT TIPO PROJECT
+   © 2026 René J. Coayla Causillas · SIGAV SPCC v1.0
+   Regla de oro: NO modifica ningún módulo existente.
+══════════════════════════════════════════════════════════════════ */
+
+/* ── Parsear fecha YYYY-MM-DD a objeto Date (sin zona horaria) ── */
+function parseDate(s){ if(!s) return null; const[y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function dateToYYYYMMDD(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+
+/* ── Calcular rango total del proyecto ── */
+function ganttProjectRange(){
+  const tasks = WBS_DATA.filter(function(t){ return t.type==='task'||t.type==='milestone'; });
+  let minD = new Date(2026,0,1), maxD = new Date(2026,11,31);
+  tasks.forEach(function(t){
+    const s=parseDate(t.startDate), e=parseDate(t.endDate);
+    if(s&&s<minD) minD=s;
+    if(e&&e>maxD) maxD=e;
+  });
+  return {start:minD, end:maxD};
+}
+
+/* ── Filtrar WBS según slicers activos ── */
+function ganttFilteredItems(){
+  const F = ganttFilters;
+  // Primero recopilar ids de items que pasan filtro de tarea
+  const passIds = new Set();
+  WBS_DATA.forEach(function(item){
+    if(item.type==='parent'){
+      // parent pasa si algún hijo pasa
+      return;
+    }
+    let ok = true;
+    if(F.tipo!=='todos'){
+      if(F.tipo==='critico'){ ok = item.avance<65 && item.type==='task'; }
+      else { ok = item.tipo===F.tipo; }
+    }
+    if(ok && F.zona!=='all'){ ok = item.zona===F.zona; }
+    if(ok && F.cuad!=='all'){ ok = item.cuad===F.cuad; }
+    if(ok) passIds.add(item.id);
+  });
+  // Incluir parents que tengan al menos un hijo pasado
+  const result = [];
+  WBS_DATA.forEach(function(item){
+    if(item.type==='parent'){
+      // check if any descendant passes
+      const hasChild = WBS_DATA.some(function(c){ return c.parent===item.id && passIds.has(c.id); });
+      // grandparent check
+      const hasGrandchild = WBS_DATA.some(function(c){
+        return c.parent===item.id && WBS_DATA.some(function(gc){ return gc.parent===c.id && passIds.has(gc.id); });
+      });
+      if(hasChild||hasGrandchild||passIds.has(item.id)) result.push(item);
+    } else {
+      if(passIds.has(item.id)) result.push(item);
+    }
+  });
+  return result;
+}
+
+/* ── Slicer click handler ── */
+function ganttSlicer(dim, val, btn){
+  ganttFilters[dim] = val;
+  // Actualizar clase active dentro del mismo grupo de slicers
+  const parent = btn.parentElement;
+  parent.querySelectorAll('.slicer-chip').forEach(function(c){ c.classList.remove('active'); });
+  btn.classList.add('active');
+  buildGanttProject();
+}
+
+/* ── Colapsar/expandir grupo ── */
+function ganttToggleGroup(id){
+  ganttCollapsed[id] = !ganttCollapsed[id];
+  buildGanttProject();
+}
+
+/* ── Construir el Gantt Tipo Project ── */
+function buildGanttProject(){
+  const container = document.getElementById('gantt-project-container');
+  if(!container) return;
+
+  const range = ganttProjectRange();
+  const rangeStart = range.start;
+  const rangeEnd   = range.end;
+  const totalDays  = Math.ceil((rangeEnd - rangeStart) / 86400000) + 1;
+
+  // Generar columnas de meses
+  const months = [];
+  let cur = new Date(rangeStart.getFullYear(), rangeStart.getMonth(), 1);
+  while(cur <= rangeEnd){
+    months.push({year:cur.getFullYear(), month:cur.getMonth(),
+      label:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'][cur.getMonth()]+' '+cur.getFullYear().toString().slice(2)});
+    cur.setMonth(cur.getMonth()+1);
+  }
+
+  // Función: % de posición de una fecha en el rango
+  function datePct(d){
+    if(!d) return 0;
+    const days = Math.max(0, Math.ceil((d - rangeStart)/86400000));
+    return Math.min(100, (days/totalDays)*100);
+  }
+  function durationPct(s,e){
+    if(!s||!e) return 1;
+    const days = Math.ceil((e - s)/86400000)+1;
+    return Math.max(0.5, (days/totalDays)*100);
+  }
+
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayPct = datePct(today);
+
+  const items = ganttFilteredItems();
+
+  // Sincronizar colapso
+  const collapsed = ganttCollapsed;
+
+  // Determinar qué items son visibles (respetando colapso de parent)
+  function isVisible(item){
+    if(!item.parent) return true;
+    const par = WBS_DATA.find(function(p){ return p.id===item.parent; });
+    if(!par) return true;
+    if(collapsed[par.id]) return false;
+    return isVisible(par);
+  }
+
+  const visibleItems = items.filter(isVisible);
+
+  // Header de meses
+  const monthColPcts = months.map(function(m){
+    const mStart = new Date(m.year, m.month, 1);
+    const mEnd   = new Date(m.year, m.month+1, 0);
+    const s = Math.max(0, datePct(mStart));
+    const e = Math.min(100, datePct(new Date(m.year, m.month+1, 0))+durationPct(mEnd,mEnd)/totalDays*100);
+    return {label:m.label, width:(e-s>0?e-s:100/months.length).toFixed(2)+'%'};
+  });
+
+  const headerHtml = '<div class="gantt-proj-header">'
+    +'<div class="gantt-proj-header-left">Actividad / Frente WBS</div>'
+    +'<div class="gantt-proj-dates" style="display:grid;grid-template-columns:'+monthColPcts.map(function(m){ return m.width; }).join(' ')+'">'+
+    monthColPcts.map(function(m){ return '<div class="gantt-proj-dates gantt-month">'+m.label+'</div>'; }).join('')
+    +'</div></div>';
+
+  // Línea de hoy
+  const todayLine = todayPct>=0&&todayPct<=100
+    ? '<div class="gantt-proj-today" style="left:'+todayPct.toFixed(2)+'%"></div>'
+    : '';
+
+  // Filas
+  const rowsHtml = visibleItems.map(function(item){
+    const isParent = item.type==='parent';
+    const isMilestone = item.type==='milestone';
+    const indent = item.parent ? (WBS_DATA.find(function(p){ return p.id===item.parent&&p.type==='parent'; }) ? 'indent' : 'indent2') : '';
+    const isCollapsed = collapsed[item.id];
+
+    const toggleBtn = isParent
+      ? '<span class="wbs-toggle" onclick="event.stopPropagation();ganttToggleGroup(\''+item.id+'\')">'+(isCollapsed?'▶':'▼')+'</span>'
+      : '<span class="wbs-toggle" style="opacity:0">·</span>';
+
+    const avanceBadge = item.avance!=null&&item.type==='task'
+      ? '<span class="badge '+(item.avance>=85?'bg-green':item.avance>=65?'bg-orange':'bg-red')+'" style="font-size:10px;margin-left:4px">'+item.avance+'%</span>'
+      : '';
+
+    const cuadBadge = item.cuad&&item.cuad!=='all'&&!isParent
+      ? '<span class="badge bg-blue" style="font-size:9.5px;margin-left:4px">'+item.cuad+'</span>'
+      : '';
+
+    const labelHtml = '<div class="gantt-proj-label '+indent+(isParent?' ':'')+(item.tipo==='ot'?' '  :'')+'" onclick="'+( isParent?'ganttToggleGroup(\''+item.id+'\')':'')+'">'
+      + toggleBtn
+      + '<span style="'+(isParent?'font-weight:700':'')+(item.tipo==='ot'?';color:var(--azul)':'')+'">'+item.name+'</span>'
+      + avanceBadge + cuadBadge
+      +'</div>';
+
+    let barsHtml = '';
+    if(!isParent){
+      const s = parseDate(item.startDate);
+      const e = parseDate(item.endDate);
+      if(isMilestone){
+        const pct = datePct(s);
+        barsHtml = '<div class="gantt-proj-bar milestone" style="left:'+pct.toFixed(2)+'%;top:50%" title="'+item.name+' · '+item.startDate+'"></div>';
+      } else if(s&&e){
+        const leftPct = datePct(s).toFixed(2)+'%';
+        const widthPct = durationPct(s,e).toFixed(2)+'%';
+        // Barra planificada
+        barsHtml += '<div class="gantt-proj-bar plan-bar" style="left:'+leftPct+';width:'+widthPct+';top:calc(50% - 10px)" title="Plan: '+item.startDate+' – '+item.endDate+'">'+
+          (item.m2?item.m2.toLocaleString()+' m²':'')+'</div>';
+        // Barra ejecutada (proporcional al avance)
+        const av = item.avance||0;
+        const execDays = Math.ceil(((parseDate(item.endDate)-parseDate(item.startDate))/86400000+1)*av/100);
+        const execEnd = new Date(s.getTime()+(execDays-1)*86400000);
+        const execWidth = durationPct(s,execEnd).toFixed(2)+'%';
+        const execCls = av>=85?'ok-bar':av>=65?'warn-bar':'';
+        barsHtml += '<div class="gantt-proj-bar exec-bar '+execCls+'" style="left:'+leftPct+';width:'+execWidth+';top:calc(50% + 1px)" title="Ejecutado: '+av+'%">'+av+'%</div>';
+      }
+    } else if(!isCollapsed){
+      // Para parents, mostrar barra de resumen si tiene avance
+      if(item.avance!=null){
+        const av=item.avance;
+        const execCls=av>=85?'ok-bar':av>=65?'warn-bar':'';
+        barsHtml='<div class="gantt-proj-bar exec-bar '+execCls+'" style="left:5%;width:'+(av*0.9).toFixed(1)+'%;top:50%;height:6px;opacity:.5" title="Avance general: '+av+'%"></div>';
+      }
+    }
+
+    const trackHtml='<div class="gantt-proj-track" style="position:relative;overflow:hidden">'+todayLine+barsHtml+'</div>';
+
+    return '<div class="gantt-proj-row'+(isParent?' wbs-parent':'')+(item.tipo==='ot'?' wbs-ot':'')+'">'
+      +labelHtml+trackHtml+'</div>';
+  }).join('');
+
+  // Contar
+  const taskCount = visibleItems.filter(function(i){ return i.type==='task'; }).length;
+  const cntLbl = document.getElementById('gantt-count-label');
+  if(cntLbl) cntLbl.textContent = taskCount+' actividades · '+visibleItems.filter(function(i){ return i.type==='parent'; }).length+' frentes';
+
+  container.innerHTML='<div class="gantt-project">'
+    +headerHtml
+    +'<div id="gantt-proj-rows">'+rowsHtml+'</div>'
+    +'</div>';
+}
+
+/* ── Exportar Gantt a CSV ── */
+function exportGanttCSV(){
+  const tasks=WBS_DATA.filter(function(t){ return t.type==='task'; });
+  const lines=['ID,Actividad,Zona,Cuadrilla,Tipo,Inicio,Fin,m²,Avance%'];
+  tasks.forEach(function(t){
+    lines.push([t.id,'"'+t.name+'"',t.zona,t.cuad,t.tipo,t.startDate,t.endDate,t.m2||0,t.avance||0].join(','));
+  });
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(lines.join('\n'));
+  a.download='SPCC_Gantt_Project_'+todayStr()+'.csv';
+  a.click();
+  toast('Gantt exportado en CSV','ok');
+}
+
+/* ── Hook para sincronizar OT reales en WBS_DATA ── */
+function syncOTsToWBS(){
+  // Eliminar OT antiguas del WBS
+  const OT_PARENT_IDS = WBS_DATA.filter(function(d){ return d.tipo==='ot'&&d.type==='parent'; }).map(function(d){ return d.id; });
+  const baseLen = WBS_DATA.filter(function(d){ return d.tipo!=='ot'||d.type==='parent'; }).length;
+
+  // Remover OT tasks previas (del tipo 'ot' y type 'task')
+  const toRemove = WBS_DATA.filter(function(d){ return d.tipo==='ot'&&d.type==='task'; }).map(function(d){ return d.id; });
+  toRemove.forEach(function(id){
+    const idx = WBS_DATA.findIndex(function(d){ return d.id===id; });
+    if(idx>=0) WBS_DATA.splice(idx,1);
+  });
+
+  // Añadir OT actuales del sistema
+  const zonaParents={'vc':'w-ot1','vb':'w-ot-vb','cc':'w-ot-cc'};
+  // Asegurarse de que existan parents OT para vb y cc
+  ['vb','cc'].forEach(function(z){
+    const pid = zonaParents[z];
+    if(!WBS_DATA.find(function(d){ return d.id===pid; })){
+      const parentZona = z==='vb'?'w-vb':'w-cc';
+      WBS_DATA.push({id:pid, type:'parent', name:'OT Externas — '+(z==='vb'?'Villa Botiflaca':'Concentradora'),
+        zona:z, cuad:'all', tipo:'ot', parent:parentZona, collapsed:false});
+    }
+  });
+
+  S.ots.forEach(function(ot, i){
+    const zona = ot.zona?ot.zona.split('·')[0].trim().substring(0,2).toLowerCase():'vc';
+    const pid = zonaParents[zona] || 'w-ot1';
+    const av = ot.avance||0;
+    WBS_DATA.push({
+      id:'wbs-ot-'+ot.id,
+      type:'task',
+      name:ot.num+' · '+ot.titulo.substring(0,40),
+      zona:zona,
+      cuad:ot.cuadrilla||'C1',
+      tipo:'ot',
+      parent:pid,
+      startDate:ot.fecha||todayStr(),
+      endDate:ot.fechaLim||ot.fecha||todayStr(),
+      avance:av,
+      m2:ot.m2||0,
+    });
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   MÓDULO: RBAC — PANEL DE OPERARIO
+   © 2026 René J. Coayla Causillas · SIGAV SPCC v1.0
+   Regla de oro: NO modifica módulos existentes. Solo añade flujos de operario.
+══════════════════════════════════════════════════════════════════ */
+
+let opCampoData = {}; // {frente_id: {avance, fotos:[], nota}}
+let opIaHistory = [];
+
+/* ── RBAC simplificado: operario ve el sistema completo,
+       solo se restringe la CREACIÓN de OT ── */
+function applyRBAC(user){
+  const app = document.getElementById('app');
+  app.classList.remove('operario-mode');
+  const miReporteNav = document.getElementById('nav-mi-reporte');
+  if(user.isOperario){
+    app.classList.add('operario-mode');
+    // Mostrar acceso a reporte de campo personal
+    if(miReporteNav) miReporteNav.style.display='flex';
+  } else {
+    if(miReporteNav) miReporteNav.style.display='none';
+  }
+}
+
+/* ── Navegación en modo operario ── */
+function navOp(view){
+  document.querySelectorAll('.view').forEach(function(v){ v.classList.remove('active'); });
+  document.querySelectorAll('.ni').forEach(function(n){ n.classList.remove('active'); });
+  const el = document.getElementById('view-'+view);
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.ni-operario').forEach(function(n){
+    if((n.getAttribute('onclick')||'').includes("'"+view+"'")) n.classList.add('active');
+  });
+  document.getElementById('topbar-page').textContent = {
+    'op-dashboard':'Mi Dashboard','op-reporte':'Reporte de Campo',
+    'op-ots':'Mis OT Asignadas','op-ia':'Agente IA'
+  }[view]||'Panel Operario';
+  closeSidebar();
+  if(view==='op-dashboard') renderOpDashboard();
+  if(view==='op-reporte') initCampoReporte();
+  if(view==='op-ots') renderOpOTs();
+  if(view==='op-ia') initOpIA();
+}
+
+/* ── Render Dashboard del Operario ── */
+function renderOpDashboard(){
+  if(!currentUser||!currentUser.isOperario) return;
+  const op = getOperarios().find(function(o){ return o.id===currentUser.opId; });
+  if(!op) return;
+
+  const misOTs = S.ots.filter(function(ot){ return (ot.operariosAsignados||[]).includes(op.id); });
+  const otComp = misOTs.filter(function(o){ return o.estado==='Completada'; }).length;
+  const otAct  = misOTs.filter(function(o){ return o.estado==='En ejecución'; }).length;
+  const avProm = misOTs.length ? Math.round(misOTs.reduce(function(s,o){ return s+o.avance; },0)/misOTs.length) : 0;
+
+  // Hero
+  const heroEl = document.getElementById('op-hero-container');
+  if(heroEl) heroEl.innerHTML = `
+    <div class="op-hero">
+      <div class="op-hero-name">Bienvenido, ${op.nombre.split(',')[0]}</div>
+      <div class="op-hero-meta">
+        <span>📋 ${op.cuad} · ${op.rol}</span>
+        <span>📅 ${nowLima().toLocaleDateString('es-PE',{weekday:'long',day:'2-digit',month:'long'})}</span>
+        <span>⏰ ${nowLima().toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'})}</span>
+      </div>
+      <div class="op-hero-kpis">
+        <div class="op-kpi"><div class="op-kpi-val">${misOTs.length}</div><div class="op-kpi-lbl">OT Asignadas</div></div>
+        <div class="op-kpi"><div class="op-kpi-val">${otAct}</div><div class="op-kpi-lbl">En Ejecución</div></div>
+        <div class="op-kpi"><div class="op-kpi-val">${avProm}%</div><div class="op-kpi-lbl">Avance Promedio</div></div>
+      </div>
+    </div>`;
+
+  // Resumen
+  const misFrentes = CUADRILLAS.find(function(c){ return c.id===op.cuad; });
+  const resEl = document.getElementById('op-resumen-content');
+  if(resEl) resEl.innerHTML = `
+    <div class="g5050">
+      <div class="card">
+        <div class="card-header"><div class="card-title"><div class="ct-dot"></div>Mis Frentes Asignados</div></div>
+        <div class="card-body">
+          ${misFrentes?misFrentes.areas.map(function(a){
+            return '<div style="padding:7px 0;border-bottom:1px solid var(--bord);font-size:13px;color:var(--txt2)">🌿 '+a+'</div>';
+          }).join(''):'<div class="empty"><div class="empty-ico">🌿</div><p>Sin frentes asignados</p></div>'}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title"><div class="ct-dot"></div>Mis OT Activas</div></div>
+        <div class="card-body">
+          ${misOTs.filter(function(o){ return o.estado!=='Completada'; }).length===0
+            ? '<div class="empty"><div class="empty-ico">✓</div><p>Sin OT activas. ¡Todo al día!</p></div>'
+            : misOTs.filter(function(o){ return o.estado!=='Completada'; }).map(function(ot){
+                const pc=ot.avance>=70?'ok':ot.avance>=30?'warn':'';
+                return '<div style="padding:8px 0;border-bottom:1px solid var(--bord)">'
+                  +'<div style="font-size:12px;font-weight:700;color:var(--txt)">'
+                  +ot.num+' · '+ot.titulo.substring(0,35)+'</div>'
+                  +'<div class="prog-w" style="margin-top:5px">'
+                  +'<div class="prog-track"><div class="prog-fill '+pc+'" style="width:'+ot.avance+'%"></div></div>'
+                  +'<div class="prog-pct">'+ot.avance+'%</div></div></div>';
+              }).join('')
+          }
+        </div>
+      </div>
+    </div>`;
+
+  // Historial
+  const histEl = document.getElementById('op-historial-content');
+  const storedReports = getOpReportes(op.id);
+  if(histEl) histEl.innerHTML = storedReports.length===0
+    ? '<div class="empty"><div class="empty-ico">📅</div><p>Sin reportes guardados aún</p></div>'
+    : '<div class="tw"><table><thead><tr><th>Fecha</th><th>Frentes</th><th>OT</th><th>Fotos</th><th>Resumen</th></tr></thead><tbody>'
+      +storedReports.slice().reverse().map(function(r){
+        return '<tr><td class="td-m">'+r.fecha+'</td><td>'+r.frentes+'</td><td>'+r.ots+'</td>'
+          +'<td>'+r.fotos+'</td><td style="max-width:200px;font-size:11.5px">'+r.resumen+'</td></tr>';
+      }).join('')+'</tbody></table></div>';
+}
+
+/* ── Frentes del operario para reporte de campo ── */
+function initCampoReporte(){
+  const fechaEl=document.getElementById('op-campo-fecha');
+  if(fechaEl&&!fechaEl.value) fechaEl.value=todayStr();
+  renderCampoFrentes();
+}
+
+function renderCampoFrentes(){
+  if(!currentUser||!currentUser.isOperario) return;
+  const op=getOperarios().find(function(o){ return o.id===currentUser.opId; });
+  if(!op) return;
+  const fecha=document.getElementById('op-campo-fecha')?.value||todayStr();
+  const cuad=CUADRILLAS.find(function(c){ return c.id===op.cuad; });
+  const container=document.getElementById('op-campo-container');
+  if(!container) return;
+
+  // Frentes rutinarios de la cuadrilla
+  const wbsTasks=WBS_DATA.filter(function(t){
+    return t.type==='task'&&t.tipo==='rutinario'&&t.cuad===op.cuad
+      &&t.startDate<=fecha&&t.endDate>=fecha;
+  });
+
+  // OT asignadas al operario en esa fecha
+  const misOTs=S.ots.filter(function(ot){
+    return (ot.operariosAsignados||[]).includes(op.id)
+      &&(ot.estado==='En ejecución'||ot.estado==='Programada')
+      &&ot.fecha<=fecha;
+  });
+
+  opCampoData={};
+
+  let html='';
+  if(wbsTasks.length>0){
+    html+='<div class="campo-section"><div class="campo-section-title">🌿 Frentes Rutinarios del '+fecha+'</div>';
+    html+=wbsTasks.map(function(t){
+      const prev=opCampoData[t.id]||{avance:t.avance||0,fotos:[],nota:''};
+      opCampoData[t.id]=prev;
+      return '<div class="frente-campo-card">'
+        +'<div class="frente-campo-title">'+t.name+'</div>'
+        +'<div class="frente-campo-sub">'+t.cuad+' · '+t.zona.toUpperCase()+(t.m2?' · '+t.m2.toLocaleString()+' m²':'')+'</div>'
+        +'<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+        +'<div style="flex:1;min-width:200px">'
+        +'<div style="font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;margin-bottom:4px">Mi avance de hoy (%)</div>'
+        +'<div style="display:flex;align-items:center;gap:8px">'
+        +'<input type="range" min="0" max="100" step="5" value="'+(prev.avance||0)+'" oninput="opCampoData[\''+t.id+'\'].avance=parseInt(this.value);this.nextElementSibling.textContent=this.value+\'%\'">'
+        +'<span style="font-size:14px;font-weight:700;color:var(--rojo);min-width:38px">'+(prev.avance||0)+'%</span>'
+        +'</div></div>'
+        +'<div style="min-width:150px">'
+        +'<textarea class="fi" rows="1" placeholder="Observación del día..." style="resize:none;min-height:36px;font-size:12px" oninput="opCampoData[\''+t.id+'\'].nota=this.value"></textarea>'
+        +'</div></div>'
+        +'<div class="foto-req '+(prev.fotos.length>0?'has-foto':'')+'" id="foto-campo-btn-'+t.id+'" onclick="triggerFotoCampo(\''+t.id+'\')">'
+        +(prev.fotos.length>0?'✓ '+prev.fotos.length+' foto(s) adjuntada(s)':'📷 Adjuntar evidencia fotográfica (obligatorio)')
+        +'</div>'
+        +'<input type="file" id="foto-campo-inp-'+t.id+'" accept="image/*" multiple style="display:none" onchange="handleFotoCampo(this,\''+t.id+'\')">'
+        +'<div id="foto-campo-prev-'+t.id+'" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"></div>'
+        +'</div>';
+    }).join('');
+    html+='</div>';
+  }
+
+  if(misOTs.length>0){
+    html+='<div class="campo-section"><div class="campo-section-title">🔧 OT Asignadas — '+fecha+'</div>';
+    html+=misOTs.map(function(ot){
+      const key='ot-'+ot.id;
+      opCampoData[key]={avance:ot.avance,fotos:[],nota:'',otId:ot.id};
+      return '<div class="frente-campo-card" style="border-left:3px solid var(--azul)">'
+        +'<div class="frente-campo-title">'+ot.num+' · '+ot.titulo+'</div>'
+        +'<div class="frente-campo-sub">'+ot.tipo+' · '+(ot.zona||'').split('·')[0].trim()+(ot.m2?' · '+ot.m2.toLocaleString()+' m²':'')+'</div>'
+        +'<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'
+        +'<div style="flex:1;min-width:200px">'
+        +'<div style="font-size:11px;font-weight:700;color:var(--txt3);text-transform:uppercase;margin-bottom:4px">Avance actual OT (%)</div>'
+        +'<div style="display:flex;align-items:center;gap:8px">'
+        +'<input type="range" min="0" max="100" step="5" value="'+ot.avance+'" oninput="opCampoData[\''+key+'\'].avance=parseInt(this.value);this.nextElementSibling.textContent=this.value+\'%\'">'
+        +'<span style="font-size:14px;font-weight:700;color:var(--azul);min-width:38px">'+ot.avance+'%</span>'
+        +'</div></div>'
+        +'<div style="min-width:150px">'
+        +'<textarea class="fi" rows="1" placeholder="Observación de la OT..." style="resize:none;min-height:36px;font-size:12px" oninput="opCampoData[\''+key+'\'].nota=this.value"></textarea>'
+        +'</div></div>'
+        +'<div class="foto-req" id="foto-campo-btn-'+key+'" onclick="triggerFotoCampo(\''+key+'\')">'
+        +'📷 Adjuntar evidencia fotográfica OT (obligatorio)'
+        +'</div>'
+        +'<input type="file" id="foto-campo-inp-'+key+'" accept="image/*" multiple style="display:none" onchange="handleFotoCampo(this,\''+key+'\')">'
+        +'<div id="foto-campo-prev-'+key+'" style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px"></div>'
+        +'</div>';
+    }).join('');
+    html+='</div>';
+  }
+
+  if(!wbsTasks.length&&!misOTs.length){
+    html='<div class="empty"><div class="empty-ico">🌿</div><p>No hay actividades programadas para esta fecha en tu cuadrilla</p></div>';
+  }
+
+  container.innerHTML=html;
+  actualizarResumenCampo();
+
+  // Activar botón enviar si hay items
+  const btnEnviar=document.getElementById('btn-enviar-campo');
+  if(btnEnviar) btnEnviar.disabled=(wbsTasks.length===0&&misOTs.length===0);
+}
+
+function triggerFotoCampo(key){
+  const inp=document.getElementById('foto-campo-inp-'+key);
+  if(inp) inp.click();
+}
+
+function handleFotoCampo(input,key){
+  if(!opCampoData[key]) opCampoData[key]={avance:0,fotos:[],nota:''};
+  const files=Array.from(input.files);
+  files.forEach(function(f){
+    const reader=new FileReader();
+    reader.onload=function(e){
+      opCampoData[key].fotos.push(e.target.result);
+      // Actualizar botón
+      const btn=document.getElementById('foto-campo-btn-'+key);
+      if(btn){ btn.classList.add('has-foto'); btn.textContent='✓ '+opCampoData[key].fotos.length+' foto(s) adjuntada(s)'; }
+      // Preview
+      const prev=document.getElementById('foto-campo-prev-'+key);
+      if(prev){
+        const img=document.createElement('img');
+        img.src=e.target.result;
+        img.style.cssText='width:56px;height:56px;object-fit:cover;border-radius:var(--r);border:1px solid var(--bord)';
+        prev.appendChild(img);
+      }
+      actualizarResumenCampo();
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+function actualizarResumenCampo(){
+  const resEl=document.getElementById('op-campo-resumen');
+  if(!resEl) return;
+  const keys=Object.keys(opCampoData);
+  const conFoto=keys.filter(function(k){ return opCampoData[k].fotos&&opCampoData[k].fotos.length>0; }).length;
+  const sinFoto=keys.filter(function(k){ return !opCampoData[k].fotos||opCampoData[k].fotos.length===0; }).length;
+  resEl.innerHTML='<div class="alert '+(sinFoto>0?'alert-w':'alert-ok')+'">'
+    +(sinFoto>0?'⚠️ '+sinFoto+' frente(s) sin foto. La evidencia fotográfica es obligatoria.':'✅ Todas las evidencias fotográficas adjuntadas. Listo para enviar.')
+    +'</div>';
+  const btnEnviar=document.getElementById('btn-enviar-campo');
+  if(btnEnviar) btnEnviar.disabled=(sinFoto>0||keys.length===0);
+}
+
+/* ── Guardar reporte de campo del operario ── */
+function enviarReporteCampo(){
+  if(!currentUser||!currentUser.isOperario) return;
+  const op=getOperarios().find(function(o){ return o.id===currentUser.opId; });
+  if(!op) return;
+  const fecha=document.getElementById('op-campo-fecha')?.value||todayStr();
+  const keys=Object.keys(opCampoData);
+
+  // Verificar fotos obligatorias
+  const sinFoto=keys.filter(function(k){ return !opCampoData[k].fotos||opCampoData[k].fotos.length===0; });
+  if(sinFoto.length>0){ toast('Debe adjuntar evidencia fotográfica en todos los frentes','war'); return; }
+
+  // Actualizar OT en el sistema
+  keys.forEach(function(k){
+    if(k.startsWith('ot-')){
+      const otId=opCampoData[k].otId;
+      const ot=S.ots.find(function(o){ return o.id===otId; });
+      if(ot){
+        ot.avance=opCampoData[k].avance;
+        if(ot.avance>=100) ot.estado='Completada';
+        else if(ot.estado==='Programada') ot.estado='En ejecución';
+        const nota=opCampoData[k].nota||'Avance actualizado desde reporte de campo';
+        ot.bitacora.push({txt:'['+op.nombre.split(',')[0]+'] '+nota+' · Avance: '+ot.avance+'%',fecha:new Date().toLocaleString('es-PE')});
+        if(opCampoData[k].fotos&&opCampoData[k].fotos.length>0){
+          if(!ot.fotos) ot.fotos=[];
+          ot.fotos=ot.fotos.concat(opCampoData[k].fotos);
+        }
+      }
+    }
+  });
+  save();
+
+  // Guardar reporte del operario
+  const totalFotos=keys.reduce(function(s,k){ return s+(opCampoData[k].fotos?opCampoData[k].fotos.length:0); },0);
+  const reportes=getOpReportes(op.id);
+  reportes.push({
+    fecha:fecha,
+    frentes:keys.filter(function(k){ return !k.startsWith('ot-'); }).length,
+    ots:keys.filter(function(k){ return k.startsWith('ot-'); }).length,
+    fotos:totalFotos,
+    resumen:'Reporte guardado · '+keys.length+' actividad(es) · '+totalFotos+' foto(s)',
+    data:JSON.parse(JSON.stringify(opCampoData))
+  });
+  saveOpReportes(op.id, reportes);
+
+  toast('Reporte del día guardado correctamente','ok');
+  const fb=document.getElementById('op-campo-feedback');
+  if(fb) fb.innerHTML='<div class="alert alert-ok">✅ Reporte del '+fecha+' guardado. '+keys.length+' actividad(es) · '+totalFotos+' foto(s).</div>';
+  opCampoData={};
+}
+
+/* ── Persistencia de reportes del operario ── */
+function getOpReportes(opId){
+  try{ const r=localStorage.getItem('vierdes_op_reportes_'+opId); if(r) return JSON.parse(r); }catch(e){}
+  return [];
+}
+function saveOpReportes(opId, arr){
+  try{ localStorage.setItem('vierdes_op_reportes_'+opId, JSON.stringify(arr)); }catch(e){}
+}
+
+/* ── OT asignadas al operario (solo lectura + avance) ── */
+function renderOpOTs(){
+  if(!currentUser||!currentUser.isOperario) return;
+  const op=getOperarios().find(function(o){ return o.id===currentUser.opId; });
+  if(!op) return;
+  const container=document.getElementById('op-ots-container');
+  if(!container) return;
+  const misOTs=S.ots.filter(function(ot){ return (ot.operariosAsignados||[]).includes(op.id); });
+  if(!misOTs.length){
+    container.innerHTML='<div class="empty"><div class="empty-ico">✓</div><p>No tienes OT asignadas actualmente</p></div>';
+    return;
+  }
+  container.innerHTML=misOTs.map(function(ot){
+    const bc=ot.estado==='Completada'?'done':ot.avance>=70?'ok':ot.avance>=30?'warn':'';
+    return '<div class="ot-card '+bc+'">'
+      +'<div class="ot-ch">'
+      +'<div>'
+      +'<div class="ot-ctitle">'+ot.num+' · '+ot.titulo+'</div>'
+      +'<div class="ot-cmeta">'
+      +'<span>'+(ot.zona||'').split('·')[0].trim()+'</span>'
+      +'<span>'+ot.tipo+'</span>'
+      +(ot.m2?'<span>'+ot.m2.toLocaleString()+' m²</span>':'')
+      +'</div></div>'
+      +'<div>'+badgePrioridad(ot.prioridad)+' '+badgeEstado(ot.estado)+'</div>'
+      +'</div>'
+      +'<div class="prog-w" style="margin-bottom:10px">'
+      +'<div class="prog-track" style="height:8px"><div class="prog-fill '+(ot.avance>=70?'ok':ot.avance>=30?'warn':'')+'" style="width:'+ot.avance+'%"></div></div>'
+      +'<div class="prog-pct">'+ot.avance+'%</div>'
+      +'</div>'
+      +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:var(--txt3)">'
+      +'<div>📅 Inicio: '+formatDate(ot.fecha)+'</div>'
+      +'<div>⏳ Límite: '+formatDate(ot.fechaLim||ot.fecha)+'</div>'
+      +'<div>👥 Equipo: '+ot.operariosAsignados.length+' operarios</div>'
+      +'<div>📋 Bitácora: '+ot.bitacora.length+' registros</div>'
+      +'</div>'
+      +(ot.bitacora.length?'<div style="margin-top:10px;background:var(--g50);border-radius:var(--r);padding:8px 10px;font-size:11.5px;color:var(--txt3)">'
+        +'<strong>Último registro:</strong> '+ot.bitacora[ot.bitacora.length-1].txt+'</div>':'')
+      +'</div>';
+  }).join('');
+}
+
+/* ── IA para operario ── */
+function initOpIA(){
+  // Reset visible
+  const chat=document.getElementById('op-ia-chat');
+  if(chat&&!chat.dataset.init){
+    chat.dataset.init='1';
+    chat.innerHTML='<div style="color:var(--txt3);font-style:italic;text-align:center;padding:24px">Inicia una conversación con el Agente IA ·  Disponible para dudas y reportes de jornada</div>';
+  }
+}
+
+function askOpIA(tipo){
+  if(!currentUser||!currentUser.isOperario) return;
+  const op=getOperarios().find(function(o){ return o.id===currentUser.opId; });
+  if(!op) return;
+  const misOTs=S.ots.filter(function(ot){ return (ot.operariosAsignados||[]).includes(op.id); });
+  const msgs={
+    'resumen':'Genera un resumen de mi jornada de hoy como operario '+op.nombre+' de cuadrilla '+op.cuad+'. Tengo '+misOTs.length+' OT asignadas con avance promedio de '+
+      (misOTs.length?Math.round(misOTs.reduce(function(s,o){return s+o.avance;},0)/misOTs.length):0)+'%.',
+    'avance':'¿Cómo va mi avance semanal? Soy '+op.nombre+', cuadrilla '+op.cuad+'. Mis OT: '+misOTs.map(function(o){return o.num+' ('+o.avance+'%)';}).join(', '),
+    'siguiente':'¿Qué actividades debo priorizar mañana? Cuadrilla '+op.cuad+', zona '+CUADRILLAS.find(function(c){return c.id===op.cuad;})?.zona,
+    'ot':'¿Tengo OT pendientes? Mis OT asignadas: '+misOTs.map(function(o){return o.num+' · '+o.titulo+' · '+o.estado+' · '+o.avance+'%';}).join(' | '),
+  };
+  const msg=msgs[tipo]||'Cuéntame sobre mi trabajo de hoy.';
+  sendOpIAMsgText(msg);
+}
+
+function sendOpIAMsg(){
+  const inp=document.getElementById('op-ia-input');
+  if(!inp||!inp.value.trim()) return;
+  const msg=inp.value.trim();
+  inp.value='';
+  sendOpIAMsgText(msg);
+}
+
+async function sendOpIAMsgText(msg){
+  const chat=document.getElementById('op-ia-chat');
+  if(!chat) return;
+  const op=currentUser?getOperarios().find(function(o){ return o.id===currentUser.opId; }):null;
+  const opName=op?op.nombre.split(',')[0]:'Operario';
+
+  // Mostrar mensaje del usuario
+  chat.innerHTML+='<div style="background:#fff;border:1px solid var(--bord);border-radius:var(--r);padding:8px 12px;margin-bottom:8px">'
+    +'<div style="font-size:10px;font-weight:700;color:var(--rojo);margin-bottom:3px">'+opName+'</div>'
+    +'<div>'+msg+'</div></div>';
+  chat.scrollTop=chat.scrollHeight;
+
+  // Indicador de carga
+  const loadId='op-ia-loading-'+Date.now();
+  chat.innerHTML+='<div id="'+loadId+'" style="color:var(--txt3);font-size:12px;padding:8px;font-style:italic">🤖 Procesando...</div>';
+  chat.scrollTop=chat.scrollHeight;
+
+  const systemMsg='Eres el Agente SIGAV SPCC, asistente de campo para el operario '+opName+' de cuadrilla '+(op?op.cuad:'')
+    +'. Responde de forma clara, directa y en español. Usa datos concretos del operario cuando los tengas.';
+
+  opIaHistory.push({role:'user',content:msg});
+  if(opIaHistory.length>10) opIaHistory=opIaHistory.slice(-10);
+
+  try{
+    const resp=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+getGroqKey()},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:600,temperature:0.6,
+        messages:[{role:'system',content:systemMsg},...opIaHistory]})
+    });
+    const data=await resp.json();
+    const reply=data.choices?.[0]?.message?.content||'Sin respuesta del agente.';
+    opIaHistory.push({role:'assistant',content:reply});
+    const loadEl=document.getElementById(loadId);
+    if(loadEl) loadEl.remove();
+    chat.innerHTML+='<div style="background:var(--rojo-pale);border:1px solid var(--rojo-lite);border-radius:var(--r);padding:8px 12px;margin-bottom:8px">'
+      +'<div style="font-size:10px;font-weight:700;color:var(--rojo);margin-bottom:3px">🤖 Agente SIGAV SPCC</div>'
+      +'<div style="font-size:13px">'+reply.replace(/\n/g,'<br>')+'</div></div>';
+  }catch(e){
+    const loadEl=document.getElementById(loadId);
+    if(loadEl) loadEl.textContent='Error de conexión con el Agente IA.';
+  }
+  chat.scrollTop=chat.scrollHeight;
+}
+
+/* ── Reporte IA del operario desde el panel de campo ── */
+async function generarReporteOperario(){
+  if(!currentUser||!currentUser.isOperario) return;
+  const op=getOperarios().find(function(o){ return o.id===currentUser.opId; });
+  if(!op) return;
+  const fecha=document.getElementById('op-campo-fecha')?.value||todayStr();
+  const keys=Object.keys(opCampoData);
+  if(!keys.length){ toast('Complete primero el reporte de campo','war'); return; }
+  const resumen=keys.map(function(k){
+    return (opCampoData[k].nota||'sin nota')+' · '+opCampoData[k].avance+'%';
+  }).join(' | ');
+  const prompt='Genera un reporte de trabajo diario profesional para el operario '+op.nombre+
+    ' ('+op.cuad+') del día '+fecha+'. Actividades: '+resumen+
+    '. Incluye un párrafo de resumen y recomendaciones para el día siguiente. Sé concreto y profesional.';
+  await sendOpIAMsgText(prompt);
+  navOp('op-ia');
+}
+
+/* ── Función helper para obtener key de Groq ── */
+function getGroqKey(){
+  try{ const c=document.getElementById('cfg-groq-key'); if(c&&c.value) return c.value; }catch(e){}
+  try{ const r=localStorage.getItem('vierdes_sgi_v1'); if(r){ const s=JSON.parse(r); if(s.groqKey) return s.groqKey; }}catch(e){}
+  return '';
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIN MÓDULOS GANTT PROJECT + RBAC OPERARIO
+   © 2026 René J. Coayla Causillas · SIGAV SPCC v1.0
+══════════════════════════════════════════════════════════════════ */
+
+
+function switchOpTab(tab, btn){
+  document.querySelectorAll('.op-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.op-tab-view').forEach(function(v){ v.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  const el=document.getElementById(tab);
+  if(el) el.classList.add('active');
+  if(tab==='op-historial') renderOpDashboard();
+}
+
+
+/* ══════════════════════════════════════════════════════════════════
+   MÓDULO: EJECUCIÓN UNIFICADA + INFORMES POR OPERARIO
+   © 2026 René J. Coayla Causillas · SIGAV SPCC v1.0
+   Regla de oro: NO modifica guardarAvance() ni crearOT() existentes.
+══════════════════════════════════════════════════════════════════ */
+
+/* ── Estado del formulario ── */
+var ejecState = {
+  actsSeleccionadas: [], lugaresSeleccionados: [], opsSeleccionados: [],
+  evidencias: {antes:[], durante:[], despues:[]},
+  esOT: false, otId: null
+};
+
+/* ── Catálogo de actividades ── */
+var ACTIVIDADES_CAT = [
+  {id:'a1',nombre:'Corte de césped'},{id:'a2',nombre:'Poda de arbustos'},
+  {id:'a3',nombre:'Poda de árboles'},{id:'a4',nombre:'Riego manual'},
+  {id:'a5',nombre:'Riego tecnificado'},{id:'a6',nombre:'Fertilización'},
+  {id:'a7',nombre:'Aireado de suelo'},{id:'a8',nombre:'Aplicación de herbicida'},
+  {id:'a9',nombre:'Limpieza y recojo de residuos'},{id:'a10',nombre:'Siembra / Trasplante'},
+  {id:'a11',nombre:'Control fitosanitario'},{id:'a12',nombre:'Mantenimiento de riego'},
+  {id:'a13',nombre:'Nivelación de terreno'},{id:'a14',nombre:'Desbroce / Chapodo'},
+  {id:'a15',nombre:'Pintura de sardineles'},{id:'a16',nombre:'Limpieza de bermas'},
+  {id:'a17',nombre:'Mantenimiento de andenería'},{id:'a18',nombre:'Instalación de grass'},
+  {id:'a19',nombre:'Recarga de abono orgánico'},{id:'a20',nombre:'Atención de área especial'}
+];
+
+/* ── Helpers ── */
+function _getActNombre(id){ var a=ACTIVIDADES_CAT.find(function(x){return x.id===id;}); return a?a.nombre:id; }
+function _getAreaNombre(cod){ var a=AREAS.find(function(x){return x.cod===cod;}); return a?a.lugar:cod; }
+function _getOpNombre(id){ var o=getOperarios().find(function(x){return String(x.id)===String(id);}); return o?o.nombre.split(',')[0]:id; }
+
+/* ── Poblar lista multi-check ── */
+function populateMcheck(tipo, data, labelKey, selected) {
+  var el = document.getElementById('mcheck-'+tipo);
+  if(!el) return;
+  var searchEl = document.getElementById('mcheck-search-'+tipo);
+  var q = searchEl ? searchEl.value.toLowerCase() : '';
+  var filtered = q ? data.filter(function(d){return (d[labelKey]||'').toLowerCase().indexOf(q)>=0;}) : data;
+  el.innerHTML = filtered.map(function(item){
+    var itemId = String(item.id||item.cod||'');
+    var isSel  = selected.indexOf(itemId) >= 0;
+    var lbl    = (item[labelKey]||'').substring(0,36);
+    var extra  = tipo==='op'
+      ? '<span class="badge bg-blue" style="font-size:9px;margin-left:auto">'+( item.cuad||'')+'</span>'
+      : tipo==='lugar'
+      ? '<span style="font-size:10px;color:var(--txt4);margin-left:auto">'+(item.m2?item.m2.toLocaleString()+' m²':'')+'</span>'
+      : '';
+    return '<div class="mcheck-item'+(isSel?' selected':'')+'" data-tipo="'+tipo+'" data-id="'+itemId+'" onclick="toggleMcheck(this)">'
+      +'<input type="checkbox"'+(isSel?' checked':'')+' style="pointer-events:none;accent-color:var(--rojo);width:14px;height:14px;flex-shrink:0">'
+      +'<span style="flex:1">'+lbl+'</span>'+extra+'</div>';
+  }).join('');
+  updateMcheckCount(tipo, selected);
+}
+
+function toggleMcheck(el) {
+  var item = el.classList&&el.classList.contains('mcheck-item') ? el : (el.closest ? el.closest('.mcheck-item') : null);
+  if(!item) return;
+  var tipo = item.getAttribute('data-tipo');
+  var id   = item.getAttribute('data-id');
+  var maps = {act:ejecState.actsSeleccionadas, lugar:ejecState.lugaresSeleccionados, op:ejecState.opsSeleccionados};
+  var arr  = maps[tipo];
+  if(!arr) return;
+  var idx  = arr.indexOf(id);
+  if(idx>=0) arr.splice(idx,1); else arr.push(id);
+  var isSel = arr.indexOf(id) >= 0;
+  item.className = 'mcheck-item'+(isSel?' selected':'');
+  var cb = item.querySelector('input[type=checkbox]');
+  if(cb) cb.checked = isSel;
+  updateMcheckCount(tipo, arr);
+}
+
+function updateMcheckCount(tipo, arr) {
+  var el = document.getElementById('mcheck-'+tipo+'-count');
+  var labels = {act:'actividad(es)',lugar:'lugar(es)',op:'operario(s)'};
+  if(el) el.textContent = (arr.length||0)+' '+(labels[tipo]||'')+' seleccionado(s)';
+}
+
+function filterMcheck(tipo, q) {
+  var src = {
+    act:   ACTIVIDADES_CAT,
+    lugar: AREAS.filter(function(a){return a.m2>0;}),
+    op:    getOperarios().filter(function(o){return o.estado==='Activo';})
+  };
+  var key = {act:'nombre',lugar:'lugar',op:'nombre'};
+  var sel = {act:ejecState.actsSeleccionadas,lugar:ejecState.lugaresSeleccionados,op:ejecState.opsSeleccionados};
+  if(src[tipo]) populateMcheck(tipo, src[tipo], key[tipo], sel[tipo]);
+}
+
+/* ── Inicializar formulario ── */
+function initEjecucionUnif() {
+  if(!document.getElementById('mcheck-act')) return;
+  populateMcheck('act',   ACTIVIDADES_CAT, 'nombre', ejecState.actsSeleccionadas);
+  populateMcheck('lugar', AREAS.filter(function(a){return a.m2>0;}), 'lugar', ejecState.lugaresSeleccionados);
+  populateMcheck('op',    getOperarios().filter(function(o){return o.estado==='Activo';}), 'nombre', ejecState.opsSeleccionados);
+  fillEjecOTSelect();
+  var ini = document.getElementById('ejec-dt-inicio');
+  if(ini && !ini.value){ var n=new Date(); ini.value=n.toISOString().slice(0,16); }
+}
+
+/* ── Tabs de ejecución ── */
+function switchEjecTab(tab, btn) {
+  document.querySelectorAll('#view-ejecucion .ejec-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('#view-ejecucion .ejec-tab-view').forEach(function(v){v.style.display='none';});
+  if(btn) btn.classList.add('active');
+  var el = document.getElementById('ejec-tab-'+tab);
+  if(el) el.style.display='block';
+  if(tab==='nuevo'){
+    populateMcheck('act',   ACTIVIDADES_CAT, 'nombre', ejecState.actsSeleccionadas);
+    populateMcheck('lugar', AREAS.filter(function(a){return a.m2>0;}), 'lugar', ejecState.lugaresSeleccionados);
+    populateMcheck('op',    getOperarios().filter(function(o){return o.estado==='Activo';}), 'nombre', ejecState.opsSeleccionados);
+    fillEjecOTSelect();
+  }
+  if(tab==='ot')        renderEjecucion();
+  if(tab==='historial') renderHistorialCampo();
+}
+
+/* ── Toggle tipo: Planificado / OT ── */
+function toggleEjecTipo() {
+  ejecState.esOT = !!(document.getElementById('ejec-es-ot')||{}).checked;
+  var sel   = document.getElementById('ejec-ot-selector');
+  var badge = document.getElementById('ejec-tipo-badge');
+  if(sel)   sel.style.display = ejecState.esOT ? 'block' : 'none';
+  if(badge){ badge.className='ejec-tipo-tag '+(ejecState.esOT?'ot':'planificado'); badge.textContent=ejecState.esOT?'Orden de Trabajo':'Servicio Planificado'; }
+  if(ejecState.esOT) fillEjecOTSelect();
+}
+
+function fillEjecOTSelect() {
+  var sel = document.getElementById('ejec-ot-id');
+  if(!sel) return;
+  var activas = S.ots.filter(function(o){return o.estado!=='Completada'&&o.estado!=='Cancelada';});
+  sel.innerHTML = '<option value="">— Seleccione una OT activa —</option>'
+    + activas.map(function(o){return '<option value="'+o.id+'">'+o.num+' · '+o.titulo.substring(0,40)+'</option>';}).join('');
+}
+
+function onSelectEjecOT() {
+  var id = parseInt((document.getElementById('ejec-ot-id')||{}).value)||null;
+  ejecState.otId = id;
+  if(!id) return;
+  var ot = S.ots.find(function(o){return o.id===id;});
+  if(!ot) return;
+  ejecState.opsSeleccionados = (ot.operariosAsignados||[]).map(function(x){return String(x);});
+  populateMcheck('op', getOperarios().filter(function(o){return o.estado==='Activo';}), 'nombre', ejecState.opsSeleccionados);
+  var slider = document.getElementById('ejec-avance-slider');
+  var valEl  = document.getElementById('ejec-avance-val');
+  if(slider) slider.value = ot.avance;
+  if(valEl)  valEl.textContent = ot.avance+'%';
+  var est = document.getElementById('ejec-estado');
+  if(est) est.value = ot.estado;
+  toast(ot.num+' cargada','ok');
+}
+
+/* ── Evidencias ── */
+function handleEvidencia(input, etapa) {
+  Array.from(input.files).forEach(function(f){
+    var reader = new FileReader();
+    reader.onload = function(e){
+      ejecState.evidencias[etapa].push(e.target.result);
+      var slot = document.getElementById('evid-slot-'+etapa);
+      var prev = document.getElementById('evid-prev-'+etapa);
+      if(slot) slot.classList.add('has-foto');
+      if(prev){ var img=document.createElement('img'); img.src=e.target.result; prev.appendChild(img); }
+    };
+    reader.readAsDataURL(f);
+  });
+}
+
+/* ── Guardar registro unificado ── */
+function guardarEjecucionUnif() {
+  var acts   = ejecState.actsSeleccionadas;
+  var lugares= ejecState.lugaresSeleccionados;
+  var ops    = ejecState.opsSeleccionados;
+  if(!acts.length)   { toast('Seleccione al menos una actividad','war'); return; }
+  if(!lugares.length){ toast('Seleccione al menos un lugar','war'); return; }
+  if(!ops.length)    { toast('Seleccione al menos un operario','war'); return; }
+
+  var dtIni  = (document.getElementById('ejec-dt-inicio')||{}).value||'';
+  var dtFin  = (document.getElementById('ejec-dt-fin')||{}).value||'';
+  var avance = parseInt((document.getElementById('ejec-avance-slider')||{}).value)||0;
+  var estado = (document.getElementById('ejec-estado')||{}).value||'En ejecución';
+  var m2     = parseFloat((document.getElementById('ejec-m2')||{}).value)||0;
+  var horas  = parseFloat((document.getElementById('ejec-horas')||{}).value)||0;
+  var nota   = ((document.getElementById('ejec-nota')||{}).value||'').trim();
+  var evid   = JSON.parse(JSON.stringify(ejecState.evidencias));
+
+  var actNombres   = acts.map(_getActNombre).join(', ');
+  var lugarNombres = lugares.map(_getAreaNombre).join(', ');
+  var opNombres    = ops.map(_getOpNombre).join(', ');
+  var fechaHoy     = dtIni ? dtIni.split('T')[0] : todayStr();
+
+  if(ejecState.esOT && ejecState.otId) {
+    var ot = S.ots.find(function(o){return o.id===ejecState.otId;});
+    if(!ot){ toast('OT no encontrada','err'); return; }
+    var _estadoAntes = ot.estado;
+    ot.avance  = avance;
+    ot.estado  = avance>=100 ? 'Completada' : estado;
+    ot.operariosAsignados = ops.map(function(x){return isNaN(x)?x:parseInt(x);});
+    if(!ot.fotos) ot.fotos=[];
+    if(!ot.evidencias) ot.evidencias={secuencial:[]};
+    if(!ot.evidencias.secuencial) ot.evidencias.secuencial=[];
+    ot.evidencias.secuencial.push({fecha:fechaHoy,antes:evid.antes,durante:evid.durante,despues:evid.despues});
+    [].concat(evid.antes,evid.durante,evid.despues).forEach(function(src){ot.fotos.push(src);});
+    if(m2) ot.m2ejecutado=(ot.m2ejecutado||0)+m2;
+    ot.bitacora.push({
+      txt:nota||('[Ejecución unificada] '+actNombres+' · '+lugarNombres+' · '+opNombres+' · '+avance+'%'),
+      fecha:new Date().toLocaleString('es-PE')
+    });
+    triggerDesplazamiento(ot, _estadoAntes);
+    save(); updateBadge();
+    toast(ot.num+' actualizada a '+avance+'%','ok');
+  } else {
+    if(!S.registrosCampo) S.registrosCampo=[];
+    S.registrosCampo.push({
+      id:Date.now(), tipo:'planificado', fecha:fechaHoy,
+      dtInicio:dtIni, dtFin:dtFin,
+      actividades:acts, actNombres:actNombres,
+      lugares:lugares, lugarNombres:lugarNombres,
+      operarios:ops, opNombres:opNombres,
+      avance:avance, estado:estado, m2:m2, horas:horas, nota:nota,
+      evidencias:evid, autor:(currentUser||{}).name||'Sistema'
+    });
+    save();
+    toast('Servicio planificado registrado','ok');
+  }
+
+  limpiarEjecucionUnif();
+  // Ir al historial
+  switchEjecTab('historial', document.getElementById('ejec-tab-btn-historial'));
+}
+
+function limpiarEjecucionUnif() {
+  ejecState = {actsSeleccionadas:[],lugaresSeleccionados:[],opsSeleccionados:[],
+    evidencias:{antes:[],durante:[],despues:[]},esOT:false,otId:null};
+  var s=document.getElementById('ejec-avance-slider'); if(s)s.value=0;
+  var v=document.getElementById('ejec-avance-val'); if(v)v.textContent='0%';
+  ['ejec-nota','ejec-m2','ejec-horas','ejec-dt-fin'].forEach(function(id){var e=document.getElementById(id);if(e)e.value='';});
+  var est=document.getElementById('ejec-estado'); if(est)est.value='En ejecución';
+  var esot=document.getElementById('ejec-es-ot'); if(esot)esot.checked=false;
+  toggleEjecTipo();
+  ['antes','durante','despues'].forEach(function(e){
+    var sl=document.getElementById('evid-slot-'+e); if(sl)sl.classList.remove('has-foto');
+    var pr=document.getElementById('evid-prev-'+e); if(pr)pr.innerHTML='';
+    var ip=document.getElementById('evid-inp-'+e); if(ip)ip.value='';
+  });
+  populateMcheck('act',   ACTIVIDADES_CAT,'nombre',[]);
+  populateMcheck('lugar', AREAS.filter(function(a){return a.m2>0;}),'lugar',[]);
+  populateMcheck('op',    getOperarios().filter(function(o){return o.estado==='Activo';}),'nombre',[]);
+}
+
+/* ── Historial de campo ── */
+function renderHistorialCampo() {
+  var cont = document.getElementById('historial-campo-container');
+  if(!cont) return;
+  var plan = (S.registrosCampo||[]).map(function(r){return Object.assign({},r,{_tipo:'planificado'});});
+  var otRegs = S.ots.map(function(o){
+    return {
+      _tipo:'ot', id:o.id, fecha:o.fecha||todayStr(),
+      actNombres:o.tipo||'OT', lugarNombres:(o.zona||'').split('·')[0].trim(),
+      opNombres:(o.operariosAsignados||[]).map(_getOpNombre).join(', '),
+      avance:o.avance, m2:o.m2||0, horas:o.horas||0,
+      nota:o.bitacora.length?o.bitacora[o.bitacora.length-1].txt:'',
+      evidencias:o.evidencias&&o.evidencias.secuencial&&o.evidencias.secuencial.length
+        ?o.evidencias.secuencial[o.evidencias.secuencial.length-1]:null,
+      _otNum:o.num, _titulo:o.titulo
+    };
+  });
+  var all = plan.concat(otRegs).sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');});
+  var sq = ((document.getElementById('hist-search')||{}).value||'').toLowerCase();
+  var st = (document.getElementById('hist-tipo')||{}).value||'';
+  if(sq) all=all.filter(function(r){return (r.actNombres+r.lugarNombres+r.opNombres+r.nota).toLowerCase().indexOf(sq)>=0;});
+  if(st) all=all.filter(function(r){return (r._tipo||r.tipo)===st;});
+  if(!all.length){
+    cont.innerHTML='<div class="empty"><div class="empty-ico">📅</div><p>Sin registros de campo aún.</p></div>';
+    return;
+  }
+  cont.innerHTML = all.map(function(r){
+    var tipo = r._tipo||r.tipo||'planificado';
+    var evid = r.evidencias;
+    var evidHtml = evid ? '<div class="op-evid-grid" style="margin-top:10px">'
+      +'<div class="op-evid-col"><div class="op-evid-col-title">🔵 Antes</div>'+(evid.antes&&evid.antes.length?evid.antes.map(function(s){return '<img src="'+s+'" alt="">';}).join(''):'<div style="text-align:center;color:var(--txt4);font-size:11px;padding:8px">Sin fotos</div>')+'</div>'
+      +'<div class="op-evid-col"><div class="op-evid-col-title">🟡 Durante</div>'+(evid.durante&&evid.durante.length?evid.durante.map(function(s){return '<img src="'+s+'" alt="">';}).join(''):'<div style="text-align:center;color:var(--txt4);font-size:11px;padding:8px">Sin fotos</div>')+'</div>'
+      +'<div class="op-evid-col"><div class="op-evid-col-title">🟢 Después</div>'+(evid.despues&&evid.despues.length?evid.despues.map(function(s){return '<img src="'+s+'" alt="">';}).join(''):'<div style="text-align:center;color:var(--txt4);font-size:11px;padding:8px">Sin fotos</div>')+'</div>'
+      +'</div>' : '';
+    return '<div class="ejec-reg-card tipo-'+tipo+'">'
+      +'<div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:8px">'
+      +'<div><div style="font-size:13px;font-weight:700;color:var(--txt)">'+(tipo==='ot'?r._otNum+' · '+r._titulo:r.actNombres)+'</div>'
+      +'<div style="font-size:11.5px;color:var(--txt3);margin-top:2px">📍 '+r.lugarNombres+' · 👷 '+r.opNombres+'</div></div>'
+      +'<div style="display:flex;gap:6px;align-items:center">'
+      +'<span class="ejec-tipo-tag '+tipo+'">'+(tipo==='ot'?'OT':'Planificado')+'</span>'
+      +'<span class="badge '+(r.avance>=85?'bg-green':r.avance>=65?'bg-orange':'bg-red')+'">'+r.avance+'%</span>'
+      +'</div></div>'
+      +'<div style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--txt3);margin-bottom:8px">'
+      +'<span>📅 '+r.fecha+'</span>'+(r.m2?'<span>📐 '+r.m2.toLocaleString()+' m²</span>':'')+(r.horas?'<span>⏱ '+r.horas+' h</span>':'')
+      +'</div>'
+      +(r.nota?'<div style="font-size:12.5px;color:var(--txt2);background:var(--g50);padding:7px 10px;border-radius:var(--r);margin-bottom:8px">'+r.nota+'</div>':'')
+      +evidHtml+'</div>';
+  }).join('');
+}
+
+function exportarHistorialCampo() {
+  var plan = (S.registrosCampo||[]).map(function(r){
+    return [r.fecha,'"'+r.actNombres+'"','"'+r.lugarNombres+'"','"'+r.opNombres+'"','Planificado',r.avance,r.m2||0,r.horas||0,r.estado||''].join(',');
+  });
+  var ots = S.ots.map(function(o){
+    var ops=(o.operariosAsignados||[]).map(_getOpNombre).join(';');
+    return [o.fecha,'"'+(o.tipo||'OT')+'"','"'+(o.zona||'').split('·')[0].trim()+'"','"'+ops+'"','OT',o.avance,o.m2||0,o.horas||0,o.estado||''].join(',');
+  });
+  var lines=['Fecha,Actividad,Lugar,Operarios,Tipo,Avance%,m²,Horas,Estado'].concat(plan,ots);
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(lines.join('\n'));
+  a.download='SPCC_Historial_'+todayStr()+'.csv'; a.click();
+  toast('Historial exportado','ok');
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   INFORMES POR OPERARIO
+══════════════════════════════════════════════════════════════════ */
+var opRepSelected = null;
+
+function openOpRepDropdown() { filterOpRepDropdown(); var m=document.getElementById('op-rep-dropdown'); if(m)m.classList.add('open'); }
+
+function filterOpRepDropdown() {
+  var q  = ((document.getElementById('op-rep-search')||{}).value||'').toLowerCase();
+  var menu = document.getElementById('op-rep-dropdown');
+  if(!menu) return;
+  var ops = getOperarios().filter(function(o){return !q||o.nombre.toLowerCase().indexOf(q)>=0||o.cuad.toLowerCase().indexOf(q)>=0;});
+  menu.innerHTML = ops.map(function(o){
+    return '<div class="op-dd-item" onclick="selectOpRep('+o.id+',\''+o.nombre.replace(/'/g,'')+'\',\''+o.cuad+'\')">'
+      +'<span class="badge bg-blue" style="font-size:10px">'+o.cuad+'</span><span>'+o.nombre+'</span></div>';
+  }).join('') || '<div class="op-dd-item" style="color:var(--txt4)">Sin resultados</div>';
+  menu.classList.add('open');
+}
+
+function selectOpRep(id, nombre, cuad) {
+  opRepSelected = {id:id, nombre:nombre, cuad:cuad};
+  var inp = document.getElementById('op-rep-search'); if(inp) inp.value=nombre;
+  var m=document.getElementById('op-rep-dropdown'); if(m)m.classList.remove('open');
+}
+
+document.addEventListener('click', function(e){
+  if(!e.target.closest('#op-rep-dropdown-wrap')){
+    var m=document.getElementById('op-rep-dropdown'); if(m)m.classList.remove('open');
+  }
+});
+
+function generarInformeOperario() {
+  if(!opRepSelected){ toast('Seleccione un operario','war'); return; }
+  var op = getOperarios().find(function(o){return o.id===opRepSelected.id;});
+  if(!op) return;
+  var periodo  = (document.getElementById('op-rep-periodo')||{}).value||'todo';
+  var now      = new Date();
+  var fdMap    = {semana:7,mes:30,trimestre:90};
+  var fdStr    = null;
+  if(fdMap[periodo]){ var d=new Date(now); d.setDate(now.getDate()-fdMap[periodo]); fdStr=dateToYYYYMMDD(d); }
+
+  var misOTs   = S.ots.filter(function(o){return (o.operariosAsignados||[]).map(String).indexOf(String(op.id))>=0&&(!fdStr||o.fecha>=fdStr);});
+  var misRegs  = (S.registrosCampo||[]).filter(function(r){return (r.operarios||[]).indexOf(String(op.id))>=0&&(!fdStr||r.fecha>=fdStr);});
+  var miWBS    = (typeof WBS_DATA!=='undefined'?WBS_DATA:[]).filter(function(w){return w.type==='task'&&w.cuad===op.cuad&&w.tipo==='rutinario';});
+  var misDesps = loadDesplazamientos().filter(function(d){return d.opId===op.id;});
+
+  var totalOTs = misOTs.length;
+  var otComp   = misOTs.filter(function(o){return o.estado==='Completada';}).length;
+  var avProm   = totalOTs?Math.round(misOTs.reduce(function(s,o){return s+o.avance;},0)/totalOTs):0;
+  var m2Total  = misOTs.reduce(function(s,o){return s+(o.m2||0);},0)+misRegs.reduce(function(s,r){return s+(r.m2||0);},0);
+  var hTotal   = misOTs.reduce(function(s,o){return s+(o.horas||0);},0)+misRegs.reduce(function(s,r){return s+(r.horas||0);},0);
+  var diasDesp = misDesps.reduce(function(s,d){return s+d.duracionDias;},0);
+  var todasEvid= [];
+  misOTs.forEach(function(o){(o.evidencias&&o.evidencias.secuencial||[]).forEach(function(seq){todasEvid.push(Object.assign({origen:o.num+' · '+o.titulo.substring(0,30)},seq));});});
+  misRegs.forEach(function(r){if(r.evidencias&&(r.evidencias.antes&&r.evidencias.antes.length||r.evidencias.durante&&r.evidencias.durante.length||r.evidencias.despues&&r.evidencias.despues.length)){todasEvid.push(Object.assign({origen:r.actNombres},r.evidencias));}});
+
+  var periodoLabel={todo:'Historial completo',semana:'Última semana',mes:'Último mes',trimestre:'Último trimestre'}[periodo]||periodo;
+  var cuadInfo = CUADRILLAS.find(function(c){return c.id===op.cuad;})||{zona:'Cuajone'};
+  var cont = document.getElementById('op-rep-result');
+  if(!cont) return;
+
+  cont.innerHTML = '<div class="op-rep-hero">'
+    +'<div class="op-rep-hero-name">👷 '+op.nombre+'</div>'
+    +'<div class="op-rep-hero-meta"><span>🔵 '+op.cuad+' — '+cuadInfo.zona+'</span><span>🏷 '+(op.rol||'Operario')+'</span><span>📅 '+periodoLabel+'</span><span>⏰ '+nowLima().toLocaleString('es-PE')+'</span></div>'
+    +'</div>'
+    +'<div class="op-rep-kpis">'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val">'+totalOTs+'</div><div class="op-rep-kpi-lbl">OT asignadas</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val" style="color:var(--ok)">'+otComp+'</div><div class="op-rep-kpi-lbl">Completadas</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val" style="color:'+(avProm>=85?'var(--ok)':avProm>=65?'var(--warn)':'var(--rojo)')+'">'+avProm+'%</div><div class="op-rep-kpi-lbl">Avance promedio</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val" style="color:var(--azul)">'+m2Total.toLocaleString()+'</div><div class="op-rep-kpi-lbl">m² ejecutados</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val">'+hTotal+'</div><div class="op-rep-kpi-lbl">Horas campo</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val" style="color:var(--warn)">'+diasDesp+'</div><div class="op-rep-kpi-lbl">Días desplazados</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val" style="color:var(--ok)">'+misRegs.length+'</div><div class="op-rep-kpi-lbl">Reg. planificados</div></div>'
+    +'<div class="op-rep-kpi"><div class="op-rep-kpi-val">'+miWBS.length+'</div><div class="op-rep-kpi-lbl">Frentes WBS</div></div>'
+    +'</div>'
+    +(miWBS.length?'<div class="card-header" style="padding:14px 18px;border-top:1px solid var(--bord)"><div class="card-title"><div class="ct-dot"></div>Frentes WBS asignados ('+op.cuad+')</div></div>'
+      +'<div style="padding:14px 18px">'+miWBS.map(function(w){var av=w.avance||0;
+        return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px"><span style="font-weight:600;color:var(--txt)">'+w.name+'</span><span style="font-weight:700;color:'+(av>=85?'var(--ok)':av>=65?'var(--warn)':'var(--rojo)')+'">'+av+'%</span></div>'
+          +'<div style="background:var(--bord2);height:7px;border-radius:4px;overflow:hidden"><div style="height:100%;width:'+av+'%;background:'+(av>=85?'var(--ok)':av>=65?'var(--warn)':'var(--rojo)')+';border-radius:4px"></div></div>'
+          +'<div style="font-size:10.5px;color:var(--txt4);margin-top:2px">'+w.startDate+' – '+w.endDate+(w.m2?' · '+w.m2.toLocaleString()+' m²':'')+'</div></div>';}).join('')+'</div>':'')
+    +(misOTs.length?'<div class="card-header" style="padding:14px 18px;border-top:1px solid var(--bord)"><div class="card-title"><div class="ct-dot"></div>OT Asignadas</div></div>'
+      +'<div class="tw" style="padding:0"><table><thead><tr><th>N° OT</th><th>Título</th><th>Período</th><th>Avance</th><th>Estado</th><th>m²</th></tr></thead><tbody>'
+      +misOTs.map(function(o){var av=o.avance;
+        return '<tr><td class="td-m">'+o.num+'</td><td class="td-b" style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+o.titulo+'</td>'
+          +'<td style="font-size:11px">'+formatDate(o.fecha)+' – '+formatDate(o.fechaLim||o.fecha)+'</td>'
+          +'<td><div class="prog-w"><div class="prog-track"><div class="prog-fill '+(av>=70?'ok':av>=30?'warn':'')+'" style="width:'+av+'%"></div></div><div class="prog-pct">'+av+'%</div></div></td>'
+          +'<td>'+badgeEstado(o.estado)+'</td><td>'+o.m2.toLocaleString()+'</td></tr>';}).join('')+'</tbody></table></div>':'')
+    +(todasEvid.length?'<div class="card-header" style="padding:14px 18px;border-top:1px solid var(--bord)"><div class="card-title"><div class="ct-dot"></div>Evidencias Fotográficas</div></div>'
+      +'<div style="padding:14px 18px">'+todasEvid.map(function(ev){
+        return '<div style="margin-bottom:16px"><div style="font-size:12px;font-weight:700;color:var(--txt);margin-bottom:8px">📌 '+ev.origen+'</div><div class="op-evid-grid">'
+          +'<div class="op-evid-col"><div class="op-evid-col-title">🔵 Antes</div>'+(ev.antes&&ev.antes.length?ev.antes.map(function(s){return '<img src="'+s+'" alt="antes">';}).join(''):'<div style="text-align:center;color:var(--txt4);font-size:11px;padding:10px">Sin fotos</div>')+'</div>'
+          +'<div class="op-evid-col"><div class="op-evid-col-title">🟡 Durante</div>'+(ev.durante&&ev.durante.length?ev.durante.map(function(s){return '<img src="'+s+'" alt="durante">';}).join(''):'<div style="text-align:center;color:var(--txt4);font-size:11px;padding:10px">Sin fotos</div>')+'</div>'
+          +'<div class="op-evid-col"><div class="op-evid-col-title">🟢 Después</div>'+(ev.despues&&ev.despues.length?ev.despues.map(function(s){return '<img src="'+s+'" alt="despues">';}).join(''):'<div style="text-align:center;color:var(--txt4);font-size:11px;padding:10px">Sin fotos</div>')+'</div>'
+          +'</div></div>';}).join('')+'</div>':'')
+    +'<div style="display:flex;gap:10px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--bord)">'
+    +'<button class="btn btn-p" onclick="window.print()">⎙ Imprimir</button>'
+    +'<button class="btn btn-ia btn-sm" onclick="genRepOperarioIA()">🤖 Análisis IA</button>'
+    +'<button class="btn btn-s btn-sm" onclick="exportarRepOperarioCSV()">⬇ CSV</button></div>';
+}
+
+function genRepOperarioIA(){
+  if(!opRepSelected){toast('Seleccione un operario','war');return;}
+  var op=getOperarios().find(function(o){return o.id===opRepSelected.id;});
+  if(!op)return;
+  var misOTs=S.ots.filter(function(o){return (o.operariosAsignados||[]).map(String).indexOf(String(op.id))>=0;});
+  var avProm=misOTs.length?Math.round(misOTs.reduce(function(s,o){return s+o.avance;},0)/misOTs.length):0;
+  askIA('Genera un análisis de rendimiento para el operario '+op.nombre+', cuadrilla '+op.cuad
+    +'. Tiene '+misOTs.length+' OT asignadas con avance promedio '+avProm+'%. OT: '
+    +misOTs.map(function(o){return o.num+' ('+o.avance+'%)';}).join(', ')
+    +'. Dame análisis de desempeño, fortalezas y recomendaciones.');
+}
+
+function exportarRepOperarioCSV(){
+  if(!opRepSelected)return;
+  var op=getOperarios().find(function(o){return o.id===opRepSelected.id;});
+  if(!op)return;
+  var misOTs=S.ots.filter(function(o){return (o.operariosAsignados||[]).map(String).indexOf(String(op.id))>=0;});
+  var lines=['Tipo,Ref,Título,Fecha,Avance%,m²,Horas,Estado'];
+  misOTs.forEach(function(o){lines.push(['OT',o.num,'"'+o.titulo+'"',o.fecha,o.avance,o.m2||0,o.horas||0,o.estado].join(','));});
+  (S.registrosCampo||[]).filter(function(r){return (r.operarios||[]).indexOf(String(op.id))>=0;}).forEach(function(r){
+    lines.push(['Plan','—','"'+r.actNombres+'"',r.fecha,r.avance,r.m2||0,r.horas||0,r.estado||''].join(','));});
+  var a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(lines.join('\n'));
+  a.download='SPCC_Operario_'+op.nombre.split(',')[0]+'_'+todayStr()+'.csv'; a.click();
+  toast('CSV exportado','ok');
+}
+
+/* ── Tabs del panel de reportes ── */
+function switchRepTab(tab, btn) {
+  document.querySelectorAll('#view-reportes .ejec-tab').forEach(function(t){t.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  ['general','operario'].forEach(function(t){
+    var el=document.getElementById('rep-tab-'+t); if(el)el.style.display=(t===tab?'block':'none');
+  });
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   FIN MÓDULO EJECUCIÓN UNIFICADA + INFORMES POR OPERARIO
+   © 2026 René J. Coayla Causillas · SIGAV SPCC v1.0
+══════════════════════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded',()=>{
   // Listener Enter en contraseña
